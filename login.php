@@ -18,7 +18,7 @@
 		//$dbpassword = "root";
 		$dbusername = "admin";
 		$dbpassword = "M0n@rch$";
-		$dbname = "HighSide";
+		$dbname = "milestone1dump";
 		// Create connection
 		$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 		// Check connection
