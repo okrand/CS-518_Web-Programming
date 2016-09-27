@@ -7,13 +7,11 @@
 -- Server version: 5.6.28
 -- PHP Version: 7.0.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
-CREATE DATABASE milestone1dump;
-USE milestone1dump;
+CREATE DATABASE `HighSide`;
+USE `HighSide`;
 --
--- Database: `milestone1dump`
+-- Database: `HighSide`
 --
 
 -- --------------------------------------------------------
@@ -21,9 +19,10 @@ USE milestone1dump;
 --
 -- Table structure for table `answers`
 --
+DROP TABLE IF EXISTS `answers`;
 
 CREATE TABLE `answers` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `QUEST_ID` int(11) NOT NULL,
   `USER_ID` int(11) NOT NULL,
   `ANSWER` text CHARACTER SET latin1 NOT NULL,
@@ -36,9 +35,10 @@ CREATE TABLE `answers` (
 --
 -- Table structure for table `questions`
 --
+DROP TABLE IF EXISTS `questions`;
 
 CREATE TABLE `questions` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ASKER_ID` int(11) NOT NULL,
   `QUESTION_PHRASE` text CHARACTER SET latin1 NOT NULL,
   `DATE_ASKED` datetime NOT NULL,
@@ -55,8 +55,9 @@ CREATE TABLE `questions` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16,
   `USERNAME` text NOT NULL,
   `PASSWORD` text NOT NULL,
   `KARMA_POINTS` int(11) NOT NULL DEFAULT '0',
@@ -106,22 +107,3 @@ ALTER TABLE `questions`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `questions`
---
-ALTER TABLE `questions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
