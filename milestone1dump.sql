@@ -10,8 +10,10 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+CREATE DATABASE milestone1dump;
+USE milestone1dump;
 --
--- Database: `HighSide`
+-- Database: `milestone1dump`
 --
 
 -- --------------------------------------------------------
