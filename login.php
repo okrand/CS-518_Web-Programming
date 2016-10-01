@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php 
+include_once "header.php";
+include_once "db.php";
+session_start(); 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,9 +37,9 @@
 			$sqlID = $result["ID"];
 			if ($sqlPass === $pass)
 			{
-				echo "User Accepted";
 				$_SESSION["UserID"] = $sqlID;
-				echo '<META HTTP-EQUIV="Refresh" Content="2; URL=./">';
+                header("location: index.php");
+                exit();
 			}
 			else
 				echo "Wrong Password";
