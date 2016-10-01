@@ -44,6 +44,7 @@ session_start();
 				echo "Wrong Password";
 		}
 		else
+            echo "Number of rows returned: " . $result->num_rows . "\n";
 			echo "Wrong Username";
 		$conn->close();
 	}
