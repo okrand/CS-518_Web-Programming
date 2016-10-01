@@ -24,9 +24,7 @@
 		// Check connection
 		if ($conn->connect_error) 
    		 	die("Connection failed: " . $conn->connect_error);
-   		 $sql = "SELECT ID, PASSWORD FROM USERS WHERE USERNAME='";
-   		 $sql .= $uName;
-   		 $sql .= "';";
+   		 $sql = "SELECT ID, PASSWORD FROM USERS WHERE USERNAME='" . $uName . "';";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
 			$result = $result->fetch_assoc();
