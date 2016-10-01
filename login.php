@@ -28,23 +28,24 @@ session_start();
 		// Check connection
 		if ($conn->connect_error) 
    		 	die("Connection failed: " . $conn->connect_error);
-   		 $sql = "SELECT * FROM USERS WHERE USERNAME='" . $uName . "';";
+        
+        $sql = "SELECT ID, PASSWORD FROM USERS WHERE USERNAME='" . $uName . "';";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
-			$result = $result->fetch_assoc();
-			$sqlPass = $result["PASSWORD"];
-			$sqlID = $result["ID"];
+			$row = $result->fetch_assoc();
+			$sqlPass = $row["PASSWORD"];
+			$sqlID = $row["ID"];
 			if ($sqlPass === $pass)
 			{
 				$_SESSION["UserID"] = $sqlID;
                 header("location: index.php");
                 exit();
+                session_write_close();
 			}
 			else
 				echo "Wrong Password";
 		}
 		else
-            echo "Number of rows returned: " . $result->num_rows;
 			echo "Wrong Username";
 		$conn->close();
 	}
