@@ -25,9 +25,10 @@ CREATE TABLE `ANSWERS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `QUEST_ID` int(11) NOT NULL,
   `USER_ID` int(11) NOT NULL,
-  `ANSWER` text CHARACTER SET latin1 NOT NULL,
+  `ANSWER` VARCHAR(500) CHARACTER SET latin1 NOT NULL,
   `POINTS` int(11) NOT NULL DEFAULT '0',
-  `DATE_ANSWERED` datetime NOT NULL
+  `DATE_ANSWERED` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -40,13 +41,14 @@ DROP TABLE IF EXISTS `QUESTIONS`;
 CREATE TABLE `QUESTIONS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ASKER_ID` int(11) NOT NULL,
-  `QUESTION_PHRASE` text CHARACTER SET latin1 NOT NULL,
+  `QUESTION_PHRASE` VARCHAR(500) CHARACTER SET latin1 NOT NULL,
   `DATE_ASKED` datetime NOT NULL,
-  `TAG1` text CHARACTER SET latin1 NOT NULL,
-  `TAG2` text CHARACTER SET latin1,
-  `TAG3` text CHARACTER SET latin1,
+  `TAG1` VARCHAR(20) CHARACTER SET latin1 NOT NULL,
+  `TAG2` VARCHAR(20) CHARACTER SET latin1,
+  `TAG3` VARCHAR(20) CHARACTER SET latin1,
   `ANSWERED` tinyint(1) NOT NULL,
-  `POINTS` int(11) NOT NULL DEFAULT '0'
+  `POINTS` int(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -58,17 +60,18 @@ CREATE TABLE `QUESTIONS` (
 DROP TABLE IF EXISTS `USERS`;
 CREATE TABLE `USERS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16,
-  `USERNAME` text NOT NULL,
-  `PASSWORD` text NOT NULL,
+  `USERNAME` VARCHAR(20) NOT NULL,
+  `PASSWORD` VARCHAR(100) NOT NULL,
   `KARMA_POINTS` int(11) NOT NULL DEFAULT '0',
-  `LAST_ACTIVE` datetime NOT NULL
+  `LAST_ACTIVE` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`) VALUES
+INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`) VALUES
 (1, 'admin', 'cs518pa$$', 0, '2016-09-24 16:44:13'),
 (2, 'jbrunelle', 'M0n@rch$', 0, '2016-09-24 16:45:15'),
 (3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44'),
@@ -84,26 +87,3 @@ INSERT INTO `users` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`
 (13, 'keymaster', 'n0D@na', 0, '2016-09-24 16:50:15'),
 (14, 'gatekeeper', '$l0r', 0, '2016-09-24 16:50:15'),
 (15, 'staypuft', 'm@r$hM@ll0w', 0, '2016-09-24 16:50:34');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `answers`
---
-ALTER TABLE `ANSWERS`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `questions`
---
-ALTER TABLE `QUESTIONS`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `USERS`
-  ADD PRIMARY KEY (`ID`);
-
