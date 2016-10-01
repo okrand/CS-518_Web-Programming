@@ -19,9 +19,9 @@ USE `HighSide`;
 --
 -- Table structure for table `answers`
 --
-DROP TABLE IF EXISTS `answers`;
+DROP TABLE IF EXISTS `ANSWERS`;
 
-CREATE TABLE `answers` (
+CREATE TABLE `ANSWERS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `QUEST_ID` int(11) NOT NULL,
   `USER_ID` int(11) NOT NULL,
@@ -35,9 +35,9 @@ CREATE TABLE `answers` (
 --
 -- Table structure for table `questions`
 --
-DROP TABLE IF EXISTS `questions`;
+DROP TABLE IF EXISTS `QUESTIONS`;
 
-CREATE TABLE `questions` (
+CREATE TABLE `QUESTIONS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ASKER_ID` int(11) NOT NULL,
   `QUESTION_PHRASE` text CHARACTER SET latin1 NOT NULL,
@@ -55,8 +55,8 @@ CREATE TABLE `questions` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `USERS`;
+CREATE TABLE `USERS` (
   `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16,
   `USERNAME` text NOT NULL,
   `PASSWORD` text NOT NULL,
@@ -92,18 +92,18 @@ INSERT INTO `users` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`
 --
 -- Indexes for table `answers`
 --
-ALTER TABLE `answers`
+ALTER TABLE `ANSWERS`
   ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `questions`
 --
-ALTER TABLE `questions`
+ALTER TABLE `QUESTIONS`
   ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `users`
 --
-ALTER TABLE `users`
+ALTER TABLE `USERS`
   ADD PRIMARY KEY (`ID`);
 
