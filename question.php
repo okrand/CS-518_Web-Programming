@@ -16,7 +16,7 @@ session_start();
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $answer = test_input($_POST["Answer"]);
-        $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER) VALUES (".$qID.", ".$_SESSION["UserID"].", '".$answer."');";
+        $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."');";
         $sqlresult = sqlcommand($query, "INSERT");
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!";
@@ -30,7 +30,6 @@ session_start();
     ?>
     
     <?php
-    $qID = $_SESSION["QNumber"];
     $query = "SELECT * FROM QUESTIONS WHERE ID =".$qID.";";
     $sqlresult = sqlcommand($query, "SELECT");
     $qTitle = $sqlresult["QUESTION_TITLE"];
@@ -38,7 +37,7 @@ session_start();
     echo $qTitle . "<br>" . $qPhrase . "<br><br>";
     
     //List answers
-    $query = "SELECT * FROM ANSWERS WHERE QUEST_ID =".$qID.";";
+    $query = "SELECT * FROM ANSWERS WHERE QUEST_ID =".$_SESSION["QNumber"].";";
     $result = sqlcommand($query, "SELECTMulti");
     if ($result == false)
         echo "No answers yet. Check back again soon!";
