@@ -17,7 +17,7 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
-		/*$servername = "localhost";
+		$servername = "localhost";
 		//$dbusername = "root";
 		//$dbpassword = "root";
 		$dbusername = "admin";
@@ -50,12 +50,12 @@ session_start();
 		else
 			echo "Wrong Username";
 		$conn->close();
-        */
+        /*
         //Testing sqlcommand
         $querythingy = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
         $queryresult = sqlcommand($querythingy, "SELECT");
         echo "UserID is: " . $queryresult["ID"];
-        
+        */
 	}
     else
         $_SESSION["referer"] = $_SERVER["HTTP_REFERER"];
