@@ -12,31 +12,36 @@ function sqlcommand($query, $qtype){
     // Check connection
     if ($conn->connect_error) {
    		$error = "Connection failed: " . $conn->connect_error;
-        return $error;
+        return $queryComplete;
     }
     $result = $conn->query($query);
-    $conn->close();
+    
     
     if ($qtype == "SELECT") {
         if ($result->num_rows > 0 ){
             $queryComplete = true;
             $toReturn = $result->fetch_assoc();
+            $conn->close();
             return $toReturn;
         }
         else{
+            $conn->close();
             return $queryComplete;
         }
     }
     else if ($qtype == "SELECTMulti"){ //selecting multiple rows
         if ($result->num_rows > 0 ){
+            $conn->close();
             $queryComplete = true;
             return $result;
         }
         else{
+            $conn->close();
             return $queryComplete;
         }
     }
     else{
+        $conn->close();
         $queryComplete=true;
         return $queryComplete;
     }
