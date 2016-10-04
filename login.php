@@ -18,10 +18,10 @@ session_start();
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
 		$servername = "localhost";
-		$dbusername = "root";
-		$dbpassword = "root";
-		//$dbusername = "admin";
-		//$dbpassword = "M0n@rch$";
+		//$dbusername = "root";
+		//$dbpassword = "root";
+		$dbusername = "admin";
+		$dbpassword = "M0n@rch$";
 		$dbname = "HighSide";
 		// Create connection
 		$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -39,10 +39,10 @@ session_start();
 			{
                 $_SESSION["loggedIn"] = true;
 				$_SESSION["UserID"] = $sqlID;
-                echo '<meta http-equiv="refresh" content="2;url=' . $_SESSION["referer"] . '"/>';
-                //header('location: $_SESSION["referer"]');
-                //exit();
-                //session_write_close();
+                //echo '<meta http-equiv="refresh" content="2;url=' . $_SESSION["referer"] . '"/>';
+                header('location: $_SESSION["referer"]');
+                exit();
+                session_write_close();
 			}
 			else
 				echo "Wrong Password";
@@ -59,12 +59,6 @@ session_start();
     else
         $_SESSION["referer"] = $_SERVER["HTTP_REFERER"];
 
-	function test_input($data) {
-  		$data = trim($data);
-  		$data = stripslashes($data);
-  		$data = htmlspecialchars($data);
-  		return $data;
-  	}
 ?>
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
 	Username: <input type="text" name="uName"><br><br>
