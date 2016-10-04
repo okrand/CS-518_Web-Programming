@@ -30,7 +30,7 @@ session_start();
     ?>
     
     <?php
-    $query = "SELECT * FROM QUESTIONS WHERE ID =".$qID.";";
+    $query = "SELECT * FROM QUESTIONS WHERE ID =".$_SESSION["QNumber"].";";
     $sqlresult = sqlcommand($query, "SELECT");
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
