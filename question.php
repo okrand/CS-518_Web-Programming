@@ -14,7 +14,6 @@ session_start();
 </head>
 <body>
     <?php
-    echo "QID is ".$qID;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $answer = test_input($_POST["Answer"]);
         $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER, POINTS, DATE_ANSWERED) VALUES (".$qID.", ".$_SESSION["UserID"].", '".$answer."', 0, NOW());";
