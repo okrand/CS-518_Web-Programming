@@ -32,7 +32,7 @@ session_start();
                 $_SESSION["QNumber"] =$lastQID["ID"];
                 echo $_SESSION["QNumber"];
                 //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: $_SESSION["referer"]');
+                header('location:' . $_SESSION["referer"]);
                 exit();
                 session_write_close();
                 

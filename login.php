@@ -40,7 +40,7 @@ session_start();
                 $_SESSION["loggedIn"] = true;
 				$_SESSION["UserID"] = $sqlID;
                 //echo '<meta http-equiv="refresh" content="2;url=' . $_SESSION["referer"] . '"/>';
-                header('location: $_SESSION["referer"]');
+                header('location: ' . $_SESSION["referer"]);
                 exit();
                 session_write_close();
 			}
