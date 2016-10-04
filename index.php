@@ -17,7 +17,7 @@ session_start();
 	</header>
 
 	<?php 
-	if ($_SESSION["UserID"] == "")
+	if ($_SESSION["loggedIn"] != true)
 	{
 		echo "We realized that you are riding these streets with no license plate. Please "; 
 		echo '<a href="./login.php">login here!</a>';
@@ -31,7 +31,7 @@ session_start();
 			<tbody>
 				<tr align="center">
 					<td class="topMenuItem">
-						<a href="newpost.php"> Ask a Question! </a>
+						<a href="ask.php"> Ask a Question! </a>
 					</td>
 					<td class="topMenuItem">
 						
