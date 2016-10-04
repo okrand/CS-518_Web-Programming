@@ -29,12 +29,13 @@ session_start();
                 //get the last question's ID on the table
                 $query = "SELECT ID FROM QUESTIONS ORDER BY ID DESC LIMIT 1";
                 $lastQID = sqlcommand($query, "SELECT");
+                echo $lastQID;
                 $_SESSION["QNumber"] = $lastQID["ID"];
                 
-                //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: question.php');
-                exit();
-                session_write_close();   
+                echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
+                //header('location: question.php');
+                //exit();
+                //session_write_close();   
             }
        }
         
