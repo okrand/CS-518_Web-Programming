@@ -14,22 +14,6 @@ session_start();
 </head>
 <body>
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $answer = test_input($_POST["Answer"]);
-        $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER, POINTS, DATE_ANSWERED) VALUES (".$qID.", ".$_SESSION["UserID"].", '".$answer."', 0, NOW());";
-        $sqlresult = sqlcommand($query, "INSERT");
-            if ($sqlresult == false)
-                echo "Something very wrong happened, we don't quite know what it is but we're on it!";
-            else{
-                 //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: .');
-                exit();
-                session_write_close();
-            }
-    }
-    ?>
-    
-    <?php
     $qID = $_SESSION["QNumber"];
     $query = "SELECT * FROM QUESTIONS WHERE ID =".$qID.";";
     $sqlresult = sqlcommand($query, "SELECT");
@@ -47,6 +31,22 @@ session_start();
         while($row = $result->fetch_assoc()) 
             echo "<tr><td>" . $row["ANSWER"] . "<br>";
         echo "</table>\n";
+    }
+    ?>
+    
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $answer = test_input($_POST["Answer"]);
+        $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER, POINTS, DATE_ANSWERED) VALUES (".$qID.", ".$_SESSION["UserID"].", '".$answer."', 0, NOW());";
+        $sqlresult = sqlcommand($query, "INSERT");
+            if ($sqlresult == false)
+                echo "Something very wrong happened, we don't quite know what it is but we're on it!";
+            else{
+                 //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
+                header('location: .');
+                exit();
+                session_write_close();
+            }
     }
     ?>
    
