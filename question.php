@@ -1,7 +1,6 @@
 <?php 
 include_once "header.php";
 include_once "thingsandstuff.php";
-include_once "db.php";
 session_start(); 
 ?>
 

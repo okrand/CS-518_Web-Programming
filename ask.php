@@ -1,7 +1,6 @@
 <?php 
 include_once "header.php";
 include_once "thingsandstuff.php";
-include_once "db.php";
 session_start(); 
 ?>
 
@@ -24,18 +23,21 @@ session_start();
             $askerid = $_SESSION["UserID"];
            $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG1, TAG2, TAG3, DATE_ASKED) VALUES (" . $askerid . ",'" .  $title . "','" . $question . "','" . $tag1 . "','" . $tag2 . "','". $tag3 . "',NOW());";
            $sqlresult = sqlcommand($query, "INSERT");
+           echo $sqlresult . "<br>";
             if ($sqlresult != true)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!";
             else{
                 //get the last question's ID on the table
                 $query = "SELECT ID FROM QUESTIONS ORDER BY ID DESC LIMIT 1";
+                echo $query;
                 $lastQID = sqlcommand($query, "SELECT");
+                echo $lastQID["ID"] . "<br>";
                 $_SESSION["QNumber"] = $lastQID["ID"];
-                
-                //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: question.php');
-                exit();
-                session_write_close();   
+                echo $_SESSION["QNumber"];
+                echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
+               //header('location: question.php');
+                //exit();
+                //session_write_close();   
             }
        }
         

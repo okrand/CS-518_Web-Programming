@@ -1,4 +1,8 @@
 <?php
+include_once "db.php";
+?>
+
+<?php
 function sqlcommand($query, $qtype){
     $queryComplete = false;
     $servername = "localhost";
