@@ -1,6 +1,7 @@
 <?php 
 include_once "header.php";
 include_once "thingsandstuff.php";
+include_once "db.php";
 session_start(); 
 ?>
 
@@ -30,8 +31,7 @@ session_start();
     ?>
     
     <?php
-   // $qID = $_SESSION["QNumber"];
-    $qID = 1;
+    $qID = $_SESSION["QNumber"];
     echo "QID is " . $qID . "<br>";
     $query = "SELECT * FROM QUESTIONS WHERE ID =".$qID.";";
     $sqlresult = sqlcommand($query, "SELECT");
