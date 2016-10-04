@@ -23,7 +23,7 @@ session_start();
             $askerid = $_SESSION["UserID"];
            $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG1, TAG2, TAG3, DATE_ASKED) VALUES (" . $askerid . ",'" .  $title . "','" . $question . "','" . $tag1 . "','" . $tag2 . "','". $tag3 . "',NOW());";
            $sqlresult = sqlcommand($query, "INSERT");
-            if ($sqlresult == false)
+            if ($sqlresult != true)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!";
             else{
                 //get the last question's ID on the table

@@ -15,33 +15,28 @@ function sqlcommand($query, $qtype){
         return $queryComplete;
     }
     $result = $conn->query($query);
-    
-    
-    if ($qtype == "SELECT") {
+    $conn->close();
+
+    if ($qtype == "SELECT") { //selecting single row
         if ($result->num_rows > 0 ){
             $queryComplete = true;
             $toReturn = $result->fetch_assoc();
-            $conn->close();
             return $toReturn;
         }
         else{
-            $conn->close();
             return $queryComplete;
         }
     }
     else if ($qtype == "SELECTMulti"){ //selecting multiple rows
         if ($result->num_rows > 0 ){
-            $conn->close();
             $queryComplete = true;
             return $result;
         }
         else{
-            $conn->close();
             return $queryComplete;
         }
     }
-    else{
-        $conn->close();
+    else{ //not SELECT
         $queryComplete=true;
         return $queryComplete;
     }
