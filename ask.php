@@ -28,8 +28,7 @@ session_start();
             else{
                 //get the last question's ID on the table
                 $query = "SELECT ID FROM QUESTIONS ORDER BY ID DESC LIMIT 1";
-                $lastQID = sqlcommand($query, "SELECTMulti");
-                $lastQID = $lastQID->fetch_assoc();
+                $lastQID = sqlcommand($query, "SELECT");
                 $_SESSION["QNumber"] =$lastQID["ID"];
                 //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
                 header('location: question.php');
