@@ -22,7 +22,7 @@ session_start();
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!";
             else{
                  //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: .');
+                header('location: question.php');
                 exit();
                 session_write_close();
             }
