@@ -23,7 +23,7 @@ session_start();
 		echo '<a href="./login.php">login here!</a>';
 	}
 	else
-		echo "session is " . $_SESSION["UserID"];
+		echo "User ID is " . $_SESSION["UserID"];
 	?>
 
 	<div class="topMenu" style="padding:1px; border-top-width:0px">
