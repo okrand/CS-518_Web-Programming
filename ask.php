@@ -73,7 +73,7 @@ session_start();
             }
        }
     ?>
-    
+    <div class="container">
     <span id="newQuest">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
@@ -99,6 +99,7 @@ session_start();
 	<button type="submit" class="btn btn-primary center-block">Ask the experts! (They are not experts) </button>
 	</form>
     </span>
+    </div>
        <?php 
 	if ($_SESSION["loggedIn"] != true)
 	{
