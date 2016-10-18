@@ -30,8 +30,11 @@ session_start();
     }
     
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $con = sqlcommand(" ", "GETCONN");
 		$uName = test_input($_POST["uName"]);
+        $uName = mysqli_real_escape_string($con, $uName);
 		$pass = test_input($_POST["Pass"]);
+        $pass = mysqli_real_escape_string($con, $pass);
 		$servername = "localhost";
 		//$dbusername = "root";
 		//$dbpassword = "root";
@@ -50,6 +53,7 @@ session_start();
             $row = $result->fetch_assoc();
 			$sqlPass = $row["PASSWORD"];
             $sqlPass = test_input($sqlPass);
+            $sqlPass = mysqli_real_escape_string($con, $sqlPass);
 			$sqlID = $row["ID"];
 			if ($sqlPass === $pass)
 			{
