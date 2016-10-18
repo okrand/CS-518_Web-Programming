@@ -86,7 +86,7 @@ INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`
 (9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57'),
 (10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57'),
 (11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32'),
-(12, 'zuul', '105"; DROP TABLE', , '2016-09-24 16:49:32'),
+(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32'),
 (13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15'),
 (14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15'),
 (15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34'),
