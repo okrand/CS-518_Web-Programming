@@ -27,7 +27,7 @@ CREATE TABLE `ANSWERS` (
   `USER_ID` int(11) NOT NULL,
   `ANSWER` VARCHAR(500) NOT NULL,
   `POINTS` int(11) NOT NULL DEFAULT '0',
-  `DATE_ANSWERED` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `DATE_ANSWERED` datetime NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -43,11 +43,11 @@ CREATE TABLE `QUESTIONS` (
   `ASKER_ID` int(11) NOT NULL,  
   `QUESTION_TITLE` VARCHAR(60) NOT NULL,
   `QUESTION_PHRASE` VARCHAR(500) NOT NULL,
-  `DATE_ASKED` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `DATE_ASKED` datetime NOT NULL ,
   `TAG1` VARCHAR(20) NOT NULL,
   `TAG2` VARCHAR(20),
   `TAG3` VARCHAR(20),
-  `ANSWERED` tinyint(1) NOT NULL DEFAULT 0,
+  `ANSWER_ID` int(11) NOT NULL DEFAULT '0',
   `POINTS` int(11) NOT NULL DEFAULT '0',
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -102,8 +102,10 @@ ALTER TABLE USERS AUTO_INCREMENT = 17;
 LOCK TABLES `QUESTIONS` WRITE;
 
 INSERT INTO `QUESTIONS` (ID, ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG1, TAG2, TAG3, POINTS) VALUES 
-(1, 2, 'testQTitle', 'testQPhrase', 'testtag1', 'testtag2', 'testtag3', 12);
+(1, 2, 'Why does my bike not run?', 'So I tried to start my bike this morning and it just wouldnt start. Turned the key on and nothing. Why is this?', 'start', 'would not', 'motorcycle', 5),
+(2, 16, 'Mod recommendations for a long road trip?', 'I ride an FZ1 and I am trying to get it ready for a road trip. What mods do you guys recommend for a long road trip(2-3 months)?', 'road trip', 'modifications', 'fz1', 12),;
+
 
 UNLOCK TABLES;
 
-ALTER TABLE QUESTIONS AUTO_INCREMENT = 2;
+ALTER TABLE QUESTIONS AUTO_INCREMENT = 3;

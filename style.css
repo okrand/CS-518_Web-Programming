@@ -1,0 +1,15 @@
+.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: #555;
+}
+
+.header h1 {
+font-family:Georgia,serif;
+ color:#4E443C;
+ font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;
+ 
+  position: relative;
+  left: 10px;
+}
