@@ -102,8 +102,8 @@ ALTER TABLE USERS AUTO_INCREMENT = 17;
 LOCK TABLES `QUESTIONS` WRITE;
 
 INSERT INTO `QUESTIONS` (`ID`, `ASKER_ID`, `QUESTION_TITLE`, `QUESTION_PHRASE`, `TAG1`, `TAG2`, `TAG3`, `POINTS`, `DATE_ASKED`) VALUES 
-(1, 2, 'Why does my bike not run?', 'So I tried to start my bike this morning and it just wouldnt start. Turned the key on and nothing. Why is this?', 'start', 'would not', 'motorcycle', 5, NOW()),
-(2, 16, 'Mod recommendations for a long road trip?', 'I ride an FZ1 and I am trying to get it ready for a road trip. What mods do you guys recommend for a long road trip(2-3 months)?', 'road trip', 'modifications', 'fz1', 12, NOW());
+(1, 2, 'Why does my bike not run?', 'So I tried to start my bike this morning and it just wouldnt start. Turned the key on and nothing. Why is this?', 'start', 'would not', 'motorcycle', 5, '2016-09-25 16:42:54'),
+(2, 16, 'Mod recommendations for a long road trip?', 'I ride an FZ1 and I am trying to get it ready for a road trip. What mods do you guys recommend for a long road trip(2-3 months)?', 'road trip', 'modifications', 'fz1', 12, '2016-10-03 18:45:44');
 
 
 UNLOCK TABLES;
