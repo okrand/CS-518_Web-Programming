@@ -67,7 +67,7 @@ session_start();
                 $lastQID = $lastQID->fetch_assoc();
                 $_SESSION["QNumber"] = $lastQID["ID"];
                 //echo '<meta http-equiv="refresh" content="2;url=question.php?QN='.$_SESSION["QNumber"].'"/>';
-                header('location: question.php?QN='.$_SESSION["QNumber"].')';
+                header('location: question.php?QN='.$_SESSION["QNumber"]);
                 exit();
                 session_write_close();
             }
