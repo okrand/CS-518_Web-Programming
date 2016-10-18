@@ -63,10 +63,10 @@ session_start();
                 session_write_close();
 			}
 			else
-				echo "Wrong Password";
+				echo "<div align='center' class='alert alert-warning'><strong>Wrong Password!</strong></div>";
 		}
 		else
-			echo "Wrong Username";
+			echo "<div align='center' class='alert alert-warning'><strong>Wrong Username!</strong></div>";
 		$conn->close();
         /*
         //Testing sqlcommand
