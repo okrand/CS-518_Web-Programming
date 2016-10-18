@@ -12,9 +12,6 @@ session_start();
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        document.getElementById("username").focus();
-    </script>
 </head>
 <body>
         <header class="jumbotron text-center" style="background-color:white;">
@@ -92,7 +89,7 @@ session_start();
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
 	       <label for="username">Username: </label>
-            <input type="text" name="uName" placeholder="Enter username" class="form-control" id="username"><br>
+            <input type="text" name="uName" placeholder="Enter username" class="form-control" id="username" autofocus><br>
         </div>
         <div class="form-group">
 	       <label for="pwd">Password: </label>
