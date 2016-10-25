@@ -32,8 +32,10 @@ session_start();
                     <div class="btn-group pull-right" >
 						<a href="ask.php" class="btn btn-info disabled"> Ask a Question!</a>
                     <?php 
-                    if ($_SESSION["loggedIn"] != true)
-					   echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
+                    if ($_SESSION["loggedIn"] != true){
+                        echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
+                        echo '<a href="register.php" class="btn btn-info" role="button"> Register</a>';
+                    }
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
@@ -43,17 +45,11 @@ session_start();
     
     <?php 
        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $con = sqlcommand(" ", "GETCONN");
             $title = test_input($_POST["qTitle"]);
-            $title = mysqli_real_escape_string($con, $title);
             $question = test_input($_POST["Question"]);
-            $question = mysqli_real_escape_string($con, $question);
             $tag1 = test_input($_POST["Tag1"]);
-            $tag1 = mysqli_real_escape_string($con, $tag1);
             $tag2 = test_input($_POST["Tag2"]);
-            $tag2 = mysqli_real_escape_string($con, $tag2);
             $tag3 = test_input($_POST["Tag3"]);
-            $tag3 = mysqli_real_escape_string($con, $tag3);
             $askerid = $_SESSION["UserID"];
             
             $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG1, TAG2, TAG3, DATE_ASKED) VALUES (" . $askerid . ", '" .  $title . "', '" . $question . "', '" . $tag1 . "', '" . $tag2 . "', '". $tag3 . "', NOW());";
@@ -70,6 +66,7 @@ session_start();
                 header('location: question.php?QN='.$_SESSION["QNumber"]);
                 exit();
                 session_write_close();
+                
             }
        }
     ?>

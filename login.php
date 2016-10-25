@@ -21,6 +21,7 @@ session_start();
         </a>
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
+    <h3 align='center'>Long time no see!</h3>
 <?php 
     if ($_SESSION["loggedIn"] == true){
         unset($_SESSION["loggedIn"]);
@@ -28,13 +29,10 @@ session_start();
         unset($_SESSION["userName"]);
         unset($_SESSION["K_Points"]);
     }
-    
+    //Form submission - Log in
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $con = sqlcommand(" ", "GETCONN");
 		$uName = test_input($_POST["uName"]);
-        $uName = mysqli_real_escape_string($con, $uName);
 		$pass = test_input($_POST["Pass"]);
-        $pass = mysqli_real_escape_string($con, $pass);
 		$servername = "localhost";
 		//$dbusername = "root";
 		//$dbpassword = "root";
@@ -53,7 +51,6 @@ session_start();
             $row = $result->fetch_assoc();
 			$sqlPass = $row["PASSWORD"];
             $sqlPass = test_input($sqlPass);
-            $sqlPass = mysqli_real_escape_string($con, $sqlPass);
 			$sqlID = $row["ID"];
 			if ($sqlPass === $pass)
 			{
@@ -65,6 +62,7 @@ session_start();
                 header('location: ' . $_SESSION["referer"]);
                 exit();
                 session_write_close();
+                
 			}
 			else
 				echo "<div align='center' class='alert alert-warning'><strong>Wrong Password!</strong></div>";
@@ -72,12 +70,6 @@ session_start();
 		else
 			echo "<div align='center' class='alert alert-warning'><strong>Wrong Username!</strong></div>";
 		$conn->close();
-        /*
-        //Testing sqlcommand
-        $querythingy = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
-        $queryresult = sqlcommand($querythingy, "SELECT");
-        echo "UserID is: " . $queryresult["ID"];
-        */
 	}
     else{
         if ($_SERVER["HTTP_REFERER"] != "login.php")

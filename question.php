@@ -32,8 +32,10 @@ session_start();
                     <div class="btn-group pull-right" >
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
-                    if ($_SESSION["loggedIn"] != true)
-					   echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
+                    if ($_SESSION["loggedIn"] != true){
+                        echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
+                        echo '<a href="register.php" class="btn btn-info" role="button"> Register</a>';
+                    }
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
@@ -47,9 +49,7 @@ session_start();
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //submitting new answer
-            $con = sqlcommand(" ", "GETCONN");
             $answer = test_input($_POST["Answer"]);
-            $answer = mysqli_real_escape_string($con, $answer);
             $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
             $sqlresult = sqlcommand($query, "INSERT");
             if ($sqlresult == false)
@@ -59,6 +59,7 @@ session_start();
                 header('location: question.php');
                 exit();
                 session_write_close();
+                
             }
         }
     ?>

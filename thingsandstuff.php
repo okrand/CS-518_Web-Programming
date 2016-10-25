@@ -2,8 +2,8 @@
 function sqlcommand($query, $qtype){
     $queryComplete = false;
     $servername = "localhost";
-    //$dbusername = "root";
-   // $dbpassword = "root";
+    $dbusername = "root";
+    $dbpassword = "root";
     $dbusername = "admin";
     $dbpassword = "M0n@rch$";
     $dbname = "HighSide";
@@ -35,10 +35,11 @@ function sqlcommand($query, $qtype){
 }
 
 function test_input($data) {
+        $con = sqlcommand(" ", "GETCONN");
   		$data = trim($data);
   		$data = stripslashes($data);
   		$data = htmlspecialchars($data);
-       // $data = mysql_real_escape_string($data);
+        $data = mysqli_real_escape_string($con, $data);
   		return $data;
         }
 ?>
