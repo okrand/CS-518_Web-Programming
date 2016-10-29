@@ -76,21 +76,21 @@ CREATE TABLE `USERS` (
 LOCK TABLES `USERS` WRITE;
 
 INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `E-MAIL`) VALUES
-(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13'),
+(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13',),
 (2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu'),
-(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44'),
-(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20'),
-(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55'),
-(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13'),
-(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15'),
-(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15'),
-(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57'),
-(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57'),
-(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32'),
-(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32'),
-(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15'),
-(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15'),
-(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34'),
+(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44',),
+(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20',),
+(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55',),
+(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13',),
+(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15',),
+(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15',),
+(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57',),
+(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57',),
+(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32',),
+(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32',),
+(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15',),
+(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15',),
+(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34',),
 (16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'okran001@odu.edu');
 
 UNLOCK TABLES;
