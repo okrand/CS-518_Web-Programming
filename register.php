@@ -9,9 +9,7 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<?php bringLibraries(); ?>
 </head>
 <body>    
    <header class="jumbotron text-center" style="background-color:white;">
@@ -54,21 +52,19 @@ session_start();
             $row = $result->fetch_assoc();
             $_SESSION["UserID"] = $row["ID"];
             }
-            //echo '<meta http-equiv="refresh" content="2;url=' . $_SESSION["referer"] . '"/>';
-            header('location: ' . $_SESSION["referer"]);
-            exit();
-            session_write_close();
-            
+            redirect($_SESSION["referer"]);
         }
 
 	}
     else{
-        if ($_SERVER["HTTP_REFERER"] != "register.php")
-            $_SESSION["referer"] = $_SERVER["HTTP_REFERER"];
-        else{
-            session_unset();
-            $_SESSION["referer"] = "index.php";
-        }
+        if (isset($_SERVER["HTTP_REFERER"]))
+            $referer = pagename($_SERVER["HTTP_REFERER"]);
+        else
+            $referer = "this";
+        if ($referer != "this" && $referer != "/profile.php")
+            $_SESSION["referer"] = $referer;
+        else
+            $_SESSION["referer"] = "/index.php";
     }
 
 ?>

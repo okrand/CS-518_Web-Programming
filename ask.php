@@ -9,9 +9,7 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="New Question page for HighSide - The Motorcycle Q&A Website">
 <title>It's probably the carburetor</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<?php bringLibraries(); ?>
 </head>
 <body>
     <header class="jumbotron text-center" style="background-color:white;">
@@ -26,7 +24,7 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                            echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
+                            echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
@@ -62,11 +60,8 @@ session_start();
                 $lastQID = sqlcommand($query, "SELECT");
                 $lastQID = $lastQID->fetch_assoc();
                 $_SESSION["QNumber"] = $lastQID["ID"];
-                //echo '<meta http-equiv="refresh" content="2;url=question.php?QN='.$_SESSION["QNumber"].'"/>';
-                header('location: question.php?QN='.$_SESSION["QNumber"]);
-                exit();
-                session_write_close();
-                
+                $url = "question.php?QN=" . $_SESSION["QNumber"];
+                redirect($url);
             }
        }
     ?>

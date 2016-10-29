@@ -4,8 +4,8 @@ function sqlcommand($query, $qtype){
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "root";
-    $dbusername = "admin";
-    $dbpassword = "M0n@rch$";
+    //$dbusername = "admin";
+    //$dbpassword = "M0n@rch$";
     $dbname = "HighSide";
     // Create connection
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -42,4 +42,29 @@ function test_input($data) {
         $data = mysqli_real_escape_string($con, $data);
   		return $data;
         }
+
+function pagename($url){
+preg_match('/\/[a-z0-9]+.php/', $url, $match);
+$page = array_shift($match);
+return $page;
+}
+
+function redirect($url){
+    echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
+            /*header('location: ' . $url);
+            exit();
+            session_write_close();
+            */
+}
+
+function bringLibraries(){
+    echo '
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  ';
+}
 ?>

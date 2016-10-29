@@ -9,9 +9,7 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<?php bringLibraries(); ?>
 </head>
 <body>    
    <header class="jumbotron text-center" style="background-color:white;">
@@ -26,7 +24,7 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                        echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';                        
+                            echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
@@ -55,11 +53,7 @@ session_start();
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
             else{
-                //echo '<meta http-equiv="refresh" content="2;url=question.php"/>';
-                header('location: question.php');
-                exit();
-                session_write_close();
-                
+                redirect("question.php");
             }
         }
     ?>

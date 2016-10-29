@@ -9,9 +9,7 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Homepage for HighSide - The Motorcycle Q&A Website">
 <title>HighSide - Motorcycle Experience Sharing Platform</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <?php bringLibraries(); ?>
 </head>
 <body>
 	<header class="jumbotron text-center" style="background-color:white;">
@@ -26,7 +24,7 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                            echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
+                            echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
@@ -50,19 +48,45 @@ session_start();
 	}
 	?>
 
-	
-    <div class="container" >
+	<!-- Unanswered Questions -->
+    <div class="container" style="float:left;">
         <header>
             <h3 align="center"> Here are some questions waiting for answers! </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-8 text-center">Question</th><th class="col-sm-4 text-center">Time</th></tr>
+             <tr><th class="col-sm-8 text-center">Question</th><th class="col-sm-8 text-center">Username</th><th class="col-sm-4 text-center">Time</th></tr>
              <?php
              $query = "SELECT * FROM QUESTIONS WHERE ANSWER_ID = 0 ORDER BY ID DESC LIMIT 5;";
              $sqlresults = sqlcommand($query, "SELECT");
-                while($row = $sqlresults->fetch_assoc()) 
-                    echo "<tr><td class='col-sm-8 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a><td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                while($row = $sqlresults->fetch_assoc()){
+                    $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
+                    $uname = sqlcommand($que, "SELECT");
+                    $uname = $uname->fetch_assoc();
+                    echo "<tr><td class='col-sm-8 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                }
+             ?>
+        </table>
+    </div>
+    </div>
+    
+    <!-- Best Questions -->
+    <div class="container">
+        <header>
+            <h3 align="center"> Here are the highest ranked questions! </h3>
+        </header>
+        <div class="table-hover table-responsive">
+         <table class="table">
+             <tr><th class="col-sm-8 text-center">Question</th><th class="col-sm-8 text-center">Username</th><th class="col-sm-4 text-center">Time</th></tr>
+             <?php
+             $query = "SELECT * FROM QUESTIONS ORDER BY POINTS DESC LIMIT 5;";
+             $sqlresults = sqlcommand($query, "SELECT");
+                while($row = $sqlresults->fetch_assoc()) {
+                    $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
+                    $uname = sqlcommand($que, "SELECT");
+                    $uname = $uname->fetch_assoc();
+                    echo "<tr><td class='col-sm-8 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                }
              ?>
         </table>
     </div>

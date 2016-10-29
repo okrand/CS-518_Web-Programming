@@ -9,9 +9,7 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Login page for HighSide - The Motorcycle Q&A Website">
 <title>License and Registration</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<?php bringLibraries(); ?>
 </head>
 <body>
         <header class="jumbotron text-center" style="background-color:white;">
@@ -34,10 +32,10 @@ session_start();
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
 		$servername = "localhost";
-		//$dbusername = "root";
-		//$dbpassword = "root";
-		$dbusername = "admin";
-		$dbpassword = "M0n@rch$";
+		$dbusername = "root";
+		$dbpassword = "root";
+		//$dbusername = "admin";
+		//$dbpassword = "M0n@rch$";
 		$dbname = "HighSide";
 		// Create connection
 		$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -58,28 +56,25 @@ session_start();
 				$_SESSION["UserID"] = $sqlID;
                 $_SESSION["userName"] = $uName;
                 $_SESSION["K_Points"] = $row["KARMA_POINTS"];
-                //echo '<meta http-equiv="refresh" content="2;url=' . $_SESSION["referer"] . '"/>';
-                header('location: ' . $_SESSION["referer"]);
-                exit();
-                session_write_close();
-                
+                redirect($_SESSION["referer"]);
 			}
 			else
 				echo "<div align='center' class='alert alert-warning'><strong>Wrong Password!</strong></div>";
 		}
-		else
+		else 
 			echo "<div align='center' class='alert alert-warning'><strong>Wrong Username!</strong></div>";
 		$conn->close();
 	}
     else{
-        if ($_SERVER["HTTP_REFERER"] != "login.php")
-            $_SESSION["referer"] = $_SERVER["HTTP_REFERER"];
-        else{
-            session_unset();
-            $_SESSION["referer"] = "index.php";
-        }
+        if (isset($_SERVER["HTTP_REFERER"]))
+            $referer = pagename($_SERVER["HTTP_REFERER"]);
+        else
+            $referer = "this";
+        if ($referer != "this" && $referer != "/profile.php")
+            $_SESSION["referer"] = $referer;
+        else
+            $_SESSION["referer"] = "/index.php";
     }
-
 ?>
     <div class="container">
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
