@@ -66,6 +66,7 @@ CREATE TABLE `USERS` (
   `PASSWORD` VARCHAR(100) NOT NULL,
   `KARMA_POINTS` int(11) NOT NULL DEFAULT '0',
   `LAST_ACTIVE` datetime NOT NULL,
+  `E-MAIL` VARCHAR(50) NULL,
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -74,9 +75,9 @@ CREATE TABLE `USERS` (
 --
 LOCK TABLES `USERS` WRITE;
 
-INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`) VALUES
+INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `E-MAIL`) VALUES
 (1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13'),
-(2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15'),
+(2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu'),
 (3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44'),
 (4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20'),
 (5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55'),
@@ -90,7 +91,7 @@ INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`
 (13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15'),
 (14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15'),
 (15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34'),
-(16, 'okrand', '666777', 20, '2016-10-01 02:00:00');
+(16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'okran001@odu.edu');
 
 UNLOCK TABLES;
 

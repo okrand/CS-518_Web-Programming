@@ -17,11 +17,7 @@ if(isset($_POST["submit"])) {
     } else {
         #echo "File is not an image.";
         $_SESSION["Upload"]=3;
-        echo '<meta http-equiv="refresh" content="2;url=profile.php"/>';
-                /*header('location: profile.php');
-                exit();
-                session_write_close();
-                */
+        redirect("profile.php");
         $uploadOk = 0;
     }
 }
@@ -29,11 +25,7 @@ if(isset($_POST["submit"])) {
 if ($_FILES["fileToUpload"]["size"] > 3000000) {
     #echo "Sorry, your file is too large.";
     $_SESSION["Upload"]=2;
-    echo '<meta http-equiv="refresh" content="2;url=profile.php"/>';
-                /*header('location: profile.php');
-                exit();
-                session_write_close();
-                */
+    redirect("profile.php");
     $uploadOk = 0;
 }
 
@@ -50,18 +42,10 @@ if ($uploadOk !== 0) {
         
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $_SESSION["Upload"]=0;#echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        echo '<meta http-equiv="refresh" content="2;url=profile.php"/>';
-                /*header('location: profile.php');
-                exit();
-                session_write_close();
-                */
+        redirect("profile.php");
     } else {
         $_SESSION["Upload"]=1;
-        echo '<meta http-equiv="refresh" content="2;url=profile.php"/>';
-                /*header('location: profile.php');
-                exit();
-                session_write_close();
-                */
+        redirect("profile.php");
         #echo "Sorry, there was an error uploading your file.";
     }
 }

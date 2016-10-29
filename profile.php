@@ -35,8 +35,10 @@ session_start();
                     </div>
                     <div class="btn-group pull-right" >
                         <?php 
-                        if ($viewName == $_SESSION["userName"])  
+                        if ($viewName == $_SESSION["userName"]){
+                            echo '<button type="button" data-toggle="modal" data-target="#updatemail" class="btn btn-info">Update E-mail</button>';
                             echo '<button type="button" data-toggle="modal" data-target="#uploadpic" class="btn btn-info">Change Picture</button>';
+                        }
                         ?>
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
@@ -59,6 +61,7 @@ session_start();
     $viewID = $viewresult["ID"];
     $viewPoints = $viewresult["KARMA_POINTS"];
     $viewLActive = $viewresult["LAST_ACTIVE"];
+    $viewEmail = $viewresult["E-MAIL"];
     $picname = $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
     ?>
@@ -66,7 +69,10 @@ session_start();
         <div class="media">
         <div class="media-body">
             <h4 class="media-heading"><?php echo $viewName; ?></h4>
-            <p>Points: <?php echo $viewPoints . '<br>';?> </p>
+            <p>Points: <?php echo $viewPoints . '<br>';
+                if ($viewEmail != NULL)
+                    echo 'E-mail: ' . $viewEmail . '<br>';
+                ?> </p>
         </div>
         <div class="media-right">
             <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
@@ -102,6 +108,27 @@ session_start();
             </div>
             <div class="modal-footer">
                 <button class="btn btn-info" form="up" type="submit" name="submit">Upload Image</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Update e-mail address -->
+    <div id="updatemail" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update E-mail Address</h4>
+                </div>
+            <div class="modal-body">
+                <form action="updatemail.php" method="post">
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="text" class="form-control" name="email" id="email">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" form="update" type="submit" name="submit">Update</button>
             </div>
             </div>
         </div>
