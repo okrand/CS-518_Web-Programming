@@ -70,6 +70,26 @@ CREATE TABLE `USERS` (
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `votes`
+--
+
+DROP TABLE IF EXISTS `VOTES`;
+
+CREATE TABLE `VOTES` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `VOTER_ID` int(11) NOT NULL,
+  `THREAD_TYPE VARCHAR(5) NOT NULL,    
+  `THREAD_ID` int(11) NOT NULL,
+  `UPORDOWN` int(11) NOT NULL DEFAULT '0', 
+  `VOTE_TIME` datetime NOT NULL,   
+    PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 --
 -- Dumping data for table `users`
 --

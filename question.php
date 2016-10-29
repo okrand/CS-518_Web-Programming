@@ -13,8 +13,8 @@ session_start();
     
 <!--Voting script -->
     <script>
-    function vote(upOrDown){
-        if (upOrDown == "up"){
+    function vote(upOrDown, QorA, threadID){
+        if (upOrDown == 1){
             document.getElementById("voteup").src = "upvoteActive.png";
             document.getElementById("votedown").src = "downvote.png";
         }
@@ -22,13 +22,7 @@ session_start();
             document.getElementById("votedown").src = "downvoteActive.png";
             document.getElementById("voteup").src = "upvote.png";
         }
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
+       $.post('vote.php', {voteType: upOrDown, votingWhat: QorA, ID: threadID});
     }
     </script>
 </head>
@@ -95,14 +89,14 @@ session_start();
         $picname = $qAskerid . '_' . $qAsker . '.';
         $picname = picext($picname);
     
-    echo '<div class="col-sm-1" ><div class="col-sm-6 "><br>';
+    echo '<div class="col-sm-1" ><div class="col-sm-1 "><br>';
         if ($_SESSION["loggedIn"] == true)
-            echo '<img id="voteup" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(\'up\')">';
-    echo '<br><br><h4 id="point" class="text-center">12</h4><br>';
+            echo '<img id="voteup" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ')">';
+    echo '<br><br><h4 id="point" align="center" class="text-center">' . json_last_error() . '</h4><br>';
         if ($_SESSION["loggedIn"] == true)
-            echo '<img id="votedown" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(\'down\')">';
+            echo '<img id="votedown" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ')">';
     echo '</div></div>';
-    echo '<div class="page-header">';
+    echo '<div class="col-sm-11">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
     echo '<div class="media"><div class="media-body">
@@ -111,7 +105,6 @@ session_start();
     </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
     echo "<h3 align='left'>Answers</h3>";
-    
     //check if there is a selected answer
         if ($answerID != '0'){ 
             $queryanswer = "SELECT * FROM ANSWERS WHERE ID = ". $answerID . ";";
@@ -172,7 +165,7 @@ session_start();
             <label for="Answer">Your Answer:</label>
             <textarea type="text" name="Answer" pattern=".{5,500}" required title="Your answer needs to be between 5-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
-    <button type="submit" class="btn btn-primary center-block">Submit Answer!</button>
+    <button type="submit" class="btn btn-primary center-block">Submit Answer!</button><br><br><br>
 	</form>
     </span>
     </div>

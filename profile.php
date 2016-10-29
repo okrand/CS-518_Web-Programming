@@ -8,7 +8,7 @@ session_start();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
-<title>Profile</title>
+<title>Hey, you!</title>
 <?php bringLibraries(); ?>
 </head>
 <body>    
