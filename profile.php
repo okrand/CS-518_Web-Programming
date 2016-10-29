@@ -8,7 +8,7 @@ session_start();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
-<title>Let's see what our experts said</title>
+<title>Profile</title>
 <?php bringLibraries(); ?>
 </head>
 <body>    
@@ -24,7 +24,10 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                        echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';                        
+                        echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
+                        $picname = $_SESSION["UserID"] . '_' . $_SESSION["userName"] . '.';
+                        $picname = picext($picname);
+                        echo '<img class="media-object" style="width:50px; height:34px;" src="profilePics/' . $picname . '">';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >

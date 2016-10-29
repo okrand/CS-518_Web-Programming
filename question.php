@@ -65,17 +65,22 @@ session_start();
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
     $qDate = $sqlresult["DATE_ASKED"];
-    $qAsker = $sqlresult["ASKER_ID"];
+    $qAskerid = $sqlresult["ASKER_ID"];
     $answerID = $sqlresult["ANSWER_ID"];
-    $query = "SELECT * FROM USERS WHERE ID =" . $qAsker . ";";
+    $query = "SELECT * FROM USERS WHERE ID =" . $qAskerid . ";";
     $sqlresult = sqlcommand($query, "SELECT");
     $sqlresult = $sqlresult->fetch_assoc();
     $qAsker = $sqlresult["USERNAME"];
+        $picname = $qAskerid . '_' . $qAsker . '.';
+        $picname = picext($picname);
     echo '<div class="page-header">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
-    echo '<h5 align="right">' . $qAsker . '</h5>';
-    echo '<h6 align="right">' . $qDate . '</h6>'; 
+        echo '<div class="media"><div class="media-body">';
+        echo '<h5 align="right">' . $qAsker . '</h5>';
+        echo '<h6 align="right">' . $qDate . '</h6>'; 
+        echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+        echo '</div></div>';
     echo '</div>';
     echo "<h3 align='left'>Answers</h3>";
     
@@ -85,16 +90,19 @@ session_start();
             $getanswer = sqlcommand($queryanswer, "SELECT");
             $getanswer = $getanswer->fetch_assoc();
             echo "<div class='well' style='background-color:#66ff33'><p>" . $getanswer["ANSWER"] . "</p>";
-            $correctanswerer = $getanswer["USER_ID"];
+            $correctanswererid = $getanswer["USER_ID"];
             $correctdate = $getanswer["DATE_ANSWERED"];
-            $queryanswer = "SELECT USERNAME FROM USERS WHERE ID=" . $correctanswerer.";";
+            $queryanswer = "SELECT USERNAME FROM USERS WHERE ID=" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
             $result3 = $result3->fetch_assoc();
             $correctanswerer = $result3["USERNAME"];
-            echo '<div>';
-            echo '<h5  align="right">' . $correctanswerer . '</h5></div>';
+            $picname = $correctanswererid . '_' . $correctanswerer . '.';
+            $picname = picext($picname);
+            echo '<div class="media"><div class="media-body">';
+            echo '<h5  align="right">' . $correctanswerer . '</h5>';
             echo '<h6 align="right">' . $correctdate . '</h6>';
-            echo '</div>';
+            echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '</div></div></div>';
         }
     
     //List answers
@@ -107,19 +115,22 @@ session_start();
         while($row = $result->fetch_assoc()) {
             $answerlistid = $row["ID"];
             echo "<div class='well' ><p>" . $row["ANSWER"] . "</p>"; //style='background-color:#66ff33' for right answer
-            $answerer = $row["USER_ID"];
-            $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answerer.";";
+            $answererid = $row["USER_ID"];
+            $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
             $answerer = $result2["USERNAME"];
-            echo '<div>';
+            $picname = $answererid . '_' . $answerer . '.';
+            $picname = picext($picname);
+            echo '<div class="media"><div class="media-body">';
             //if question hasn't been answered or if userID isn't the person who asked the question, make the button invisible
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker){
                 echo '<button type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  align="right">' . $answerer . '</h5></div>';
+            echo '<h5  align="right">' . $answerer . '</h5>';
             echo '<h6 align="right">' . $row["DATE_ANSWERED"] . '</h6>';
-            echo '</div>';
+            echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '</div></div></div>';
         }
     }
     ?>
