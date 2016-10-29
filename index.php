@@ -49,13 +49,13 @@ session_start();
 	?>
 
 	<!-- Unanswered Questions -->
-    <div class="container" style="float:left;">
+        <table class="table"><td>
         <header>
             <h3 align="center"> Here are some questions waiting for answers! </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-8 text-center">Question</th><th class="col-sm-8 text-center">Username</th><th class="col-sm-4 text-center">Time</th></tr>
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
              <?php
              $query = "SELECT * FROM QUESTIONS WHERE ANSWER_ID = 0 ORDER BY ID DESC LIMIT 5;";
              $sqlresults = sqlcommand($query, "SELECT");
@@ -63,21 +63,21 @@ session_start();
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
                     $uname = sqlcommand($que, "SELECT");
                     $uname = $uname->fetch_assoc();
-                    echo "<tr><td class='col-sm-8 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . "<td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td> <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
                 }
              ?>
         </table>
     </div>
-    </div>
+    </td>
     
     <!-- Best Questions -->
-    <div class="container">
+        <td>
         <header>
             <h3 align="center"> Here are the highest ranked questions! </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-8 text-center">Question</th><th class="col-sm-8 text-center">Username</th><th class="col-sm-4 text-center">Time</th></tr>
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
              <?php
              $query = "SELECT * FROM QUESTIONS ORDER BY POINTS DESC LIMIT 5;";
              $sqlresults = sqlcommand($query, "SELECT");
@@ -85,11 +85,12 @@ session_start();
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
                     $uname = sqlcommand($que, "SELECT");
                     $uname = $uname->fetch_assoc();
-                    echo "<tr><td class='col-sm-8 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td>  <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
                 }
              ?>
         </table>
     </div>
-    </div>
+    </td>
+    </table>
 </body>
 </html>

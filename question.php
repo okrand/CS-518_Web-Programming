@@ -106,7 +106,7 @@ session_start();
         }
     
     //List answers
-    $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"].";";
+    $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"]." ORDER BY POINTS DESC;";
     $result = sqlcommand($query, "SELECT");
     if ($result == false){
         echo "No answers yet. Check back again soon!\n";

@@ -19,19 +19,25 @@ session_start();
         </a>
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
+    <?php
+    if(isset($_GET['name'])) //if there is a get name, make it their profile, otherwise user's profile
+        $viewName = $_GET['name'];
+    else
+        $viewName = $_SESSION["userName"];
+    ?>
     <div class="topMenu">
 		<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                        echo '<label class="btn btn-info disabled">Welcome ' . $_SESSION["userName"].' ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
-                        $picname = $_SESSION["UserID"] . '_' . $_SESSION["userName"] . '.';
-                        $picname = picext($picname);
-                        echo '<img class="media-object" style="width:50px; height:34px;" src="profilePics/' . $picname . '">';
+                        echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"]. '</a> <span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
-                        <button type="button" data-toggle="modal" data-target="#uploadpic" class="btn btn-info">Change Picture</button>
+                        <?php 
+                        if ($viewName == $_SESSION["userName"])  
+                            echo '<button type="button" data-toggle="modal" data-target="#uploadpic" class="btn btn-info">Change Picture</button>';
+                        ?>
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
@@ -46,8 +52,26 @@ session_start();
 	</div>
     
     <!-- Profile Info-->
-    <div class="container" style="float:left;">
-    
+    <?php 
+    $viewquery = "SELECT * FROM USERS WHERE USERNAME = '" . $viewName . "';";
+    $viewresult = sqlcommand($viewquery, "SELECT");
+    $viewresult = $viewresult->fetch_assoc();
+    $viewID = $viewresult["ID"];
+    $viewPoints = $viewresult["KARMA_POINTS"];
+    $viewLActive = $viewresult["LAST_ACTIVE"];
+    $picname = $viewID . '_' . $viewName . '.';
+    $picname = picext($picname);
+    ?>
+    <div class="well">
+        <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading"><?php echo $viewName; ?></h4>
+            <p>Points: <?php echo $viewPoints . '<br>';?> </p>
+        </div>
+        <div class="media-right">
+            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
+        </div>
+        </div>
     </div>
     <!-- Display picture upload error -->
     <?php
@@ -92,7 +116,7 @@ session_start();
          <table class="table" id="myTable">
              <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
              <?php
-             $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $_SESSION["UserID"] ." ORDER BY ID DESC;";
+             $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $viewID ." ORDER BY ID DESC;";
              $sqlresults = sqlcommand($query, "SELECT");
                 while($row = $sqlresults->fetch_assoc()){
                     echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>". $row["POINTS"] . "<td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
