@@ -65,20 +65,6 @@ session_start();
     $picname = $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
     ?>
-    <div class="well">
-        <div class="media">
-        <div class="media-body">
-            <h4 class="media-heading"><?php echo $viewName; ?></h4>
-            <p>Points: <?php echo $viewPoints . '<br>';
-                if ($viewEmail != NULL)
-                    echo 'E-mail: ' . $viewEmail . '<br>';
-                ?> </p>
-        </div>
-        <div class="media-right">
-            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
-        </div>
-        </div>
-    </div>
     <!-- Display picture upload error -->
     <?php
     $referer = pagename($_SERVER["HTTP_REFERER"]);
@@ -93,6 +79,21 @@ session_start();
             echo "<div align='center' class='alert alert-warning'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
     }
     ?>
+    <div class="well">
+        <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading"><?php echo $viewName; ?></h4>
+            <p>Points: <?php echo $viewPoints . '<br>';
+                if ($viewEmail != NULL)
+                    echo 'E-mail: ' . $viewEmail . '<br>';
+                ?> </p>
+        </div>
+        <div class="media-right">
+            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
+        </div>
+        </div>
+    </div>
+    
     <!-- Upload Picture -->
     <div id="uploadpic" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -120,7 +121,7 @@ session_start();
                 <h4 class="modal-title">Update E-mail Address</h4>
                 </div>
             <div class="modal-body">
-                <form action="updatemail.php" method="post">
+                <form id="update" action="updatemail.php" method="post">
                 <div class="form-group">
                     <label for="email">E-mail:</label>
                     <input type="text" class="form-control" name="email" id="email">

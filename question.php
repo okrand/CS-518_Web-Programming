@@ -10,6 +10,27 @@ session_start();
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
+    
+<!--Voting script -->
+    <script>
+    function vote(upOrDown){
+        if (upOrDown == "up"){
+            document.getElementById("voteup").src = "upvoteActive.png";
+            document.getElementById("votedown").src = "downvote.png";
+        }
+        else{
+            document.getElementById("votedown").src = "downvoteActive.png";
+            document.getElementById("voteup").src = "upvote.png";
+        }
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+    </script>
 </head>
 <body>    
    <header class="jumbotron text-center" style="background-color:white;">
@@ -73,15 +94,22 @@ session_start();
     $qAsker = $sqlresult["USERNAME"];
         $picname = $qAskerid . '_' . $qAsker . '.';
         $picname = picext($picname);
+    
+    echo '<div class="col-sm-1" ><div class="col-sm-6 "><br>';
+        if ($_SESSION["loggedIn"] == true)
+            echo '<img id="voteup" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(\'up\')">';
+    echo '<br><br><h4 id="point" class="text-center">12</h4><br>';
+        if ($_SESSION["loggedIn"] == true)
+            echo '<img id="votedown" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(\'down\')">';
+    echo '</div></div>';
     echo '<div class="page-header">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
-        echo '<div class="media"><div class="media-body">';
-        echo '<h5 align="right">' . $qAsker . '</h5>';
-        echo '<h6 align="right">' . $qDate . '</h6>'; 
-        echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
-        echo '</div></div>';
-    echo '</div>';
+    echo '<div class="media"><div class="media-body">
+    <h5 align="right">' . $qAsker . '</h5>
+    <h6 align="right">' . $qDate . '</h6>
+    </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
+    
     echo "<h3 align='left'>Answers</h3>";
     
     //check if there is a selected answer

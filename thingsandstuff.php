@@ -13,10 +13,10 @@ function bringLibraries(){
 function sqlcommand($query, $qtype){
     $queryComplete = false;
     $servername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "root";
-    //$dbusername = "admin";
-    //$dbpassword = "M0n@rch$";
+    //$dbusername = "root";
+    //$dbpassword = "root";
+    $dbusername = "admin";
+    $dbpassword = "M0n@rch$";
     $dbname = "HighSide";
     // Create connection
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -75,11 +75,11 @@ return $page;
 }
 
 function redirect($url){
-    echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
-            /*header('location: ' . $url);
+    #echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
+            header('location: ' . $url);
             exit();
             session_write_close();
-            */
+            
 }
 
 ?>
