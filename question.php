@@ -27,8 +27,9 @@ session_start();
     function vote(upOrDown, QorA, threadID){
     if (QorA == "Q"){
         if (upOrDown == 1){
-            if (document.getElementById("voteupQ").src != "upvoteActive.png"){
-                document.getElementById("K_Points").innerHTML++; }
+            if (document.getElementById("voteupQ").getAttribute("src") != "upvoteActive.png") {
+                document.getElementById("qPoint").innerHTML++;
+            }
             document.getElementById("voteupQ").src = "upvoteActive.png";
             document.getElementById("votedownQ").src = "downvote.png";
         }
@@ -37,8 +38,9 @@ session_start();
             document.getElementById("votedownQ").src = "downvote.png";
         }
         else{
-             if (document.getElementById("voteupQ").src != "downvoteActive.png"){
-                document.getElementById("K_Points").innerHTML--; }
+            if (document.getElementById("votedownQ").getAttribute("src") != "downvoteActive.png") {
+                document.getElementById("qPoint").innerHTML--;
+            }
             document.getElementById("votedownQ").src = "downvoteActive.png";
             document.getElementById("voteupQ").src = "upvote.png";
         }
@@ -46,9 +48,11 @@ session_start();
     if (QorA == "A"){
         var up="voteupA" + threadID;
         var down="votedownA" + threadID;
+        var point="aPoint"+threadID;
         if (upOrDown == 1){
-            if (document.getElementById(up).src != "upvoteActive.png"){
-                document.getElementById("K_Points").innerHTML++; }
+            if (document.getElementById(up).getAttribute("src") != "upvoteActive.png") {
+                document.getElementById(point).innerHTML++;
+            }
             document.getElementById(up).src = "upvoteActive.png";
             document.getElementById(down).src = "downvote.png";
         }
@@ -57,8 +61,9 @@ session_start();
             document.getElementById(down).src = "downvote.png";
         }
         else{
-             if (document.getElementById(up).src != "downvoteActive.png"){
-                document.getElementById("K_Points").innerHTML--; }
+            if (document.getElementById(down).getAttribute("src") != "downvoteActive.png") {
+                document.getElementById(point).innerHTML--;
+            }
             document.getElementById(down).src = "downvoteActive.png";
             document.getElementById(up).src = "upvote.png";
         }
@@ -164,7 +169,24 @@ session_start();
             $queryanswer = "SELECT * FROM ANSWERS WHERE ID = ". $answerID . ";";
             $getanswer = sqlcommand($queryanswer, "SELECT");
             $getanswer = $getanswer->fetch_assoc();
-            echo "<div class='well' style='background-color:#66ff33'><p>" . $getanswer["ANSWER"] . "</p>";
+            $aPoints = $getanswer["POINTS"];
+            echo "<div class='well' style='background-color:#66ff33'>";
+            echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
+        if ($_SESSION["loggedIn"] == true){
+            if (getvotes("A", $answerID)==1)
+                echo '<img id="voteupA'.$answerID.'" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ')">';
+            else
+                echo '<img id="voteupA'.$answerID.'" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ')">';
+        }
+        echo '<br><h4 id="aPoint'.$answerID.'" align="center" class="text-center">' . $aPoints . '</h4>';
+        if ($_SESSION["loggedIn"] == true){
+           if (getvotes("A", $answerID)==2)
+                echo '<img id="votedownA'.$answerID.'" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ')">';
+            else
+                echo '<img id="votedownA'.$answerID.'" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ')">';
+        }
+            echo '</div></div>';
+            echo "<p>" . $getanswer["ANSWER"] . "</p>";
             $correctanswererid = $getanswer["USER_ID"];
             $correctdate = $getanswer["DATE_ANSWERED"];
             $queryanswer = "SELECT USERNAME FROM USERS WHERE ID=" . $correctanswererid.";";
@@ -199,7 +221,7 @@ session_start();
             else
                 echo '<img id="voteupA'.$answerlistid.'" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ')">';
         }
-        echo '<br><h4 id="aPoint" align="center" class="text-center">' . $aPoints . '</h4>';
+        echo '<br><h4 id="aPoint'.$answerlistid.'" align="center" class="text-center">' . $aPoints . '</h4>';
         if ($_SESSION["loggedIn"] == true){
            if (getvotes("A", $answerlistid)==2)
                 echo '<img id="votedownA'.$answerlistid.'" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ')">';
