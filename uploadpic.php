@@ -17,20 +17,20 @@ if(isset($_POST["submit"])) {
     } else {
         #echo "File is not an image.";
         $_SESSION["Upload"]=3;
-        redirect("profile.php");
+        redirect("/profile.php");
         $uploadOk = 0;
     }
 }
 
-if ($_FILES["fileToUpload"]["size"] > 1000000) {
-    #echo "Sorry, your file is too large.";
+if ($_FILES["fileToUpload"]["size"] > 500000) {
+    //echo "Sorry, your file is too large.";
     $_SESSION["Upload"]=2;
-    redirect("profile.php");
+    redirect("/profile.php");
     $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
-if ($uploadOk !== 0) {
+if ($uploadOk != 0) {
     if (file_exists($target_file1 . 'jpg'))
         unlink($target_file1 . 'jpg');
     else if (file_exists($target_file1 . 'jpeg'))
@@ -41,11 +41,12 @@ if ($uploadOk !== 0) {
         unlink($target_file1 . 'gif');
         
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $_SESSION["Upload"]=0;#echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        redirect("profile.php");
-    } else {
+        $_SESSION["Upload"]=0;//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        redirect("/profile.php");
+    } 
+    else {
         $_SESSION["Upload"]=1;
-        redirect("profile.php");
+        redirect("/profile.php");
         #echo "Sorry, there was an error uploading your file.";
     }
 }
