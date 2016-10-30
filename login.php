@@ -55,7 +55,6 @@ session_start();
                 $_SESSION["loggedIn"] = true;
 				$_SESSION["UserID"] = $sqlID;
                 $_SESSION["userName"] = $uName;
-                $_SESSION["K_Points"] = $row["KARMA_POINTS"];
                 redirect($_SESSION["referer"]);
 			}
 			else

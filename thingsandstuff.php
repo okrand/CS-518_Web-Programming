@@ -11,7 +11,6 @@ function bringLibraries(){
 }
 
 function sqlcommand($query, $qtype){
-    $queryComplete = false;
     $servername = "localhost";
     $dbusername = "root";
     $dbpassword = "root";
@@ -33,15 +32,13 @@ function sqlcommand($query, $qtype){
     
     if ($qtype == "SELECT"){ //selecting multiple rows
         if ($result->num_rows > 0 ){
-            $queryComplete = true;
             return $result;
         }
         else
-            return $queryComplete;
+            return false;
     }
     else{ //not SELECT
-            $queryComplete=true;
-            return $queryComplete;
+            return true;
     }
 }
 

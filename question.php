@@ -2,6 +2,17 @@
 include_once "thingsandstuff.php";
 session_start(); 
 ?>
+<?php //get user's vote for this question
+    function getvotes($type, $threadID){
+        $voteQuery = "SELECT * FROM VOTES WHERE VOTER_ID = " . $_SESSION["UserID"] . " AND THREAD_TYPE = '" . $type . "' AND THREAD_ID = " . $threadID . ";";
+        $voteresult = sqlcommand($voteQuery, "SELECT");
+        if ($voteresult == false)
+            return 0;
+        $voteresult = $voteresult->fetch_assoc();
+        return $voteresult["UPORDOWN"];
+    }
+     
+?>
 
 <!DOCTYPE html>
 <html>
@@ -14,15 +25,46 @@ session_start();
 <!--Voting script -->
     <script>
     function vote(upOrDown, QorA, threadID){
+    if (QorA == "Q"){
         if (upOrDown == 1){
-            document.getElementById("voteup").src = "upvoteActive.png";
-            document.getElementById("votedown").src = "downvote.png";
+            if (document.getElementById("voteupQ").src != "upvoteActive.png"){
+                document.getElementById("K_Points").innerHTML++; }
+            document.getElementById("voteupQ").src = "upvoteActive.png";
+            document.getElementById("votedownQ").src = "downvote.png";
+        }
+        else if (upOrDown == 0){
+            document.getElementById("voteupQ").src = "upvote.png";
+            document.getElementById("votedownQ").src = "downvote.png";
         }
         else{
-            document.getElementById("votedown").src = "downvoteActive.png";
-            document.getElementById("voteup").src = "upvote.png";
+             if (document.getElementById("voteupQ").src != "downvoteActive.png"){
+                document.getElementById("K_Points").innerHTML--; }
+            document.getElementById("votedownQ").src = "downvoteActive.png";
+            document.getElementById("voteupQ").src = "upvote.png";
         }
-       $.post('vote.php', {voteType: upOrDown, votingWhat: QorA, ID: threadID});
+        }
+    if (QorA == "A"){
+        var up="voteupA" + threadID;
+        var down="votedownA" + threadID;
+        if (upOrDown == 1){
+            if (document.getElementById(up).src != "upvoteActive.png"){
+                document.getElementById("K_Points").innerHTML++; }
+            document.getElementById(up).src = "upvoteActive.png";
+            document.getElementById(down).src = "downvote.png";
+        }
+        else if (upOrDown == 0){
+            document.getElementById(up).src = "upvote.png";
+            document.getElementById(down).src = "downvote.png";
+        }
+        else{
+             if (document.getElementById(up).src != "downvoteActive.png"){
+                document.getElementById("K_Points").innerHTML--; }
+            document.getElementById(down).src = "downvoteActive.png";
+            document.getElementById(up).src = "upvote.png";
+        }
+        
+    }
+       $.post("vote.php", {voteType: upOrDown, votingWhat: QorA, ID: threadID});
     }
     </script>
 </head>
@@ -39,7 +81,10 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
-                            echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span class="badge">' . $_SESSION["K_Points"] . '</span></label>';
+                            $query = "SELECT KARMA_POINTS FROM USERS WHERE ID = ". $_SESSION["UserID"] . ";";
+                            $result = sqlcommand($query, "SELECT");
+                            $result = $result->fetch_assoc();
+                            echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
@@ -79,6 +124,7 @@ session_start();
     $sqlresult = $sqlresult->fetch_assoc();
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
+    $qPoints = $sqlresult["POINTS"];
     $qDate = $sqlresult["DATE_ASKED"];
     $qAskerid = $sqlresult["ASKER_ID"];
     $answerID = $sqlresult["ANSWER_ID"];
@@ -90,17 +136,25 @@ session_start();
         $picname = picext($picname);
     
     echo '<div class="col-sm-1" ><div class="col-sm-1 "><br>';
-        if ($_SESSION["loggedIn"] == true)
-            echo '<img id="voteup" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ')">';
-    echo '<br><br><h4 id="point" align="center" class="text-center">' . json_last_error() . '</h4><br>';
-        if ($_SESSION["loggedIn"] == true)
-            echo '<img id="votedown" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ')">';
+        if ($_SESSION["loggedIn"] == true){
+            if (getvotes("Q", $_SESSION["QNumber"])==1)
+                echo '<img id="voteupQ" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ')">';
+            else
+                echo '<img id="voteupQ" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ')">';
+        }
+    echo '<br><br><h4 id="qPoint" align="center" class="text-center">' . $qPoints . '</h4><br>';
+        if ($_SESSION["loggedIn"] == true){
+           if (getvotes("Q", $_SESSION["QNumber"])==2)
+                echo '<img id="votedownQ" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ')">';
+            else
+                echo '<img id="votedownQ" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ')">';
+        }
     echo '</div></div>';
     echo '<div class="col-sm-11">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
     echo '<div class="media"><div class="media-body">
-    <h5 align="right">' . $qAsker . '</h5>
+    <h5 align="right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 align="right">' . $qDate . '</h6>
     </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
@@ -119,8 +173,9 @@ session_start();
             $correctanswerer = $result3["USERNAME"];
             $picname = $correctanswererid . '_' . $correctanswerer . '.';
             $picname = picext($picname);
+            
             echo '<div class="media"><div class="media-body">';
-            echo '<h5  align="right">' . $correctanswerer . '</h5>';
+            echo '<h5  align="right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a></h5>';
             echo '<h6 align="right">' . $correctdate . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
@@ -135,7 +190,24 @@ session_start();
     else{
         while($row = $result->fetch_assoc()) {
             $answerlistid = $row["ID"];
-            echo "<div class='well' ><p>" . $row["ANSWER"] . "</p>"; //style='background-color:#66ff33' for right answer
+            $aPoints = $row["POINTS"];
+            echo "<div class='well' >";
+            echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
+        if ($_SESSION["loggedIn"] == true){
+            if (getvotes("A", $answerlistid)==1)
+                echo '<img id="voteupA'.$answerlistid.'" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ')">';
+            else
+                echo '<img id="voteupA'.$answerlistid.'" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ')">';
+        }
+        echo '<br><h4 id="aPoint" align="center" class="text-center">' . $aPoints . '</h4>';
+        if ($_SESSION["loggedIn"] == true){
+           if (getvotes("A", $answerlistid)==2)
+                echo '<img id="votedownA'.$answerlistid.'" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ')">';
+            else
+                echo '<img id="votedownA'.$answerlistid.'" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ')">';
+        }
+            echo '</div></div>';
+            echo "<p>" . $row["ANSWER"] . "</p>"; //style='background-color:#66ff33' for right answer
             $answererid = $row["USER_ID"];
             $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
@@ -148,7 +220,7 @@ session_start();
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker){
                 echo '<button type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  align="right">' . $answerer . '</h5>';
+            echo '<h5  align="right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
             echo '<h6 align="right">' . $row["DATE_ANSWERED"] . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
