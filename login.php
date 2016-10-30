@@ -65,14 +65,19 @@ session_start();
 		$conn->close();
 	}
     else{
+        echo "REFERER IS ".$_SERVER["HTTP_REFERER"];
         if (isset($_SERVER["HTTP_REFERER"]))
             $referer = pagename($_SERVER["HTTP_REFERER"]);
         else
-            $referer = "this";
-        if ($referer != "this" && $referer != "/profile.php")
+            $referer = "/login.php";
+        if ($referer == "")
+            $referer = "/index.php";
+        if ($referer != "/login.php" && $referer != "/profile.php")
             $_SESSION["referer"] = $referer;
         else
             $_SESSION["referer"] = "/index.php";
+        
+        
     }
 ?>
     <div class="container">

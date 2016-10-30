@@ -46,7 +46,7 @@ function redirect($url){
             header('location: ' . $url);
             exit();
             session_write_close();
-            
+           
 }
 
 function picext($picname){
