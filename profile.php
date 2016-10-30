@@ -41,7 +41,7 @@ session_start();
                     <div class="btn-group pull-right" >
                         <?php 
                         if ($viewName == $_SESSION["userName"]){
-                            echo '<button type="button" data-toggle="modal" data-target="#updatemail" class="btn btn-info">Update E-mail</button>';
+                            echo '<button type="button" data-toggle="modal" data-target="#updatemail" class="btn btn-info" onclick="document.getElementById(\'email\').focus();">Update E-mail</button>';
                             echo '<button type="button" data-toggle="modal" data-target="#uploadpic" class="btn btn-info">Change Picture</button>';
                         }
                         ?>
@@ -129,7 +129,7 @@ session_start();
                 <form id="update" action="updatemail.php" method="post">
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="text" class="form-control" name="email" id="email">
+                    <input type="email" placeholder="Enter new e-mail address" class="form-control" name="email" id="email">
                 </div>
                 </form>
             </div>

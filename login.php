@@ -32,10 +32,10 @@ session_start();
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
 		$servername = "localhost";
-		$dbusername = "root";
-		$dbpassword = "root";
-		//$dbusername = "admin";
-		//$dbpassword = "M0n@rch$";
+		//$dbusername = "root";
+		//$dbpassword = "root";
+		$dbusername = "admin";
+		$dbpassword = "M0n@rch$";
 		$dbname = "HighSide";
 		// Create connection
 		$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
