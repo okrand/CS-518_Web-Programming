@@ -65,7 +65,6 @@ session_start();
 		$conn->close();
 	}
     else{
-        echo "REFERER IS ".$_SERVER["HTTP_REFERER"];
         if (isset($_SERVER["HTTP_REFERER"]))
             $referer = pagename($_SERVER["HTTP_REFERER"]);
         else
