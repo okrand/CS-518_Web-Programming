@@ -24,10 +24,12 @@ session_start();
 				<tr>
                     <div class="btn-group pull-left">
                         <?php
+                            if (isset($_SESSION["UserID"])){
                             $query = "SELECT KARMA_POINTS FROM USERS WHERE ID = ". $_SESSION["UserID"] . ";";
                             $result = sqlcommand($query, "SELECT");
                             $result = $result->fetch_assoc();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
+                            }
                         ?>
                     </div>
                     <div class="btn-group pull-right" >
