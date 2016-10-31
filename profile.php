@@ -74,9 +74,7 @@ session_start();
     <!-- Display picture upload error -->
     <?php
     $referer = pagename($_SERVER["HTTP_REFERER"]);
-    echo "REFERER IS " .$referer;
-    echo "Upload session " . $_SESSION["Upload"];
-    if ($referer == "/uploadpic.php"){
+    if ($referer == "/profile.php"){
         if ($_SESSION["Upload"]==0)
             echo "<div align='center' class='alert alert-warning'><strong>Picture Uploaded Successfully!</strong></div>";
         else if ($_SESSION["Upload"]==1)
@@ -85,6 +83,7 @@ session_start();
             echo "<div align='center' class='alert alert-warning'><strong>Whoa! That file's too big man (700KB Max)</strong></div>";
         else if ($_SESSION["Upload"]==3)
             echo "<div align='center' class='alert alert-warning'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
+    unset($_SESSION["Upload"]);
     }
     ?>
     <div class="well">
