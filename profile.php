@@ -74,6 +74,8 @@ session_start();
     <!-- Display picture upload error -->
     <?php
     $referer = pagename($_SERVER["HTTP_REFERER"]);
+    echo "REFERER IS " .$referer;
+    echo "Upload session " . $_SESSION["Upload"];
     if ($referer == "/uploadpic.php"){
         if ($_SESSION["Upload"]==0)
             echo "<div align='center' class='alert alert-warning'><strong>Picture Uploaded Successfully!</strong></div>";
