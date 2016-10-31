@@ -20,6 +20,7 @@ session_start();
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
     <?php
+    echo $_SESSION["Upload"];
     if(isset($_GET['name'])) //if there is a get name, make it their profile, otherwise user's profile
         $viewName = $_GET['name'];
     else
@@ -79,7 +80,7 @@ session_start();
         else if ($_SESSION["Upload"]==1)
             echo "<div align='center' class='alert alert-warning'><strong>There was a problem uploading your picture!</strong></div>";
         else if ($_SESSION["Upload"]==2)
-            echo "<div align='center' class='alert alert-warning'><strong>Whoa! That file's too big man (3MB Max)</strong></div>";
+            echo "<div align='center' class='alert alert-warning'><strong>Whoa! That file's too big man (700KB Max)</strong></div>";
         else if ($_SESSION["Upload"]==3)
             echo "<div align='center' class='alert alert-warning'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
     }
@@ -94,6 +95,7 @@ session_start();
                 ?> </p>
         </div>
         <div class="media-right">
+            
             <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
         </div>
         </div>
