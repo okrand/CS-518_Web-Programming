@@ -41,7 +41,7 @@ if ($uploadOk != 0) {
     else if (file_exists($target_file1 . 'gif'))
         unlink($target_file1 . 'gif');
     
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . $target_file)) {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $_SESSION["Upload"]=0;//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         redirect("/profile.php");
     } 

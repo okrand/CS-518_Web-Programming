@@ -74,8 +74,9 @@ session_start();
         else
             $_SESSION["referer"] = "/index.php";
         
-        
+        echo $_SESSION["referer"];
     }
+    
 ?>
     <div class="container">
 	<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
