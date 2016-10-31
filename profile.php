@@ -20,7 +20,6 @@ session_start();
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
     <?php
-    echo $_SESSION["Upload"];
     if(isset($_GET['name'])) //if there is a get name, make it their profile, otherwise user's profile
         $viewName = $_GET['name'];
     else
