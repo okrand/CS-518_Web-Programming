@@ -276,11 +276,8 @@ session_start();
         }
     }
     ?>
-    <span>
         <form id="correct" action="correctans.php" method="POST">
         </form>
-        </span>
-   <span id = "newAns">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
             <label for="Answer">Your Answer:</label>
@@ -288,7 +285,6 @@ session_start();
         </div>
     <button type="submit" class="btn btn-primary center-block">Submit Answer!</button><br><br><br>
 	</form>
-    </span>
     </div>
     <?php 
 	if ($_SESSION["loggedIn"] != true)
