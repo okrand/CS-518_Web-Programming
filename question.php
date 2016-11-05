@@ -132,7 +132,7 @@ session_start();
                     ?>
                     </div>
 	</div>
-
+    <hr style="clear:both;">
     <?php
     if(isset($_GET['QN'])) //if there is a get question, make that value the session for QNumber
         $_SESSION["QNumber"] = $_GET['QN'];

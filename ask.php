@@ -42,7 +42,7 @@ session_start();
                     ?>
                     </div>
 	</div>
-    
+    <hr style="clear:both;">
     <?php 
        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = test_input($_POST["qTitle"]);

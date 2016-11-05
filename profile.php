@@ -54,7 +54,7 @@ session_start();
                     ?>
                     </span>
 	</div>
-    
+    <hr style="clear:both;">
     <!-- Profile Info-->
     <?php 
     $viewquery = "SELECT * FROM USERS WHERE USERNAME = '" . $viewName . "';";
