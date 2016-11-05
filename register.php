@@ -19,7 +19,7 @@ session_start();
         </a>
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
-    <h3 align='center'>Haven't seen you here before. What should we call you?</h3>
+    <h3 class="aligncenter">Haven't seen you here before. What should we call you?</h3>
    <?php 
     if ($_SESSION["loggedIn"] == true){
         unset($_SESSION["loggedIn"]);

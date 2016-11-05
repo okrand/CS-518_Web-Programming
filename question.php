@@ -190,7 +190,7 @@ session_start();
     <h6 align="right">' . $qDate . '</h6>
     </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
-    echo "<h3 align='left'>Answers</h3>";
+    echo "<h3>Answers</h3>";
     //check if there is a selected answer
         if ($answerID != '0'){ 
             $queryanswer = "SELECT * FROM ANSWERS WHERE ID = ". $answerID . ";";
@@ -294,7 +294,7 @@ session_start();
 	if ($_SESSION["loggedIn"] != true)
 	{
         echo '<script  type="text/javascript"> document.getElementById("newAns").style.display="none"; </script>';
-		echo "<h3 align='center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
+		echo "<h3 class='aligncenter'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
     ?>

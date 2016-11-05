@@ -70,6 +70,7 @@ session_start();
     <!-- Display picture upload error -->
     <?php
     $referer = pagename($_SERVER["HTTP_REFERER"]);
+    if (isset($_SESSION["Upload"])){
     if ($referer == "/profile.php"){
         if ($_SESSION["Upload"]==0)
             echo "<div align='center' class='alert alert-warning'><strong>Picture Uploaded Successfully!</strong></div>";
@@ -80,7 +81,7 @@ session_start();
         else if ($_SESSION["Upload"]==3)
             echo "<div align='center' class='alert alert-warning'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
     unset($_SESSION["Upload"]);
-    }
+    }}
     ?>
     <div class="well">
         <div class="media">
@@ -142,7 +143,7 @@ session_start();
     <!--My Questions -->
     <div class="container" >
         <header>
-        <h3 align="center"> My Questions </h3>
+        <h3 class="aligncenter"> My Questions </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table" id="myTable">

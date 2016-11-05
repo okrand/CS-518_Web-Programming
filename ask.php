@@ -98,7 +98,7 @@ session_start();
 	if ($_SESSION["loggedIn"] != true)
 	{
         echo '<script  type="text/javascript"> document.getElementById("newQuest").style.display="none"; </script>';
-		echo "<h3 align='center'>Unfortunately, you have to be logged in to ask questions. I know, bummer! Please "; 
+		echo "<h3 class='aligncenter'>Unfortunately, you have to be logged in to ask questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
 	?>
