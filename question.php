@@ -27,9 +27,10 @@ function CheckLength()
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
-msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
+    msg_area.getAttribute("hidden")=false;
+    msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
 }
-else document.getElementById("Answer").submit();
+else document.getElementById("newAnswer").submit();
 }
 </script>
 <!--Voting script -->
@@ -288,11 +289,9 @@ else document.getElementById("Answer").submit();
     ?>
         <form id="correct" action="correctans.php" method="POST">
         </form>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form id="newAnswer" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
-            <div align="center" hidden="true" id="lengthalert" class="alert alert-warning">
-                <strong>Warning!</strong>
-            </div>
+            <div class="text-center" hidden="true" id="lengthalert" class="alert alert-warning"> </div>
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
