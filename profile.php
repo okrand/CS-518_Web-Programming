@@ -26,9 +26,7 @@ session_start();
         $viewName = $_SESSION["userName"];
     ?>
     <div class="topMenu">
-		<table class="regtable">
-				<tr>
-                    <div class="btn-group pull-left">
+                    <span class="btn-group pull-left">
                         <?php
                             if (isset($_SESSION["UserID"])){
                             $query = "SELECT KARMA_POINTS FROM USERS WHERE ID = ". $_SESSION["UserID"] . ";";
@@ -37,8 +35,8 @@ session_start();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
                         ?>
-                    </div>
-                    <div class="btn-group pull-right" >
+                    </span>
+                    <span class="btn-group pull-right" >
                         <?php 
                         if ($viewName == $_SESSION["userName"]){
                             echo '<button type="button" data-toggle="modal" data-target="#updatemail" class="btn btn-info" onclick="document.getElementById(\'email\').focus();">Update E-mail</button>';
@@ -54,8 +52,7 @@ session_start();
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
-                    </div>
-		</table>
+                    </span>
 	</div>
     
     <!-- Profile Info-->

@@ -110,8 +110,6 @@ session_start();
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
     <div class="topMenu">
-		<table class="regtable">
-				<tr>
                     <div class="btn-group pull-left">
                         <?php
                             if (isset($_SESSION["UserID"])){
@@ -133,7 +131,6 @@ session_start();
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
                     </div>
-		</table>
 	</div>
 
     <?php
