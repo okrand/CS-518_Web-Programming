@@ -170,24 +170,24 @@ session_start();
     echo '<div class="col-sm-1" ><div class="col-sm-1 "><br>';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("Q", $_SESSION["QNumber"])==1)
-                echo '<img id="voteupQ" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupQ" src="upvoteActive.png" alt="active upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="voteupQ" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupQ" src="upvote.png" alt="upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
         }
-    echo '<br><br><h4 id="qPoint" align="center" class="text-center">' . $qPoints . '</h4><br>';
+    echo '<br><br><h4 id="qPoint" class="text-center">' . $qPoints . '</h4><br>';
         if ($_SESSION["loggedIn"] == true){
            if (getvotes("Q", $_SESSION["QNumber"])==2)
-                echo '<img id="votedownQ" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownQ" src="downvoteActive.png" alt="active downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="votedownQ" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownQ" src="downvote.png" alt="downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'Q\', '. $_SESSION["QNumber"] . ', '. $qAskerid . ', '. $_SESSION["UserID"]. ')">';
         }
     echo '</div></div>';
     echo '<div class="col-sm-11">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
     echo '<div class="media"><div class="media-body">
-    <h5 align="right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
-    <h6 align="right">' . $qDate . '</h6>
+    <h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
+    <h6 class="text-right">' . $qDate . '</h6>
     </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
     echo "<h3>Answers</h3>";
@@ -202,16 +202,16 @@ session_start();
             echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("A", $answerID)==1)
-                echo '<img id="voteupA'.$answerID.'" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupA'.$answerID.'" src="upvoteActive.png" alt="active upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="voteupA'.$answerID.'" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupA'.$answerID.'" src="upvote.png" alt="upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
         }
-        echo '<br><h4 id="aPoint'.$answerID.'" align="center" class="text-center">' . $aPoints . '</h4>';
+        echo '<br><h4 id="aPoint'.$answerID.'" class="text-center">' . $aPoints . '</h4>';
         if ($_SESSION["loggedIn"] == true){
            if (getvotes("A", $answerID)==2)
-                echo '<img id="votedownA'.$answerID.'" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownA'.$answerID.'" src="downvoteActive.png" alt="active downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="votedownA'.$answerID.'" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownA'.$answerID.'" src="downvote.png" alt="downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
             echo "<p>" . $getanswer["ANSWER"] . "</p>";
@@ -224,9 +224,9 @@ session_start();
             $picname = picext($picname);
             
             echo '<div class="media"><div class="media-body">';
-            echo '<h5  align="right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a></h5>';
-            echo '<h6 align="right">' . $correctdate . '</h6>';
-            echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a></h5>';
+            echo '<h6 class="text-right">' . $correctdate . '</h6>';
+            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
         }
     
@@ -245,16 +245,16 @@ session_start();
             echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("A", $answerlistid)==1)
-                echo '<img id="voteupA'.$answerlistid.'" src="upvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupA'.$answerlistid.'" src="upvoteActive.png" alt="active upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="voteupA'.$answerlistid.'" src="upvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="voteupA'.$answerlistid.'" src="upvote.png" alt="upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
         }
-        echo '<br><h4 id="aPoint'.$answerlistid.'" align="center" class="text-center">' . $aPoints . '</h4>';
+        echo '<br><h4 id="aPoint'.$answerlistid.'" class="text-center">' . $aPoints . '</h4>';
         if ($_SESSION["loggedIn"] == true){
            if (getvotes("A", $answerlistid)==2)
-                echo '<img id="votedownA'.$answerlistid.'" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownA'.$answerlistid.'" alt="Active downvote" src="downvoteActive.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
             else
-                echo '<img id="votedownA'.$answerlistid.'" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
+                echo '<img id="votedownA'.$answerlistid.'" alt="downvote" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
             echo "<p>" . $row["ANSWER"] . "</p>"; //style='background-color:#66ff33' for right answer
@@ -269,9 +269,9 @@ session_start();
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker){
                 echo '<button type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  align="right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
-            echo '<h6 align="right">' . $row["DATE_ANSWERED"] . '</h6>';
-            echo '</div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '<h5  class="text-right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
+            echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
+            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
         }
     }
