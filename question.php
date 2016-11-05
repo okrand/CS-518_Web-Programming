@@ -156,7 +156,7 @@ else document.getElementById("newAnswer").submit();
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
             else{
-                redirect("question.php");
+                redirect("/question.php");
             }
         }
     ?>
@@ -199,7 +199,7 @@ else document.getElementById("newAnswer").submit();
     echo '<div class="media"><div class="media-body">
     <h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 class="text-right">' . $qDate . '</h6>
-    </div><div class="media-right"> <img class="media-object" style="width:70px; alt="Profile picture" height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
+    </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
     echo "<h3>Answers</h3>";
     //check if there is a selected answer
@@ -291,7 +291,7 @@ else document.getElementById("newAnswer").submit();
     </form>
     <form id="newAnswer" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
-            <div class="text-center" style="display:none;" id="lengthalert" class="alert alert-warning"> </div>
+            <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
