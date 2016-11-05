@@ -20,9 +20,7 @@ session_start();
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
     <div class="topMenu">
-		<table class="regtable">
-				<tr>
-                    <td class="btn-group pull-left">
+                    <div class="btn-group pull-left">
                         <?php
                             if (isset($_SESSION["UserID"])){
                             $query = "SELECT KARMA_POINTS FROM USERS WHERE ID = ". $_SESSION["UserID"] . ";";
@@ -31,8 +29,8 @@ session_start();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
                         ?>
-                    </td>
-                    <td class="btn-group pull-right" >
+                    </div>
+                    <div class="btn-group pull-right" >
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
@@ -42,8 +40,7 @@ session_start();
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
-                    </td>
-		</table>
+                    </div>
 	</div>
 	<?php 
 	if ($_SESSION["loggedIn"] != true)
