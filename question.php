@@ -27,7 +27,7 @@ function CheckLength()
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
-    msg_area.getAttribute("hidden")=false;
+    msg_area.style.display = 'block';
     msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
 }
 else document.getElementById("newAnswer").submit();
@@ -287,11 +287,11 @@ else document.getElementById("newAnswer").submit();
         }
     }
     ?>
-        <form id="correct" action="correctans.php" method="POST">
-        </form>
+    <form id="correct" action="correctans.php" method="POST">
+    </form>
     <form id="newAnswer" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
-            <div class="text-center" hidden="true" id="lengthalert" class="alert alert-warning"> </div>
+            <div class="text-center" style="display:none;" id="lengthalert" class="alert alert-warning"> </div>
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
@@ -301,7 +301,7 @@ else document.getElementById("newAnswer").submit();
     <?php 
 	if ($_SESSION["loggedIn"] != true)
 	{
-        echo '<script  type="text/javascript"> document.getElementById("newAns").style.display="none"; </script>';
+        echo '<script  type="text/javascript"> document.getElementById("newAnswer").style.display="none"; </script>';
 		echo "<h3 class='text-center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}

@@ -73,13 +73,13 @@ session_start();
     if (isset($_SESSION["Upload"])){
     if ($referer == "/profile.php"){
         if ($_SESSION["Upload"]==0)
-            echo "<div align='center' class='alert alert-warning'><strong>Picture Uploaded Successfully!</strong></div>";
+            echo "<div class='alert alert-warning text-center'><strong>Picture Uploaded Successfully!</strong></div>";
         else if ($_SESSION["Upload"]==1)
-            echo "<div align='center' class='alert alert-warning'><strong>There was a problem uploading your picture!</strong></div>";
+            echo "<div class='alert alert-warning text-center'><strong>There was a problem uploading your picture!</strong></div>";
         else if ($_SESSION["Upload"]==2)
-            echo "<div align='center' class='alert alert-warning'><strong>Whoa! That file's too big man (700KB Max)</strong></div>";
+            echo "<div class='alert alert-warning text-center'><strong>Whoa! That file's too big man (700KB Max)</strong></div>";
         else if ($_SESSION["Upload"]==3)
-            echo "<div align='center' class='alert alert-warning'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
+            echo "<div class='alert alert-warning text-center'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
     unset($_SESSION["Upload"]);
     }}
     ?>
