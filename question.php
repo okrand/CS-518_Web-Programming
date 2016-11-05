@@ -294,7 +294,7 @@ session_start();
 	if ($_SESSION["loggedIn"] != true)
 	{
         echo '<script  type="text/javascript"> document.getElementById("newAns").style.display="none"; </script>';
-		echo "<h3 class='aligncenter'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
+		echo "<h3 class='text-center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
     ?>

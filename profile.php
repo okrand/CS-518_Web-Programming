@@ -143,7 +143,7 @@ session_start();
     <!--My Questions -->
     <div class="container" >
         <header>
-        <h3 class="aligncenter"> My Questions </h3>
+        <h3 class="text-center"> My Questions </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table" id="myTable">

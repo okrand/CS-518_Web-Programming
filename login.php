@@ -19,7 +19,7 @@ session_start();
         </a>
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
-    <h3 class="aligncenter">Long time no see!</h3>
+    <h3 class="text-center">Long time no see!</h3>
 <?php 
     if ($_SESSION["loggedIn"] == true){
         unset($_SESSION["loggedIn"]);

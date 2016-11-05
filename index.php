@@ -46,7 +46,7 @@ session_start();
 	<?php 
 	if ($_SESSION["loggedIn"] != true)
 	{
-		echo "<h3 class='aligncenter'>We realized that you are riding these streets with no license plate. Please "; 
+		echo "<h3 class='text-center'>We realized that you are riding these streets with no license plate. Please "; 
 		echo '<a href="./login.php">login here</a>' . " or " . '<a href="./register.php">register here</a></h3>';
 	}
 	?>
@@ -55,7 +55,7 @@ session_start();
         <table class="table">
         <tr><td>
         <header>
-            <h3 class="aligncenter"> Here are some questions waiting for answers! </h3>
+            <h3 class="text-center"> Here are some questions waiting for answers! </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
@@ -77,7 +77,7 @@ session_start();
     <!-- Best Questions -->
         <td>
         <header>
-            <h3 class="aligncenter"> Here are the highest ranked questions! </h3>
+            <h3 class="text-center"> Here are the highest ranked questions! </h3>
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
