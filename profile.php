@@ -94,7 +94,7 @@ session_start();
         </div>
         <div class="media-right">
             
-            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" style="width:160px; height:100px;">';   ?>
+            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" alt="profile_picture" style="width:160px; height:100px;">';   ?>
         </div>
         </div>
     </div>
@@ -152,7 +152,7 @@ session_start();
              $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $viewID ." ORDER BY ID DESC;";
              $sqlresults = sqlcommand($query, "SELECT");
                 while($row = $sqlresults->fetch_assoc()){
-                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>". $row["POINTS"] . "<td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a></td> <td class='col-sm-4 text-center'>". $row["POINTS"] . "</td><td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "</td></tr>\n";
                 }
              ?>
         </table>
