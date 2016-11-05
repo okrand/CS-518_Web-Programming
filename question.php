@@ -21,7 +21,17 @@ session_start();
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
-    
+<script>
+function CheckLength()
+{
+var msg_area = document.getElementById("lengthalert");
+msg_area.innerHTML = "";
+if (document.getElementById("Answer").value.length < 2) {
+msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
+}
+else document.getElementById("Answer").submit();
+}
+</script>
 <!--Voting script -->
     <script>
     function vote(upOrDown, QorA, threadID, OID, UID){
@@ -188,7 +198,7 @@ session_start();
     echo '<div class="media"><div class="media-body">
     <h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 class="text-right">' . $qDate . '</h6>
-    </div><div class="media-right"> <img class="media-object" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
+    </div><div class="media-right"> <img class="media-object" style="width:70px; alt="Profile picture" height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
     echo "<h3>Answers</h3>";
     //check if there is a selected answer
@@ -280,10 +290,13 @@ session_start();
         </form>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <div class="form-group">
+            <div align="center" hidden="true" id="lengthalert" class="alert alert-warning">
+                <strong>Warning!</strong>
+            </div>
             <label for="Answer">Your Answer:</label>
-            <textarea type="text" name="Answer" pattern=".{5,500}" required title="Your answer needs to be between 5-500 characters" rows="5" id="Answer" class="form-control"></textarea>
+            <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
-    <button type="submit" class="btn btn-primary center-block">Submit Answer!</button><br><br><br>
+    <button type="button" class="btn btn-primary center-block" onclick="CheckLength()">Submit Answer!</button><br><br><br>
 	</form>
     </div>
     <?php 
