@@ -22,7 +22,7 @@ session_start();
     <div class="topMenu">
 		<table class="regtable">
 				<tr>
-                    <span class="btn-group pull-left">
+                    <td class="btn-group pull-left">
                         <?php
                             if (isset($_SESSION["UserID"])){
                             $query = "SELECT KARMA_POINTS FROM USERS WHERE ID = ". $_SESSION["UserID"] . ";";
@@ -31,8 +31,8 @@ session_start();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
                         ?>
-                    </span>
-                    <span class="btn-group pull-right" >
+                    </td>
+                    <td class="btn-group pull-right" >
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
@@ -42,7 +42,7 @@ session_start();
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
-                    </span>
+                    </td>
 		</table>
 	</div>
 	<?php 
