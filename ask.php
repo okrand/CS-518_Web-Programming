@@ -20,7 +20,7 @@ session_start();
         HighSide<br>Motorcycle Experience Sharing Platform </h1>
 	</header>
     <div class="topMenu">
-		<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+		<table class="regtable">
 				<tr>
                     <div class="btn-group pull-left">
                         <?php

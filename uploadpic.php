@@ -6,7 +6,7 @@ session_start();
 $target_dir = "profilePics/";
 $target_file1 = $target_dir . $_SESSION["UserID"] . "_" . $_SESSION["userName"] . ".";
 $uploadOk = 1;
-$imageFileType = pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
+$imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_file1 . $imageFileType;
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
