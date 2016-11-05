@@ -151,9 +151,11 @@ session_start();
              <?php
              $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $viewID ." ORDER BY ID DESC;";
              $sqlresults = sqlcommand($query, "SELECT");
+             if ($sqlresults != false){
                 while($row = $sqlresults->fetch_assoc()){
                     echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a></td> <td class='col-sm-4 text-center'>". $row["POINTS"] . "</td><td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "</td></tr>\n";
                 }
+             }
              ?>
         </table>
         <script>
