@@ -113,6 +113,20 @@ else document.getElementById("newAnswer").submit();
     </script>
 </head>
 <body>    
+    <?php
+     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            //submitting new answer
+            $answer = test_input($_POST["Answer"]);
+            $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
+            $sqlresult = sqlcommand($query, "INSERT");
+            if ($sqlresult == false)
+                echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
+            else{
+                $url = "/question.php?QN=" . $_SESSION["QNumber"];
+                redirect($url);
+            }
+    }
+    ?>
    <header class="jumbotron text-center" style="background-color:white;">
         <h1>
         <a href="index.php">
@@ -148,20 +162,6 @@ else document.getElementById("newAnswer").submit();
     <?php
     if(isset($_GET['QN'])) //if there is a get question, make that value the session for QNumber
         $_SESSION["QNumber"] = $_GET['QN'];
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            //submitting new answer
-            $answer = test_input($_POST["Answer"]);
-            $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
-            $sqlresult = sqlcommand($query, "INSERT");
-            if ($sqlresult == false)
-                echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
-            else{
-                echo "HAHAHAOHEUIEOUI";
-                $url = "/question.php?QN=" . $_SESSION["QNumber"];
-                redirect($url);
-            }
-    }
     ?>
     <div class="container">
     <?php
