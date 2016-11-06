@@ -156,7 +156,7 @@ else document.getElementById("newAnswer").submit();
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
             else{
-                redirect("Refresh:0");
+                redirect("question.php?QN=" . $_SESSION["QNumber"]);
             }
         }
     ?>
