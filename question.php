@@ -144,6 +144,7 @@ else document.getElementById("newAnswer").submit();
                     </div>
 	</div>
     <hr style="clear:both;">
+    
     <?php
     if(isset($_GET['QN'])) //if there is a get question, make that value the session for QNumber
         $_SESSION["QNumber"] = $_GET['QN'];
@@ -156,7 +157,8 @@ else document.getElementById("newAnswer").submit();
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
             else{
-                redirect("question.php?QN=" . $_SESSION["QNumber"]);
+                $url = "question.php?QN=" . $_SESSION["QNumber"];
+                redirect($url);
             }
         }
     ?>
@@ -306,7 +308,6 @@ else document.getElementById("newAnswer").submit();
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
     ?>
-	
     
 </body>
 </html>
