@@ -157,10 +157,11 @@ else document.getElementById("newAnswer").submit();
             if ($sqlresult == false)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!\n";
             else{
-                $url = "question.php?QN=" . $_SESSION["QNumber"];
+                //$url = "question.php?QN=" . $_SESSION["QNumber"];
+                $url = "index.php";
                 redirect($url);
             }
-        }
+    }
     ?>
     <div class="container">
     <?php
