@@ -154,6 +154,7 @@ else document.getElementById("newAnswer").submit();
             $sqlresult = sqlcommand($query, "INSERT");
             $url = '/question.php';
             redirect($url);
+            exit();
     }
     ?>
     <div class="container">
