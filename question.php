@@ -146,15 +146,6 @@ else document.getElementById("newAnswer").submit();
     <?php
     if(isset($_GET['QN'])) //if there is a get question, make that value the session for QNumber
         $_SESSION["QNumber"] = $_GET['QN'];
-    
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            //submitting new answer
-            $answer = test_input($_POST["Answer"]);
-            $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
-            $sqlresult = sqlcommand($query, "INSERT");
-            $url = '/question.php';
-            redirect($url);
-    }
     ?>
     <div class="container">
     <?php
@@ -285,7 +276,7 @@ else document.getElementById("newAnswer").submit();
     ?>
     <form id="correct" action="correctans.php" method="POST">
     </form>
-    <form id="newAnswer" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form id="newAnswer" action="insertanswer.php" method="POST">
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>
