@@ -152,6 +152,7 @@ else document.getElementById("newAnswer").submit();
     $query = "SELECT * FROM QUESTIONS WHERE ID =".$_SESSION["QNumber"].";";
     $sqlresult = sqlcommand($query, "SELECT");
     $sqlresult = $sqlresult->fetch_assoc();
+    $frozen = $sqlresult["FROZEN"];
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
     $qPoints = $sqlresult["POINTS"];
@@ -183,8 +184,18 @@ else document.getElementById("newAnswer").submit();
     echo '<div class="col-sm-11">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
-    echo '<div class="media"><div class="media-body">
-    <h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
+    echo '<div class="media"><div class="media-body">';
+    if ($_SESSION["UserID"] == 1){
+        if ($frozen == 0) 
+            echo '<form action="freeze.php" method="post">
+            <button id="freezeQuest" type="submit" name="freezeQuest" value="1" class="btn btn-info">FREEZE QUESTION</button>
+            </form>';
+        else
+            echo '<form action="freeze.php" method="post">
+            <button id="freezeQuest" type="submit" name="freezeQuest" value="0" class="btn btn-info">UNFREEZE QUESTION</button>
+            </form>';
+    }
+    echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 class="text-right">' . $qDate . '</h6>
     </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
     
@@ -196,7 +207,7 @@ else document.getElementById("newAnswer").submit();
             $getanswer = $getanswer->fetch_assoc();
             $aPoints = $getanswer["POINTS"];
             $correctanswererid = $getanswer["USER_ID"];
-            echo "<div class='well' style='background-color:#66ff33'>";
+            echo "<div class='well' style='background-color:#66ff33'>";y
             echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("A", $answerID)==1)
@@ -265,7 +276,7 @@ else document.getElementById("newAnswer").submit();
             echo '<div class="media"><div class="media-body">';
             //if question hasn't been answered or if userID isn't the person who asked the question, make the button invisible
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker){
-                echo '<button type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
+                echo '<button id="rightAnswer" type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
             echo '<h5  class="text-right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
             echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
@@ -292,6 +303,10 @@ else document.getElementById("newAnswer").submit();
 		echo "<h3 class='text-center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
+    else if ($frozen == 0){
+        echo '<script  type="text/javascript"> document.getElementById("newAnswer").style.display="none"; document.getElementById("rightAnswer").style.display="none";</script>';
+		echo "<h3 class='text-center'>This question has been frozen by the administrator"; 
+    }        
     ?>
     
 </body>
