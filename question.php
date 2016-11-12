@@ -303,9 +303,9 @@ else document.getElementById("newAnswer").submit();
 		echo "<h3 class='text-center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
-    else if ($frozen == 0){
+    else if ($frozen == 1){
         echo '<script  type="text/javascript"> document.getElementById("newAnswer").style.display="none"; document.getElementById("rightAnswer").style.display="none";</script>';
-		echo "<h3 class='text-center'>This question has been frozen by the administrator"; 
+		echo "<h3 class='text-center'>This question has been frozen by the administrator</h3>"; 
     }        
     ?>
     
