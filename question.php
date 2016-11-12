@@ -185,7 +185,7 @@ else document.getElementById("newAnswer").submit();
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
     echo '<div class="media"><div class="media-body">';
-    if ($_SESSION["UserID"] == 1){
+    if ($_SESSION["UserID"] == 1){ // if user is admin, show freeze options
         if ($frozen == 0) 
             echo '<form action="freeze.php" method="post">
             <button id="freezeQuest" type="submit" name="freezeQuest" value="1" class="btn btn-info">FREEZE QUESTION</button>
@@ -207,8 +207,8 @@ else document.getElementById("newAnswer").submit();
             $getanswer = $getanswer->fetch_assoc();
             $aPoints = $getanswer["POINTS"];
             $correctanswererid = $getanswer["USER_ID"];
-            echo "<div class='well' style='background-color:#66ff33'>";y
-            echo '<div class="col-sm-1" ><div class="col-sm-1 ">';
+            echo "<div class='well' style='background-color:#66ff33'>";
+            echo '<div class="col-sm-1"><div class="col-sm-1">';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("A", $answerID)==1)
                 echo '<img id="voteupA'.$answerID.'" src="upvoteActive.png" alt="active upvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(1, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
@@ -299,12 +299,12 @@ else document.getElementById("newAnswer").submit();
     <?php 
 	if ($_SESSION["loggedIn"] != true)
 	{
-        echo '<script  type="text/javascript"> document.getElementById("newAnswer").style.display="none"; </script>';
+        echo '<script type="text/javascript"> document.getElementById("newAnswer").style.display="none"; </script>';
 		echo "<h3 class='text-center'>Unfortunately, you have to be logged in to answer questions. I know, bummer! Please "; 
 		echo '<a href="./login.php">login here!</a></h3>';
 	}
     else if ($frozen == 1){
-        echo '<script  type="text/javascript"> document.getElementById("newAnswer").style.display="none"; document.getElementById("rightAnswer").style.display="none";</script>';
+        echo '<script type="text/javascript"> document.getElementById("newAnswer").style.display="none"; document.getElementById("rightAnswer").style.display="none";</script>';
 		echo "<h3 class='text-center'>This question has been frozen by the administrator</h3>"; 
     }        
     ?>
