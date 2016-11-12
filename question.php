@@ -136,8 +136,9 @@ else document.getElementById("newAnswer").submit();
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
                         echo '<a href="register.php" class="btn btn-info" role="button"> Register</a>';
                     }
-                    else
+                    else{
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
+                    }
                     ?>
                     </div>
 	</div>
@@ -152,13 +153,16 @@ else document.getElementById("newAnswer").submit();
     $query = "SELECT * FROM QUESTIONS WHERE ID =".$_SESSION["QNumber"].";";
     $sqlresult = sqlcommand($query, "SELECT");
     $sqlresult = $sqlresult->fetch_assoc();
-    $frozen = $sqlresult["FROZEN"];
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
+    $qTag1 = $sqlresult["TAG1"];
+    $qTag2 = $sqlresult["TAG2"];
+    $qTag3 = $sqlresult["TAG3"];
     $qPoints = $sqlresult["POINTS"];
     $qDate = $sqlresult["DATE_ASKED"];
     $qAskerid = $sqlresult["ASKER_ID"];
     $answerID = $sqlresult["ANSWER_ID"];
+    $frozen = $sqlresult["FROZEN"];
     $query = "SELECT * FROM USERS WHERE ID =" . $qAskerid . ";";
     $sqlresult = sqlcommand($query, "SELECT");
     $sqlresult = $sqlresult->fetch_assoc();
@@ -185,24 +189,29 @@ else document.getElementById("newAnswer").submit();
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
     echo '<div class="media"><div class="media-body">';
-    if ($_SESSION["UserID"] == 1){ // if user is admin, show freeze options
-        if ($frozen == 0) 
-            echo '<form action="freeze.php" method="post">
-            <button id="freezeQuest" type="submit" name="freezeQuest" value="1" class="btn btn-info">FREEZE QUESTION</button>
-            </form>';
-        else
-            echo '<form action="freeze.php" method="post">
-            <button id="freezeQuest" type="submit" name="freezeQuest" value="0" class="btn btn-info">UNFREEZE QUESTION</button>
-            </form>';
-    }
     echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 class="text-right">' . $qDate . '</h6>
     </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
+    if ($_SESSION["UserID"] == 1){ // if user is admin, show freeze options
+        echo '<div class="btn-group pull-right">';
+        //freeze question
+        if ($frozen == 0){  
+            echo '<button id="freezeQuest" form="freeze" type="submit" name="freezeQuest" value="1" class="btn btn-info">FREEZE</button>';
+        }
+        else{
+            echo '<button id="freezeQuest" form="freeze" type="submit" name="freezeQuest" value="0" class="btn btn-info">UNFREEZE</button>';
+        }
+        //edit question
+        echo '<button id="editQuest" form="edit" data-toggle="modal" data-target="#editQ" type="button" name="editQuest" class="btn btn-info">EDIT</button>';
+        //delete question
+        echo '<button id="deleteQuest" type="button" data-toggle="modal" data-target="#deleteQ" name="deleteQuest" class="btn btn-info">DELETE</button>';
+        echo '</div>';
+    }
     
     echo "<h3>Answers</h3>";
     //check if there is a selected answer
         if ($answerID != '0'){ 
-            $queryanswer = "SELECT * FROM ANSWERS WHERE ID = ". $answerID . ";";
+            $queryanswer = "SELECT * FROM ANSWERS WHERE ID =". $answerID . ";";
             $getanswer = sqlcommand($queryanswer, "SELECT");
             $getanswer = $getanswer->fetch_assoc();
             $aPoints = $getanswer["POINTS"];
@@ -225,7 +234,7 @@ else document.getElementById("newAnswer").submit();
             echo '</div></div>';
             echo "<p>" . $getanswer["ANSWER"] . "</p>";
             $correctdate = $getanswer["DATE_ANSWERED"];
-            $queryanswer = "SELECT USERNAME FROM USERS WHERE ID=" . $correctanswererid.";";
+            $queryanswer = "SELECT USERNAME FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
             $result3 = $result3->fetch_assoc();
             $correctanswerer = $result3["USERNAME"];
@@ -275,7 +284,7 @@ else document.getElementById("newAnswer").submit();
             $picname = picext($picname);
             echo '<div class="media"><div class="media-body">';
             //if question hasn't been answered or if userID isn't the person who asked the question, make the button invisible
-            if ($answerID == '0' and $_SESSION["userName"] == $qAsker){
+            if ($answerID == '0' and $_SESSION["userName"] == $qAsker and $frozen == 0){
                 echo '<button id="rightAnswer" type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
             echo '<h5  class="text-right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
@@ -285,8 +294,59 @@ else document.getElementById("newAnswer").submit();
         }
     }
     ?>
-    <form id="correct" action="correctans.php" method="POST">
-    </form>
+    <!-- Edit Question Modal -->
+    <div id="editQ" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Question</h4>
+                </div>
+            <div class="modal-body">
+            <form id="edit" action="editQuest.php" method="POST">
+                <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" name="newTitle" pattern=".{5,60}" required title="Your title needs to be between 5-60 characters" class="form-control" <?php echo 'value= "' . $qTitle . '"';?>>
+        </div>
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <textarea type="text" name="newQuestion" pattern=".{5,500}" required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" id="question"><?php echo $qPhrase;?></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tag1">Tag 1:</label>
+            <input type="text" name="newTag1" pattern=".{3,20}" required title="You must have at least 1 tag between 3-20 characters" class="form-control" <?php echo 'value= "' . $qTag1 . '"';?>>
+        </div>
+        <div class="form-group">
+            <label for="tag2">Tag 2:</label>
+            <input type="text" name="newTag2" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag2 . '"';?>>
+        </div>
+        <div class="form-group">
+            <label for="tag3">Tag 3:</label>
+            <input type="text" name="newTag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag3 . '"';?>>
+        </div>
+        </form>
+        </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" form="edit" type="submit" name="submit">Accept Changes!</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Question Modal -->
+    <div id="deleteQ" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to delete this question?</h4>
+                </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" form="delete" type="submit" name="submit">Yes, delete!</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <form id="freeze" action="freeze.php" method="POST"></form>
+    <form id="delete" action="deleteQuest.php" method="POST"></form>
+    <form id="correct" action="correctans.php" method="POST"></form>
     <form id="newAnswer" action="insertanswer.php" method="POST">
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
@@ -296,6 +356,7 @@ else document.getElementById("newAnswer").submit();
     <button type="button" class="btn btn-primary center-block" onclick="CheckLength()">Submit Answer!</button><br><br><br>
 	</form>
     </div>
+    
     <?php 
 	if ($_SESSION["loggedIn"] != true)
 	{

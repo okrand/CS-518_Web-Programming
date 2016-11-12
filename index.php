@@ -31,14 +31,21 @@ session_start();
                         ?>
                     </span>
                     <span class="btn-group pull-right" >
+                        <?php
+                        if ($_SESSION["loggedIn"] == true){
+                        echo '<button type="button" class="btn btn-info">
+                            <span class="glyphicon glyphicon-search"></span> Search </button>';
+                        }
+                        ?>
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log in</a>';
                         echo '<a href="register.php" class="btn btn-info" role="button"> Register</a>';
                     }
-                    else
+                    else{
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
+                    }   
                     ?>
                     </span>
 	</div>
@@ -59,7 +66,7 @@ session_start();
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr>
              <?php
              $query = "SELECT * FROM QUESTIONS WHERE ANSWER_ID = 0 ORDER BY ID DESC LIMIT 5;";
              $sqlresults = sqlcommand($query, "SELECT");
@@ -67,7 +74,7 @@ session_start();
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
                     $uname = sqlcommand($que, "SELECT");
                     $uname = $uname->fetch_assoc();
-                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . "<td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td> <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-2 text-center'>" . $uname["USERNAME"] . "<td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td> <td class='col-sm-6 text-center'>" . $row["DATE_ASKED"] . "\n";
                 }
              ?>
         </table>
@@ -81,7 +88,7 @@ session_start();
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr>
              <?php
              $query = "SELECT * FROM QUESTIONS ORDER BY POINTS DESC LIMIT 5;";
              $sqlresults = sqlcommand($query, "SELECT");
@@ -89,7 +96,7 @@ session_start();
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
                     $uname = sqlcommand($que, "SELECT");
                     $uname = $uname->fetch_assoc();
-                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-4 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td>  <td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "\n";
+                    echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-2 text-center'>" . $uname["USERNAME"] . " <td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td>  <td class='col-sm-6 text-center'>" . $row["DATE_ASKED"] . "\n";
                 }
              ?>
         </table>
