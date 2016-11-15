@@ -31,11 +31,11 @@ session_start();
                         ?>
                     </span>
                     <span class="btn-group pull-right" >
-                        <?php/*
+                       <!-- <?php
                         if ($_SESSION["loggedIn"] == true){ 
                         echo '<input type="text" id="search" name="search" placeholder="Search..">';
-                        } */  
-                        ?>
+                        } 
+                        ?>-->
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
