@@ -6,6 +6,6 @@ session_start();
 <?php
             $query = "DELETE FROM QUESTIONS WHERE ID = " . $_SESSION["QNumber"] . ";";
             $sqlresult = sqlcommand($query, "DELETE");
-            $url = '/question.php';
+            $url = '/index.php';
             redirect($url);
 ?>
