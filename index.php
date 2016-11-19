@@ -75,6 +75,7 @@ session_start();
                     $uname = $uname->fetch_assoc();
                     echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a> <td class='col-sm-2 text-center'>" . $uname["USERNAME"] . "<td class='col-sm-2 text-center'>" . $row["POINTS"] . "</td> <td class='col-sm-6 text-center'>" . $row["DATE_ASKED"] . "\n";
                 }
+            
              ?>
         </table>
     </div>

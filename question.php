@@ -249,12 +249,28 @@ else document.getElementById("newAnswer").submit();
         }
     
     //List answers
-    $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"]." ORDER BY POINTS DESC;";
-    $result = sqlcommand($query, "SELECT");
-    if ($result == false){
-        echo "No answers yet. Check back again soon!\n";
+    //get total number of answers
+    $query1 = "SELECT COUNT(*) AS ANSCOUNT FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"].";";
+    $countresult = sqlcommand($query1, "SELECT");
+    if ($countresult != "false"){
+        $countrow = $countresult->fetch_assoc();
+        $anscount = $countrow['ANSCOUNT'];
+        $numpages = $anscount / 5;
+        $numpages = ceil($numpages);
     }
-    else{
+    
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+        if ($page > $numpages)
+            redirect("question.php");
+    }
+    else
+        $page = 1;
+    $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"]." ORDER BY POINTS DESC, DATE_ANSWERED ASC LIMIT " . 5*($page-1) .", " . 5 . ";";
+    $result = sqlcommand($query, "SELECT");
+    if ($result == false)
+        echo "No answers yet. Check back again soon!\n";
+    else{//display answers
         while($row = $result->fetch_assoc()) {
             $answerlistid = $row["ID"];
             $aPoints = $row["POINTS"];
@@ -292,7 +308,31 @@ else document.getElementById("newAnswer").submit();
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
         }
-    }
+     //insert pagination
+        if (isset($numpages)){
+            echo '<div class="text-center">
+            <ul id="pagin" class="center pagination">';
+            echo '<li id="firstpagin"><a href="question.php?page=1">First</a></li>';
+            if ($page == 1)
+                echo '<script>document.getElementById("pagin").children[0].style.display="none";</script>';
+            if ($page > 3){
+                echo '<li class="disabled"><a href="">...</a></li>';
+            }
+            for($i = max(1, $page - 2); $i <= min($page + 2, $numpages); $i++){
+                if ($i != $page)
+                    echo '<li><a href="question.php?page=' . $i .'">'. $i .'</a></li>';
+                else
+                    echo '<li class="page-item active"><a href="">'. $i .'</a></li>';
+            }
+            if ($i-1 < $numpages)
+                echo '<li class="disabled"><a href="">...</a></li>';
+            echo '<li><a href="question.php?page='.$numpages.'">Last</a></li>';
+            if ($page == $numpages){
+                echo '<script>document.getElementById("pagin").children[5].style.display="none";</script>';
+            }
+            echo '</ul></div>';
+        }
+    }   
     ?>
     <!-- Edit Question Modal -->
     <div id="editQ" class="modal fade" role="dialog">
