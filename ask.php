@@ -38,6 +38,17 @@ session_start();
                             }
                         ?>
                     </div>
+                    <span style="float:left;">
+                        <?php
+                        // Search by USERNAME
+                        if ($_SESSION["loggedIn"] == true){ 
+                        echo '<form class="">
+                        <input type="text" id="search" name="search" autocomplete="off" placeholder="Search.." onkeyup="showResult(this.value)">
+                        <div id="usersearch"></div>
+                        </form>';
+                        } 
+                        ?>
+                    </span>
                     <div class="btn-group pull-right" >
 						<a href="ask.php" class="btn btn-info disabled"> Ask a Question!</a>
                     <?php 

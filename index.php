@@ -29,10 +29,13 @@ session_start();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
                         ?>
+                    </span>
+                    <span style="float:left;">
                         <?php
+                        // Search by USERNAME
                         if ($_SESSION["loggedIn"] == true){ 
-                        echo '<form class="float">
-                        <input type="text" id="search" name="search" placeholder="Search.." onkeyup="showResult(this.value)">
+                        echo '<form class="">
+                        <input type="text" id="search" name="search" autocomplete="off" placeholder="Search.." onkeyup="showResult(this.value)">
                         <div id="usersearch"></div>
                         </form>';
                         } 
