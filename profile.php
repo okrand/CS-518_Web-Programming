@@ -52,6 +52,7 @@ session_start();
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
+                        <a href="help.php" class="btn btn-info"> Help</a>
                     </span>
 	</div>
     <hr style="clear:both;">
@@ -146,18 +147,60 @@ session_start();
         <h3 class="text-center"> My Questions </h3>
         </header>
         <div class="table-hover table-responsive">
-         <table class="table" id="myTable">
-             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>
-             <?php
-             $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $viewID ." ORDER BY ID DESC;";
+            <?php
+            echo'<table class="table" id="myTable">
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-4 text-center">Points</th><th class="col-sm-4 text-center">Time</th></tr>';
+             
+             //get total number of answers
+             $query1 = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ASKER_ID = " . $viewID . ";";
+             $countresult = sqlcommand($query1, "SELECT");
+             if ($countresult != "false"){
+                 $countrow = $countresult->fetch_assoc();
+                 $anscount = $countrow['QCOUNT'];
+                 $numpages = $anscount / 5;
+                 $numpages = ceil($numpages);
+             }
+             else
+                 echo "No questions yet. Ask one <a href='ask.php'>here</a>";
+    
+             if(isset($_GET['page'])){
+                 $page = $_GET['page'];
+             if ($page > $numpages)
+                 redirect("profile.php");
+             }
+             else
+                 $page = 1;
+            
+             $query = "SELECT * FROM QUESTIONS WHERE ASKER_ID = " . $viewID ." ORDER BY ID DESC LIMIT " . 5*($page-1) .", " . 5 . ";";
              $sqlresults = sqlcommand($query, "SELECT");
              if ($sqlresults != false){
                 while($row = $sqlresults->fetch_assoc()){
                     echo "<tr><td class='col-sm-4 text-center'> <a href = 'question.php?QN=".$row["ID"]."'>" . $row["QUESTION_TITLE"] . "</a></td> <td class='col-sm-4 text-center'>". $row["POINTS"] . "</td><td class='col-sm-4 text-center'>" . $row["DATE_ASKED"] . "</td></tr>\n";
                 }
              }
-             ?>
-        </table>
+            echo '</table>';
+            //insert pagination
+        if (isset($numpages)){
+            echo '<div class="text-center">
+            <ul id="pagin" class="center pagination">';
+            if ($page != 1)
+            echo '<li id="firstpagin"><a href="profile.php?page=1">First</a></li>';
+            if ($page > 3){
+                echo '<li class="disabled"><a href="">...</a></li>';
+            }
+            for($i = max(1, $page - 2); $i <= min($page + 2, $numpages); $i++){
+                if ($i != $page)
+                    echo '<li><a href="profile.php?page=' . $i .'">'. $i .'</a></li>';
+                else
+                    echo '<li class="page-item active"><a href="">'. $i .'</a></li>';
+            }
+            if ($i-1 < $numpages)
+                echo '<li class="disabled"><a href="">...</a></li>';
+            if ($page != $numpages)
+                echo '<li><a href="profile.php?page='.$numpages.'">Last</a></li>';
+            echo '</ul></div>';
+        }
+            ?>
         <script>
             $(document).ready(function(){
                 $('#myTable').dataTable();

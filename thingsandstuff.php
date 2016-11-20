@@ -8,23 +8,29 @@ function bringLibraries(){
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"> 
     
-    <script> 
-    function showHint(str) {
-    if (str.length == 0) { 
-        document.getElementById("txtHint").innerHTML = "";
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("txtHint").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "gethint.asp?q=" + str, true);
-        xmlhttp.send();
+    <script>
+function showResult(str) {
+  if (str.length==0) { 
+    document.getElementById("usersearch").innerHTML="";
+    document.getElementById("usersearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("usersearch").innerHTML=this.responseText;
+      document.getElementById("usersearch").style.border="1px solid #A5ACB2";
     }
-    }
-    </script>
+  }
+  xmlhttp.open("GET","usersearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
   ';
 }
 

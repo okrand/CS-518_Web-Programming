@@ -10,6 +10,14 @@ session_start();
 <meta name="description" content="New Question page for HighSide - The Motorcycle Q&A Website">
 <title>It's probably the carburetor</title>
 <?php bringLibraries(); ?>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        //forced_root_block : ""
+        selector: "textarea",
+        plugins: "codesample bbcode paste"
+    });
+</script>
 </head>
 <body>
     <header class="jumbotron text-center" style="background-color:white;">
@@ -40,6 +48,7 @@ session_start();
                     else
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     ?>
+                        <a href="help.php" class="btn btn-info"> Help</a>
                     </div>
 	</div>
     <hr style="clear:both;">
@@ -47,6 +56,10 @@ session_start();
        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = test_input($_POST["qTitle"]);
             $question = test_input($_POST["Question"]);
+           //prepare $question for bbcode
+            $question = str_replace("[", "&lt;", $question);
+            $question = str_replace("]", "&gt;", $question);
+        
             $tag1 = test_input($_POST["Tag1"]);
             $tag2 = test_input($_POST["Tag2"]);
             $tag3 = test_input($_POST["Tag3"]);
@@ -90,7 +103,7 @@ session_start();
             <label for="tag3">Tag 3:</label>
             <input type="text" name="Tag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control">
         </div>
-	<button type="submit" class="btn btn-primary center-block">Ask the experts! (They are not experts) </button>
+	<button type="submit" class="btn btn-primary center-block" onclick="tinyMCE.triggerSave();">Ask the experts! (They are not experts) </button>
 	</form>
     </span>
     </div>

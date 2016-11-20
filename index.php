@@ -29,13 +29,16 @@ session_start();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
                         ?>
+                        <?php
+                        if ($_SESSION["loggedIn"] == true){ 
+                        echo '<form class="float">
+                        <input type="text" id="search" name="search" placeholder="Search.." onkeyup="showResult(this.value)">
+                        <div id="usersearch"></div>
+                        </form>';
+                        } 
+                        ?>
                     </span>
                     <span class="btn-group pull-right" >
-                       <!-- <?php
-                        if ($_SESSION["loggedIn"] == true){ 
-                        echo '<input type="text" id="search" name="search" placeholder="Search..">';
-                        } 
-                        ?>-->
 						<a href="ask.php" class="btn btn-info"> Ask a Question!</a>
                     <?php 
                     if ($_SESSION["loggedIn"] != true){
@@ -46,6 +49,7 @@ session_start();
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     }   
                     ?>
+                        <a href="help.php" class="btn btn-info"> Help</a>
                     </span>
 	</div>
     <hr style="clear:both;">
@@ -67,7 +71,25 @@ session_start();
          <table class="table">
              <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr>
              <?php
-             $query = "SELECT * FROM QUESTIONS WHERE ANSWER_ID = 0 ORDER BY ID DESC LIMIT 5;";
+             //get total number of unanswered questions
+             $query1 = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ANSWER_ID = 0;";
+             $countresult = sqlcommand($query1, "SELECT");
+             if ($countresult != "false"){
+                 $countrow = $countresult->fetch_assoc();
+                 $anscount = $countrow['QCOUNT'];
+                 $numpages1 = $anscount / 5;
+                 $numpages1 = ceil($numpages1);
+             }
+    
+             if(isset($_GET['page1'])){
+                 $page1 = $_GET['page1'];
+                 if ($page1 > $numpages1)
+                     redirect("index.php");
+             }
+             else
+                 $page1 = 1;
+             
+             $query = "SELECT * FROM QUESTIONS WHERE ANSWER_ID = 0 ORDER BY ID DESC LIMIT " . 5*($page1-1) .", " . 5 . ";";
              $sqlresults = sqlcommand($query, "SELECT");
                 while($row = $sqlresults->fetch_assoc()){
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
@@ -78,6 +100,41 @@ session_start();
             
              ?>
         </table>
+            <?php
+            //insert pagination
+        if (isset($numpages1)){
+            echo '<div class="text-center">
+            <ul id="pagin1" class="center pagination">';
+            if ($page1 != 1){
+                if (isset($_GET['page2']))
+                    echo '<li id="firstpagin1"><a href="index.php?page2=' . $_GET['page2'] . '&page1=1">First</a></li>';
+                else
+                    echo '<li id="firstpagin1"><a href="index.php?page1=1">First</a></li>';
+            }
+            if ($page1 > 3){
+                echo '<li class="disabled"><a href="">...</a></li>';
+            }
+            for($i = max(1, $page1 - 2); $i <= min($page1 + 2, $numpages1); $i++){
+                if ($i != $page1){
+                    if (isset($_GET['page2']))
+                        echo '<li><a href="index.php?page2=' . $_GET['page2'] . '&page1=' . $i .'">'. $i .'</a></li>';
+                    else
+                        echo '<li><a href="index.php?page1=' . $i .'">'. $i .'</a></li>';
+                }
+                else
+                    echo '<li class="page-item active"><a href="">'. $i .'</a></li>';
+            }
+            if ($i-1 < $numpages1)
+                echo '<li class="disabled"><a href="">...</a></li>';
+            if ($page1 != $numpages1){
+                if (isset($_GET['page2']))
+                     echo '<li><a href="index.php?page2=' . $_GET['page2'] . '&page1='.$numpages1.'">Last</a></li>';
+                else
+                    echo '<li><a href="index.php?page1='.$numpages1.'">Last</a></li>';
+            }
+            echo '</ul></div>';
+        }
+        ?>
     </div>
     </td>
     
@@ -90,7 +147,24 @@ session_start();
          <table class="table">
              <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr>
              <?php
-             $query = "SELECT * FROM QUESTIONS ORDER BY POINTS DESC LIMIT 5;";
+              //get total number of unanswered questions
+             $query1 = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ANSWER_ID = 0;";
+             $countresult = sqlcommand($query1, "SELECT");
+             if ($countresult != "false"){
+                 $countrow = $countresult->fetch_assoc();
+                 $anscount = $countrow['QCOUNT'];
+                 $numpages2 = $anscount / 5;
+                 $numpages2 = ceil($numpages2);
+             }
+            
+             if(isset($_GET['page2'])){
+                $page2 = $_GET['page2'];
+                if ($page2 > $numpages2)
+                    redirect("index.php");
+             }
+             else
+                 $page2 = 1;
+             $query = "SELECT * FROM QUESTIONS ORDER BY POINTS DESC LIMIT " . 5*($page2-1) .", " . 5 . ";";
              $sqlresults = sqlcommand($query, "SELECT");
                 while($row = $sqlresults->fetch_assoc()) {
                     $que = "SELECT USERNAME FROM USERS WHERE ID = " . $row["ASKER_ID"] . ";";
@@ -100,6 +174,41 @@ session_start();
                 }
              ?>
         </table>
+            <?php
+            //insert pagination
+        if (isset($numpages2)){
+            echo '<div class="text-center">
+            <ul id="pagin2" class="center pagination">';
+            if ($page2 != 1){
+                if (isset($_GET['page1']))
+                    echo '<li id="firstpagin2"><a href="index.php?page1=' . $_GET['page1'] . '&page2=1">First</a></li>';
+                else
+                    echo '<li id="firstpagin2"><a href="index.php?page2=1">First</a></li>';
+            }
+            if ($page2 > 3){
+                echo '<li class="disabled"><a href="">...</a></li>';
+            }
+            for($i = max(1, $page2 - 2); $i <= min($page2 + 2, $numpages2); $i++){
+                if ($i != $page2){
+                    if (isset($_GET['page1']))
+                        echo '<li><a href="index.php?page1=' . $_GET['page1'] . '&page2=' . $i .'">'. $i .'</a></li>';
+                    else
+                        echo '<li><a href="index.php?page2=' . $i .'">'. $i .'</a></li>';
+                }
+                else
+                    echo '<li class="page-item active"><a href="">'. $i .'</a></li>';
+            }
+            if ($i-1 < $numpages2)
+                echo '<li class="disabled"><a href="">...</a></li>';
+            if ($page2 != $numpages2){
+                if (isset($_GET['page1']))
+                    echo '<li><a href="index.php?page1=' . $_GET['page1'] . '&page2='.$numpages2.'">Last</a></li>';
+                else
+                    echo '<li><a href="index.php?page2='.$numpages2.'">Last</a></li>';
+            }
+            echo '</ul></div>';
+        }
+        ?>
     </div>
     </td>
     </tr>

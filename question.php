@@ -19,16 +19,26 @@ function getvotes($type, $threadID){
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        //forced_root_block : ""
+        selector: "textarea",
+        plugins: "codesample paste"
+    });
+</script>
 <script>
 function CheckLength()
 {
+tinyMCE.triggerSave();
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
     msg_area.style.display = 'block';
     msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
 }
-else document.getElementById("newAnswer").submit();
+else 
+    document.getElementById("newAnswer").submit();
 }
 </script>
 <!--Voting script -->
@@ -140,6 +150,7 @@ else document.getElementById("newAnswer").submit();
                         echo '<a href="login.php" class="btn btn-info" role="button"> Log out</a>';
                     }
                     ?>
+                        <a href="help.php" class="btn btn-info"> Help</a>
                     </div>
 	</div>
     <hr style="clear:both;">
@@ -155,6 +166,8 @@ else document.getElementById("newAnswer").submit();
     $sqlresult = $sqlresult->fetch_assoc();
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
+    $qPhrase = str_replace("&lt;", "<", $qPhrase);
+    $qPhrase = str_replace("&gt;", ">", $qPhrase);
     $qTag1 = $sqlresult["TAG1"];
     $qTag2 = $sqlresult["TAG2"];
     $qTag3 = $sqlresult["TAG3"];
@@ -232,7 +245,9 @@ else document.getElementById("newAnswer").submit();
                 echo '<img id="votedownA'.$answerID.'" src="downvote.png" alt="downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
-            echo "<p>" . $getanswer["ANSWER"] . "</p>";
+            $correctANS = str_replace("&lt;", "<", $getanswer["ANSWER"]);
+            $correctANS = str_replace("&gt;", ">", $correctANS);
+            echo "<p>" . $correctANS . "</p>";
             $correctdate = $getanswer["DATE_ANSWERED"];
             $queryanswer = "SELECT USERNAME FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
@@ -266,6 +281,8 @@ else document.getElementById("newAnswer").submit();
     }
     else
         $page = 1;
+        
+    //Get answers
     $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"]." ORDER BY POINTS DESC, DATE_ANSWERED ASC LIMIT " . 5*($page-1) .", " . 5 . ";";
     $result = sqlcommand($query, "SELECT");
     if ($result == false)
@@ -291,7 +308,9 @@ else document.getElementById("newAnswer").submit();
                 echo '<img id="votedownA'.$answerlistid.'" alt="downvote" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
-            echo "<p>" . $row["ANSWER"] . "</p>"; //style='background-color:#66ff33' for right answer
+            $theanswer = str_replace("&lt;", "<", $row["ANSWER"]);
+            $theanswer = str_replace("&gt;", ">", $theanswer);
+            echo "<p>" . $theanswer . "</p>"; //style='background-color:#66ff33' for right answer
             $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
@@ -312,9 +331,8 @@ else document.getElementById("newAnswer").submit();
         if (isset($numpages)){
             echo '<div class="text-center">
             <ul id="pagin" class="center pagination">';
+            if ($page != 1)
             echo '<li id="firstpagin"><a href="question.php?page=1">First</a></li>';
-            if ($page == 1)
-                echo '<script>document.getElementById("pagin").children[0].style.display="none";</script>';
             if ($page > 3){
                 echo '<li class="disabled"><a href="">...</a></li>';
             }
@@ -326,10 +344,8 @@ else document.getElementById("newAnswer").submit();
             }
             if ($i-1 < $numpages)
                 echo '<li class="disabled"><a href="">...</a></li>';
+            if ($page != $numpages)
             echo '<li><a href="question.php?page='.$numpages.'">Last</a></li>';
-            if ($page == $numpages){
-                echo '<script>document.getElementById("pagin").children[5].style.display="none";</script>';
-            }
             echo '</ul></div>';
         }
     }   
@@ -387,13 +403,15 @@ else document.getElementById("newAnswer").submit();
     <form id="freeze" action="freeze.php" method="POST"></form>
     <form id="delete" action="deleteQuest.php" method="POST"></form>
     <form id="correct" action="correctans.php" method="POST"></form>
+        
+    <!-- New Answer form -->
     <form id="newAnswer" action="insertanswer.php" method="POST">
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
-    <button type="button" class="btn btn-primary center-block" onclick="CheckLength()">Submit Answer!</button><br><br><br>
+    <button type="button" class="btn btn-primary center-block" onclick="CheckLength();">Submit Answer!</button><br><br><br>
 	</form>
     </div>
     
