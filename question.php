@@ -333,7 +333,7 @@ else
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker and $frozen == 0){
                 echo '<button id="rightAnswer" type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  class="text-right"><a href="profile.php?name=' . $answerer . '"> ' . $answerer . '</a></h5>';
+            echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a></h5>';
             echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
             echo '</div></div></div>';
