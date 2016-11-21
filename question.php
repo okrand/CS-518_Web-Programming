@@ -259,6 +259,9 @@ else
             $correctANS = str_replace("&lt;", "<", $getanswer["ANSWER"]);
             $correctANS = str_replace("&gt;", ">", $correctANS);
             echo "<p>" . $correctANS . "</p>";
+            //display question picture;
+            if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerid ))
+                echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerid . '">';
             $correctdate = $getanswer["DATE_ANSWERED"];
             $queryanswer = "SELECT USERNAME FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
@@ -322,6 +325,10 @@ else
             $theanswer = str_replace("&lt;", "<", $row["ANSWER"]);
             $theanswer = str_replace("&gt;", ">", $theanswer);
             echo "<p>" . $theanswer . "</p>"; //style='background-color:#66ff33' for right answer
+            //display question picture;
+            if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid ))
+                echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerlistid . '">';
+            
             $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
@@ -422,6 +429,7 @@ else
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
         </div>
+        <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> 
     <button type="button" class="btn btn-primary center-block" onclick="CheckLength();">Submit Answer!</button><br><br><br>
 	</form>
     </div>

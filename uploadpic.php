@@ -20,7 +20,7 @@ if(isset($_POST["submit"])) {
     }
 }
 
-if ($_FILES["fileToUpload"]["size"] > 1000000) {
+if ($_FILES["fileToUpload"]["size"] > 700000) {
     //echo "Sorry, your file is too large.";
     $_SESSION["Upload"]=2;
     redirect("/profile.php");
