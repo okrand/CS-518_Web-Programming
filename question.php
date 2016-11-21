@@ -191,7 +191,7 @@ else
     $sqlresult = sqlcommand($query, "SELECT");
     $sqlresult = $sqlresult->fetch_assoc();
     $qAsker = $sqlresult["USERNAME"];
-        $picname = $qAskerid . '_' . $qAsker . '.';
+        $picname = "profilePics/" . $qAskerid . '_' . $qAsker . '.';
         $picname = picext($picname);
     
     echo '<div class="col-sm-1" ><div class="col-sm-1 "><br>';
@@ -212,10 +212,16 @@ else
     echo '<div class="col-sm-11">';
     echo '<h1>' . $qTitle . '</h1>';
     echo '<h3>' . $qPhrase . '</h3>';
+    //display question picture;
+    $questpic = "questPics/" . $_SESSION["QNumber"] . ".";
+    $questpic = picext($questpic);
+    if ($questpic != "profilePics/stock.png")
+        echo '<img class="anspicture" alt="Picture" src="' . $questpic . '">';
+        
     echo '<div class="media"><div class="media-body">';
     echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a></h5>
     <h6 class="text-right">' . $qDate . '</h6>
-    </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '"></div></div></div>';
+    </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="' . $picname . '"></div></div></div>';
     if ($_SESSION["UserID"] == 1){ // if user is admin, show freeze options
         echo '<div class="btn-group pull-right">';
         //freeze question
@@ -267,13 +273,13 @@ else
             $result3 = sqlcommand($queryanswer, "SELECT");
             $result3 = $result3->fetch_assoc();
             $correctanswerer = $result3["USERNAME"];
-            $picname = $correctanswererid . '_' . $correctanswerer . '.';
+            $picname = "profilePics/" . $correctanswererid . '_' . $correctanswerer . '.';
             $picname = picext($picname);
             
             echo '<div class="media"><div class="media-body">';
             echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a></h5>';
             echo '<h6 class="text-right">' . $correctdate . '</h6>';
-            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
         }
     
@@ -325,15 +331,17 @@ else
             $theanswer = str_replace("&lt;", "<", $row["ANSWER"]);
             $theanswer = str_replace("&gt;", ">", $theanswer);
             echo "<p>" . $theanswer . "</p>"; //style='background-color:#66ff33' for right answer
-            //display question picture;
-            if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid ))
-                echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerlistid . '">';
+            //display answer picture;
+            $anspic = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid . ".";
+            $anspic = picext($anspic);
+            if ($anspic != "profilePics/stock.png")
+                echo '<img class="anspicture" alt="Picture" src="' . $anspic . '">';
             
             $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
             $answerer = $result2["USERNAME"];
-            $picname = $answererid . '_' . $answerer . '.';
+            $picname = "profilePics/" . $answererid . '_' . $answerer . '.';
             $picname = picext($picname);
             echo '<div class="media"><div class="media-body">';
             //if question hasn't been answered or if userID isn't the person who asked the question, make the button invisible
@@ -342,7 +350,7 @@ else
             }
             echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a></h5>';
             echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
-            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="profilePics/' . $picname . '">';
+            echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
         }
      //insert pagination
@@ -423,7 +431,7 @@ else
     <form id="correct" action="correctans.php" method="POST"></form>
         
     <!-- New Answer form -->
-    <form id="newAnswer" action="insertanswer.php" method="POST">
+    <form id="newAnswer" action="insertanswer.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>

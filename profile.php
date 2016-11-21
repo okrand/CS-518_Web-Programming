@@ -65,7 +65,7 @@ session_start();
     $viewPoints = $viewresult["KARMA_POINTS"];
     $viewLActive = $viewresult["LAST_ACTIVE"];
     $viewEmail = $viewresult["E-MAIL"];
-    $picname = $viewID . '_' . $viewName . '.';
+    $picname = "profilePics/" . $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
     ?>
     <!-- Display picture upload error -->
@@ -95,7 +95,7 @@ session_start();
         </div>
         <div class="media-right">
             
-            <?php echo '<img src=profilePics/' . $picname . ' class="media-object" alt="profile_picture" style="width:160px; height:100px;">';   ?>
+            <?php echo '<img src=' . $picname . ' class="media-object" alt="profile_picture" style="width:160px; height:100px;">';   ?>
         </div>
         </div>
     </div>

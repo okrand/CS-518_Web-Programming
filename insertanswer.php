@@ -19,25 +19,20 @@ $answerinfo = $answerinfo->fetch_assoc();
 $answerid = $answerinfo["ID"];
 $questid = $answerinfo["QUEST_ID"];
 
-
 $target_dir = "answerPics/";
 $target_file1 = $target_dir . $questid . "_" . $answerid . ".";
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_file1 . $imageFileType;
 // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-        echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        echo "File is not an image.";
+        //echo "File is not an image.";
         $_SESSION["Upload"]=3;
         $uploadOk = 0;
     }
-}
 
 if ($_FILES["fileToUpload"]["size"] > 700000) {
-    echo "Sorry, your file is too large.";
+   // echo "Sorry, your file is too large.";
     $_SESSION["Upload"]=2;
     $uploadOk = 0;
 }
@@ -55,11 +50,11 @@ if ($uploadOk != 0) {
     
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $_SESSION["Upload"]=0;
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } 
+        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    }    
     else {
         $_SESSION["Upload"]=1;
-        echo "Sorry, there was an error uploading your file.";
+        //echo "Sorry, there was an error uploading your file.";
     }
 }
 

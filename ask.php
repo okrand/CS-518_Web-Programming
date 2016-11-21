@@ -86,6 +86,47 @@ session_start();
                 $lastQID = sqlcommand($query, "SELECT");
                 $lastQID = $lastQID->fetch_assoc();
                 $_SESSION["QNumber"] = $lastQID["ID"];
+                
+                //upload question picture
+                $target_dir = "questPics/";
+                $target_file1 = $target_dir . $_SESSION["QNumber"] . ".";
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
+                $target_file = $target_file1 . $imageFileType;
+                // Check if image file is a actual image or fake image
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+                    //echo "File is not an image.";
+                    $_SESSION["Upload"]=3;
+                    $uploadOk = 0;
+                }
+
+                if ($_FILES["fileToUpload"]["size"] > 700000) {
+                     //echo "Sorry, your file is too large.";
+                    $_SESSION["Upload"]=2;
+                    $uploadOk = 0;
+                }
+
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk != 0) {
+                    if (file_exists($target_file1 . 'jpg'))
+                        unlink($target_file1 . 'jpg');
+                    else if (file_exists($target_file1 . 'jpeg'))
+                        unlink($target_file1 . 'jpeg');
+                    else if (file_exists($target_file1 . 'png'))
+                        unlink($target_file1 . 'png');
+                    else if (file_exists($target_file1 . 'gif'))
+                        unlink($target_file1 . 'gif');
+    
+                    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                        $_SESSION["Upload"]=0;
+                        //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                    }    
+                    else {
+                        $_SESSION["Upload"]=1;
+                        //echo "Sorry, there was an error uploading your file.";
+                    }
+                }
+                
                 $url = "question.php?QN=" . $_SESSION["QNumber"];
                 redirect($url);
             }
@@ -93,7 +134,7 @@ session_start();
     ?>
     <div class="container">
     <span id="newQuest">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" name="qTitle" pattern=".{5,60}" required title="Your title needs to be between 5-60 characters" class="form-control">
@@ -114,6 +155,7 @@ session_start();
             <label for="tag3">Tag 3:</label>
             <input type="text" name="Tag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control">
         </div>
+        <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> 
 	<button type="submit" class="btn btn-primary center-block" onclick="tinyMCE.triggerSave();">Ask the experts! (They are not experts) </button>
 	</form>
     </span>

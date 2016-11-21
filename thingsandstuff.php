@@ -36,10 +36,10 @@ function showResult(str) {
 
 function sqlcommand($query, $qtype){
     $servername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "root";
-    //$dbusername = "admin";
-    //$dbpassword = "M0n@rch$";
+    //$dbusername = "root";
+    //$dbpassword = "root";
+    $dbusername = "admin";
+    $dbpassword = "M0n@rch$";
     $dbname = "HighSide";
     // Create connection
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -67,24 +67,26 @@ function sqlcommand($query, $qtype){
 }
 
 function redirect($url){
-    echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
-    /*        header('Location:' . $url);
+    //echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
+            header('Location:' . $url);
             exit();
             session_write_close();
-    */       
+          
 }
 
+
+
 function picext($picname){
-if (file_exists('profilePics/' . $picname . 'jpg'))
+if (file_exists($picname . 'jpg'))
     $picname=$picname . 'jpg';
-else if (file_exists('profilePics/' . $picname . 'gif'))
+else if (file_exists($picname . 'gif'))
     $picname=$picname . 'gif';
-else if (file_exists('profilePics/' . $picname . 'png'))
+else if (file_exists($picname . 'png'))
     $picname=$picname . 'png';
-else if (file_exists('profilePics/' . $picname . 'jpeg'))
+else if (file_exists($picname . 'jpeg'))
     $picname=$picname . 'jpeg';
 else
-    $picname='stock.png';
+    $picname='profilePics/stock.png';
 return $picname;
 }
 
