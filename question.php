@@ -29,7 +29,7 @@ function getvotes($type, $threadID){
 </script>
 <script>
 function CheckLength()
-{
+{    
 tinyMCE.triggerSave();
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
@@ -39,6 +39,20 @@ if (document.getElementById("Answer").value.length < 2) {
 }
 else 
     document.getElementById("newAnswer").submit();
+}
+</script>
+<script>
+function CheckLength2()
+{
+tinyMCE.triggerSave();
+var msg_area = document.getElementById("questiontextarea");
+msg_area.innerHTML = "";
+if (document.getElementById("Answer").value.length < 2) {
+    msg_area.style.display = 'block';
+    msg_area.innerHTML = "<strong>Your question needs to be between 2-500 characters</strong>";
+}
+else 
+    document.getElementById("edit").submit();
 }
 </script>
 <!--Voting script -->
@@ -386,29 +400,29 @@ else
             <div class="modal-body">
             <form id="edit" action="editQuest.php" method="POST">
                 <div class="form-group">
-            <label for="title">Title:</label>
+            <label>Title:</label>
             <input type="text" name="newTitle" pattern=".{5,60}" required title="Your title needs to be between 5-60 characters" class="form-control" <?php echo 'value= "' . $qTitle . '"';?>>
         </div>
         <div class="form-group">
-            <label for="question">Question:</label>
-            <textarea type="text" name="newQuestion" pattern=".{5,500}" required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" id="question"><?php echo $qPhrase;?></textarea>
+            <label>Question:</label>
+            <textarea name="newQuestion" id="questiontextarea" pattern=".{5,500}" maxlength="500"  required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" ><?php echo $qPhrase;?></textarea>
         </div>
         <div class="form-group">
-            <label for="tag1">Tag 1:</label>
+            <label>Tag 1:</label>
             <input type="text" name="newTag1" pattern=".{3,20}" required title="You must have at least 1 tag between 3-20 characters" class="form-control" <?php echo 'value= "' . $qTag1 . '"';?>>
         </div>
         <div class="form-group">
-            <label for="tag2">Tag 2:</label>
+            <label>Tag 2:</label>
             <input type="text" name="newTag2" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag2 . '"';?>>
         </div>
         <div class="form-group">
-            <label for="tag3">Tag 3:</label>
+            <label>Tag 3:</label>
             <input type="text" name="newTag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag3 . '"';?>>
         </div>
         </form>
         </div>
             <div class="modal-footer">
-                <button class="btn btn-info" form="edit" type="submit" name="submit">Accept Changes!</button>
+                <button class="btn btn-info" form="edit" type="button" name="submit" onclick="CheckLength2();">Accept Changes!</button>
             </div>
             </div>
         </div>
