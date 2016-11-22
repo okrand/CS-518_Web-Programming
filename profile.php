@@ -67,6 +67,10 @@ session_start();
     $viewEmail = $viewresult["E-MAIL"];
     $picname = "profilePics/" . $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
+    $viewcountquery = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ASKER_ID = " . $viewID . ";";
+    $countresult = sqlcommand($viewcountquery, "SELECT");
+    $countresult = $countresult->fetch_assoc();
+    $qcount = $countresult["QCOUNT"];
     ?>
     <!-- Display picture upload error -->
     <?php
@@ -88,7 +92,7 @@ session_start();
         <div class="media">
         <div class="media-body">
             <h4 class="media-heading"><?php echo $viewName; ?></h4>
-            <p>Points: <?php echo $viewPoints . '<br>';
+            <p>Points: <?php echo $viewPoints . '<br>Number of Questions: ' . $qcount . '<br>';
                 if ($viewEmail != NULL)
                     echo 'E-mail: ' . $viewEmail . '<br>';
                 ?> </p>
