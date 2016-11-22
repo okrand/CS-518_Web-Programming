@@ -405,7 +405,7 @@ else
         </div>
         <div class="form-group">
             <label>Question:</label>
-            <textarea name="newQuestion" id="questiontextarea" pattern=".{5,500}" maxlength="500"  required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" ><?php echo $qPhrase;?></textarea>
+            <textarea name="newQuestion" id="questiontextarea" maxlength="500"  required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" ><?php echo $qPhrase;?></textarea>
         </div>
         <div class="form-group">
             <label>Tag 1:</label>
