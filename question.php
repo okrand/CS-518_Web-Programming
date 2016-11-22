@@ -283,15 +283,16 @@ else
             if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerid ))
                 echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerid . '">';
             $correctdate = $getanswer["DATE_ANSWERED"];
-            $queryanswer = "SELECT USERNAME FROM USERS WHERE ID =" . $correctanswererid.";";
+            $queryanswer = "SELECT USERNAME, KARMA_POINTS FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
             $result3 = $result3->fetch_assoc();
             $correctanswerer = $result3["USERNAME"];
+            $kpoints = $result3["KARMA_POINTS"];
             $picname = "profilePics/" . $correctanswererid . '_' . $correctanswerer . '.';
             $picname = picext($picname);
             
             echo '<div class="media"><div class="media-body">';
-            echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a></h5>';
+            echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a><span class="badge">' . $kpoints . '</span></h5>';
             echo '<h6 class="text-right">' . $correctdate . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
@@ -351,10 +352,11 @@ else
             if ($anspic != "profilePics/stock.png")
                 echo '<img class="anspicture" alt="Picture" src="' . $anspic . '">';
             
-            $query = "SELECT USERNAME FROM USERS WHERE ID=" . $answererid.";";
+            $query = "SELECT USERNAME, KARMA_POINTS FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
             $answerer = $result2["USERNAME"];
+            $akpoints = $result2["KARMA_POINTS"];
             $picname = "profilePics/" . $answererid . '_' . $answerer . '.';
             $picname = picext($picname);
             echo '<div class="media"><div class="media-body">';
@@ -362,7 +364,7 @@ else
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker and $frozen == 0){
                 echo '<button id="rightAnswer" type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a></h5>';
+            echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a><span class="badge">' . $kpoints . '</span></h5>';
             echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
