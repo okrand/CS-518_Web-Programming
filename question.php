@@ -19,32 +19,36 @@ function getvotes($type, $threadID){
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
     tinymce.init({
         //forced_root_block : ""
         selector: "textarea",
         plugins: "codesample paste"
     });
-</script>
+</script>-->
 <script>
-function CheckLength()
-{    
-tinyMCE.triggerSave();
+function CheckLength(){    
+var markupStr = $('#summernote').summernote('code');
+//tinyMCE.triggerSave();
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
+//if(markupStr.length < 2){
     msg_area.style.display = 'block';
     msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
 }
-else 
+else {
+    //msg_area.style.display = 'block';
+    //msg_area.innerHTML = "Yours is " + document.getElementById("Answer").value;
     document.getElementById("newAnswer").submit();
+}
 }
 </script>
 <script>
 function CheckLength2()
 {
-tinyMCE.triggerSave();
+//tinyMCE.triggerSave();
 var msg_area = document.getElementById("questiontextarea");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
@@ -344,9 +348,10 @@ else
                 echo '<img id="votedownA'.$answerlistid.'" alt="downvote" src="downvote.png" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerlistid . ', '. $answererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
-            $theanswer = str_replace("&lt;", "<", $row["ANSWER"]);
-            $theanswer = str_replace("&gt;", ">", $theanswer);
-            echo "<p>" . $theanswer . "</p>"; //style='background-color:#66ff33' for right answer
+            $theanswer = $row["ANSWER"];
+           // $theanswer = str_replace("&lt;", "<", $theanswer);
+           // $theanswer = str_replace("&gt;", ">", $theanswer);
+            echo $theanswer; //style='background-color:#66ff33' for right answer
             //display answer picture;
             $anspic = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid . ".";
             $anspic = picext($anspic);
@@ -452,9 +457,22 @@ else
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>
-            <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" rows="5" id="Answer" class="form-control"></textarea>
+            <!--<textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" id="Answer" class="form-control"></textarea>-->
+            <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" id="Answer" class="form-control"></textarea>
+            <script>
+                //initialize summernote
+                $(document).ready(function() {
+                    //document.getElementById("Answer").style.display="none";
+                    $('#Answer').summernote({
+                        height: 300,                 // set editor height
+                        minHeight: null,             // set minimum height of editor
+                        maxHeight: null,             // set maximum height of editor
+                        maximumImageFileSize: 716800
+                    });
+                });
+            </script>
         </div>
-        <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> 
+        <!--<strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> -->
     <button type="button" class="btn btn-primary center-block" onclick="CheckLength();">Submit Answer!</button><br><br><br>
 	</form>
     </div>

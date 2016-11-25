@@ -7,6 +7,8 @@ function bringLibraries(){
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
     
     <script>
 function showResult(str) {
@@ -92,9 +94,9 @@ return $picname;
 
 function test_input($data) {
         $con = sqlcommand(" ", "GETCONN");
-  		$data = trim($data);
-  		$data = stripslashes($data);
-  		$data = htmlspecialchars($data);
+  		//$data = trim($data);
+  		//$data = stripslashes($data);
+  		//$data = htmlspecialchars($data);
         $data = mysqli_real_escape_string($con, $data);
   		return $data;
         }

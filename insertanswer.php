@@ -1,18 +1,32 @@
 <?php 
 include_once "thingsandstuff.php";
 session_start();
+//ob_start();
 ?>
 
 <?php
 //submitting new answer
-$answer = test_input($_POST["Answer"]);
-$answer = str_replace("[", "&lt;", $answer);
-$answer = str_replace("]", "&gt;", $answer);
+$config = array(
+           'indent'         => true,
+           'output-xhtml'   => true,
+           'wrap'           => 200);
+
+$answer = new Tidy();
+$raw = test_input($_POST["Answer"]);
+//echo "before repair " . $raw;
+//$answer = tidy_repair_string($answer, $config, 'utf8');
+$answer->tidy_parse_string($raw);
+$answer->cleanRepair();
+
+//echo "answer is " . $answer;
+//$answer = str_replace("[", "&lt;", $answer);
+//$answer = str_replace("]", "&gt;", $answer);
 $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
 $sqlresult = sqlcommand($query, "INSERT");
 ?>
 
 <?php
+/*
 $query2 = "SELECT ID, QUEST_ID FROM ANSWERS ORDER BY ID DESC LIMIT 1";
 $answerinfo = sqlcommand($query2, "SELECT");
 $answerinfo = $answerinfo->fetch_assoc();
@@ -57,7 +71,7 @@ if ($uploadOk != 0) {
         //echo "Sorry, there was an error uploading your file.";
     }
 }
-
+*/
 ?>
 
 <?php
