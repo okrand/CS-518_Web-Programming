@@ -12,15 +12,17 @@ $config = array(
            'wrap'           => 200);
 
 //$answer = new Tidy();
-$raw = test_input($_POST["Answer"]);
+//$raw = test_input($_POST["Answer"]);
 //echo "before repair " . $raw;
-$answer = tidy_repair_string($raw, $config, 'utf8');
+//$answer = tidy_repair_string($raw, $config, 'utf8');
 //$answer->tidy_parse_string($raw);
 //$answer->cleanRepair();
 
 //echo "answer is " . $answer;
 //$answer = str_replace("[", "&lt;", $answer);
 //$answer = str_replace("]", "&gt;", $answer);
+
+$answer = test_input($_POST["Answer"]);
 $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
 $sqlresult = sqlcommand($query, "INSERT");
 ?>
