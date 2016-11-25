@@ -11,12 +11,12 @@ $config = array(
            'output-xhtml'   => true,
            'wrap'           => 200);
 
-$answer = new Tidy();
+//$answer = new Tidy();
 $raw = test_input($_POST["Answer"]);
 //echo "before repair " . $raw;
-//$answer = tidy_repair_string($answer, $config, 'utf8');
-$answer->tidy_parse_string($raw);
-$answer->cleanRepair();
+$answer = tidy_repair_string($raw, $config, 'utf8');
+//$answer->tidy_parse_string($raw);
+//$answer->cleanRepair();
 
 //echo "answer is " . $answer;
 //$answer = str_replace("[", "&lt;", $answer);
