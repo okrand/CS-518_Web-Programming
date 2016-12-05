@@ -86,8 +86,8 @@ session_start();
     
              if(isset($_GET['page1'])){
                  $page1 = $_GET['page1'];
-                 if ($page1 > $numpages1)
-                     redirect("index.php");
+                 if ($page1 > $numpages1 or $page1 < 1)
+                     $page1 = 1;
              }
              else
                  $page1 = 1;
@@ -162,8 +162,8 @@ session_start();
             
              if(isset($_GET['page2'])){
                 $page2 = $_GET['page2'];
-                if ($page2 > $numpages2)
-                    redirect("index.php");
+                if ($page2 > $numpages2 or $page2 < 1)
+                    $page2 = 1;
              }
              else
                  $page2 = 1;

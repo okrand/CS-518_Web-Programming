@@ -19,28 +19,15 @@ function getvotes($type, $threadID){
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
-<!--<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>
-    tinymce.init({
-        //forced_root_block : ""
-        selector: "textarea",
-        plugins: "codesample paste"
-    });
-</script>-->
 <script>
 function CheckLength(){    
-var markupStr = $('#summernote').summernote('code');
-//tinyMCE.triggerSave();
 var msg_area = document.getElementById("lengthalert");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
-//if(markupStr.length < 2){
     msg_area.style.display = 'block';
     msg_area.innerHTML = "<strong>Your answer needs to be between 2-500 characters</strong>";
 }
 else {
-    //msg_area.style.display = 'block';
-    //msg_area.innerHTML = "Yours is " + document.getElementById("Answer").value;
     document.getElementById("newAnswer").submit();
 }
 }
@@ -48,7 +35,6 @@ else {
 <script>
 function CheckLength2()
 {
-//tinyMCE.triggerSave();
 var msg_area = document.getElementById("questiontextarea");
 msg_area.innerHTML = "";
 if (document.getElementById("Answer").value.length < 2) {
@@ -195,8 +181,6 @@ else
     $sqlresult = $sqlresult->fetch_assoc();
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
-    $qPhrase = str_replace("&lt;", "<", $qPhrase);
-    $qPhrase = str_replace("&gt;", ">", $qPhrase);
     $qTag1 = $sqlresult["TAG1"];
     $qTag2 = $sqlresult["TAG2"];
     $qTag3 = $sqlresult["TAG3"];
@@ -281,8 +265,6 @@ else
                 echo '<img id="votedownA'.$answerID.'" src="downvote.png" alt="downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
-            $correctANS = str_replace("&lt;", "<", $getanswer["ANSWER"]);
-            $correctANS = str_replace("&gt;", ">", $correctANS);
             echo "<p>" . $correctANS . "</p>";
             //display question picture;
             if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerid ))
@@ -349,8 +331,6 @@ else
         }
             echo '</div></div>';
             $theanswer = $row["ANSWER"];
-           // $theanswer = str_replace("&lt;", "<", $theanswer);
-           // $theanswer = str_replace("&gt;", ">", $theanswer);
             echo $theanswer; //style='background-color:#66ff33' for right answer
             //display answer picture;
             $anspic = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid . ".";
@@ -457,20 +437,7 @@ else
         <div class="form-group">
             <div class="text-center alert alert-warning" style="display:none;" id="lengthalert"> </div>
             <label for="Answer">Your Answer:</label>
-            <!--<textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" id="Answer" class="form-control"></textarea>-->
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" id="Answer" class="form-control"></textarea>
-            <script>
-                //initialize summernote
-                $(document).ready(function() {
-                    //document.getElementById("Answer").style.display="none";
-                    $('#Answer').summernote({
-                        height: 300,                 // set editor height
-                        minHeight: null,             // set minimum height of editor
-                        maxHeight: null,             // set maximum height of editor
-                        maximumImageFileSize: 716800
-                    });
-                });
-            </script>
         </div>
         <!--<strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> -->
     <button type="button" class="btn btn-primary center-block" onclick="CheckLength();">Submit Answer!</button><br><br><br>

@@ -10,6 +10,7 @@ session_start();
 <meta name="description" content="Q&A page for HighSide - The Motorcycle Q&A Website">
 <title>Let's see what our experts said</title>
 <?php bringLibraries(); ?>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>    
    <header class="jumbotron text-center" style="background-color:white;">
@@ -79,6 +80,7 @@ session_start();
 	       <label for="pwd">Password: </label>
             <input type="Password" placeholder="Enter password" name="Pass" class="form-control" id="pwd"><br>
         </div>
+        <div class="g-recaptcha" data-sitekey="6Lfk8A0UAAAAAAAi1hvREvcX-gBz0UeiPVMvvUXj"></div>
         <button type="submit" class="btn btn-primary center-block">Register</button>
 	</form>
     </div>

@@ -69,11 +69,11 @@ function sqlcommand($query, $qtype){
 }
 
 function redirect($url){
-    //echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
-            header('Location:' . $url);
+    echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
+    /*        header('Location:' . $url);
             exit();
             session_write_close();
-          
+    */        
 }
 
 
