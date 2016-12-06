@@ -34,19 +34,18 @@ session_start();
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username dummy</strong></div>";
-            return;
+            echo '<meta http-equiv="refresh" content="2;url=register.php"/>';
         }
         elseif (strlen($pass) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank password dummy</strong></div>";
-            return;
+            echo '<meta http-equiv="refresh" content="2;url=register.php"/>';
         }
         if(isset($_POST['g-recaptcha-response'])){
           $captcha=$_POST['g-recaptcha-response'];
         }
         if(!$captcha){
             echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
-            return;
-            //redirect("register.php");
+            echo '<meta http-equiv="refresh" content="2;url=register.php"/>';
         }
         
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
