@@ -42,7 +42,7 @@ session_start();
         }
         if(!$captcha){
             echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
-            break 2;
+            break 3;
         }
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -82,7 +82,6 @@ session_start();
         else
             $_SESSION["referer"] = "/index.php";
     }
-
 ?>
     
     <div class="container">
