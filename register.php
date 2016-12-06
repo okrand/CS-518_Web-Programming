@@ -32,17 +32,21 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
-        if (strlen($uName) == 0)
+        if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username dummy</strong></div>";
-        elseif (strlen($pass) == 0)
+            break 2;
+        }
+        elseif (strlen($pass) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank password dummy</strong></div>";
-            
+            break 2;
+        }
         if(isset($_POST['g-recaptcha-response'])){
           $captcha=$_POST['g-recaptcha-response'];
         }
         if(!$captcha){
             echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
         }
+        
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
         $ip = $_SERVER['REMOTE_ADDR'];
         $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
