@@ -42,13 +42,15 @@ session_start();
         }
         if(!$captcha){
             echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
+            
         }
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
         $ip = $_SERVER['REMOTE_ADDR'];
         $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
         $responseKeys = json_decode($response,true);
-        if(intval($responseKeys["success"]) !== 1) {
+        if(isset($captcha) and intval($responseKeys["success"]) !== 1) {
           echo "<div align='center' class='alert alert-warning'><strong>You are a spammer, GET OUT!</strong></div>";
+          exit;
         } 
         else {
         $query = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
