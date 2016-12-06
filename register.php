@@ -32,6 +32,7 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
 		$pass = test_input($_POST["Pass"]);
+        echo $_POST["recaptcha_response_field"];
 		
         $query = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
         $result = sqlcommand($query, "SELECT");
@@ -53,7 +54,7 @@ session_start();
             $row = $result->fetch_assoc();
             $_SESSION["UserID"] = $row["ID"];
             }
-            redirect($_SESSION["referer"]);
+            //redirect($_SESSION["referer"]);
         }
 
 	}
@@ -80,7 +81,7 @@ session_start();
 	       <label for="pwd">Password: </label>
             <input type="Password" placeholder="Enter password" name="Pass" class="form-control" id="pwd"><br>
         </div>
-        <div class="g-recaptcha" data-sitekey="6Lfk8A0UAAAAAAAi1hvREvcX-gBz0UeiPVMvvUXj"></div>
+        <div class="center g-recaptcha" data-sitekey="6Lfk8A0UAAAAAAAi1hvREvcX-gBz0UeiPVMvvUXj"></div>
         <button type="submit" class="btn btn-primary center-block">Register</button>
 	</form>
     </div>
