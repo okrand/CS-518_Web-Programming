@@ -36,14 +36,13 @@ session_start();
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username dummy</strong></div>";
         elseif (strlen($pass) == 0)
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank password dummy</strong></div>";
-        if ($_SESSION["captcha"] == false)
-            echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
+            
         if(isset($_POST['g-recaptcha-response'])){
           $captcha=$_POST['g-recaptcha-response'];
         }
         if(!$captcha){
-            $_SESSION["captcha"] = false;
-            redirect("register.php");
+            echo "<div align='center' class='alert alert-warning'><strong>You forgot the captcha buddy</strong></div>";
+            break 2;
         }
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
         $ip = $_SERVER['REMOTE_ADDR'];
