@@ -40,8 +40,7 @@ session_start();
           $captcha=$_POST['g-recaptcha-response'];
         }
         if(!$captcha){
-          echo '<h2>Please check the the captcha form.</h2>';
-          exit;
+          echo "<div align='center' class='alert alert-warning'><strong>Please check the captcha form</strong></div>";
         }
         $secretKey = "6Lfk8A0UAAAAAKWJR_aOwmu3BUcNOZBTWJAnvg--";
         $ip = $_SERVER['REMOTE_ADDR'];
