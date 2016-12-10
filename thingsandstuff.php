@@ -38,10 +38,10 @@ function showResult(str) {
 
 function sqlcommand($query, $qtype){
     $servername = "localhost";
-    //$dbusername = "root";
-    //$dbpassword = "root";
-    $dbusername = "admin";
-    $dbpassword = "M0n@rch$";
+    $dbusername = "root";
+    $dbpassword = "root";
+    //$dbusername = "admin";
+    //$dbpassword = "M0n@rch$";
     $dbname = "HighSide";
     // Create connection
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);

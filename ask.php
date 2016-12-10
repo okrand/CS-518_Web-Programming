@@ -60,12 +60,10 @@ session_start();
             $title = test_input($_POST["qTitle"]);
             $question = test_input($_POST["Question"]);
         
-            $tag1 = test_input($_POST["Tag1"]);
-            $tag2 = test_input($_POST["Tag2"]);
-            $tag3 = test_input($_POST["Tag3"]);
+            $tag = test_input($_POST["Tag"]);
             $askerid = $_SESSION["UserID"];
             
-            $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG1, TAG2, TAG3, DATE_ASKED) VALUES (" . $askerid . ", '" .  $title . "', '" . $question . "', '" . $tag1 . "', '" . $tag2 . "', '". $tag3 . "', NOW());";
+            $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG, DATE_ASKED) VALUES (" . $askerid . ", '" .  $title . "', '" . $question . "', '" . $tag . "', NOW());";
             $sqlresult = sqlcommand($query, "INSERT");
             if ($sqlresult != true)
                 echo "Something very wrong happened, we don't quite know what it is but we're on it!";
@@ -133,16 +131,8 @@ session_start();
             <textarea type="text" name="Question" pattern=".{5,500}" required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" id="question"></textarea>
         </div>
         <div class="form-group">
-            <label for="tag1">Tag 1:</label>
-            <input type="text" name="Tag1" pattern=".{3,20}" required title="You must have at least 1 tag between 3-20 characters" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="tag2">Tag 2:</label>
-            <input type="text" name="Tag2" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="tag3">Tag 3:</label>
-            <input type="text" name="Tag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control">
+            <label for="tag1">Tags (Separate them with spaces):</label>
+            <input type="text" name="Tag" pattern=".{2,300}" required title="You must have at least 1 tag" class="form-control">
         </div>
         <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> 
 	<button type="submit" class="btn btn-primary center-block" >Ask the experts! (They are not experts) </button>

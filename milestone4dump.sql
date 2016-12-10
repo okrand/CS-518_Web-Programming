@@ -44,9 +44,7 @@ CREATE TABLE `QUESTIONS` (
   `QUESTION_TITLE` VARCHAR(60) NOT NULL,
   `QUESTION_PHRASE` VARCHAR(500) NOT NULL,
   `DATE_ASKED` datetime NOT NULL ,
-  `TAG1` VARCHAR(20) NOT NULL,
-  `TAG2` VARCHAR(20),
-  `TAG3` VARCHAR(20),
+  `TAG` VARCHAR(300) NOT NULL,
   `ANSWER_ID` int(11) NOT NULL DEFAULT '0',
   `POINTS` int(11) NOT NULL DEFAULT '0',
   `FROZEN` int(1) NOT NULL DEFAULT '0',
@@ -123,17 +121,17 @@ ALTER TABLE USERS AUTO_INCREMENT = 17;
 --
 LOCK TABLES `QUESTIONS` WRITE;
 
-INSERT INTO `QUESTIONS` (`ID`, `ASKER_ID`, `QUESTION_TITLE`, `QUESTION_PHRASE`, `TAG1`, `TAG2`, `TAG3`, `POINTS`, `DATE_ASKED`) VALUES 
-(1, 2, 'Why does my bike not run?', 'So I tried to start my bike this morning and it just wouldnt start. Turned the key on and nothing. Why is this?', 'start', 'would not', 'motorcycle', 5, '2016-09-25 16:42:54'),
-(2, 16, 'Mod recommendations for a long road trip?', 'I ride an FZ1 and I am trying to get it ready for a road trip. What mods do you guys recommend for a long road trip(2-3 months)?', 'road trip', 'modifications', 'fz1', 12, '2016-10-03 18:45:44'),
-(3, 4, 'Starter Bike', 'I am a new rider who is thinking of getting a used bike. 6 feet tall, 200 lbs. What would you recommend?', 'starter', 'new rider', '', 3, '2016-10-06 08:32:21'),
-(4, 14, 'Motovlogging setup', 'I am thinking of picking up motovlogging, what setup do you use?', 'motovlog', 'new', 'camera', 9, '2016-09-22 10:52:28'),
-(5, 11, 'Fuel Injection or Carburetors', 'I was just wondering what people prefer. Fuel injection or carburetors?', 'fuel injection', 'carburetors', 'preference', 1, '2016-09-27 19:23:11'),
-(6, 9, 'Oil Change Tools', 'What tools do I need to perform an oil change on my FZ1?', 'fz1', 'oil change', 'tools', 33, '2016-10-05 15:48:28'),
-(7, 11, 'Twisties', 'What are some good twisty roads in Southern VA, OBX area?', 'twisty', 'spirited ride', '', 4, '2016-10-11 17:13:41'),
-(8, 16, 'Aftermarket seat', 'Im thinking of buying an aftermarket seat for my ninja 650 to make it more comfortable for daily commute. What do you recommend?', 'ninja', 'seat', 'saddle', 7, '2016-10-16 14:09:15'),
-(9, 7, 'Phone Charger', 'Do you guys use a phone charger on your bikes? How do you make sure it doesnt drain the battery when not in use?', 'phone charger', 'battery', 'electronics', 14, '2016-09-28 11:51:35'),
-(10, 7, 'Motorcycle meet', 'Who wants to meet up and go for a ride? I live in Norfolk, VA', 'meet', 'group ride', '', 1, '2016-10-13 01:12:54');
+INSERT INTO `QUESTIONS` (`ID`, `ASKER_ID`, `QUESTION_TITLE`, `QUESTION_PHRASE`, `TAG`, `POINTS`, `DATE_ASKED`) VALUES 
+(1, 2, 'Why does my bike not run?', 'So I tried to start my bike this morning and it just wouldnt start. Turned the key on and nothing. Why is this?', 'start', 5, '2016-09-25 16:42:54'),
+(2, 16, 'Mod recommendations for a long road trip?', 'I ride an FZ1 and I am trying to get it ready for a road trip. What mods do you guys recommend for a long road trip(2-3 months)?', 'road trip', 12, '2016-10-03 18:45:44'),
+(3, 4, 'Starter Bike', 'I am a new rider who is thinking of getting a used bike. 6 feet tall, 200 lbs. What would you recommend?', 'starter', 3, '2016-10-06 08:32:21'),
+(4, 14, 'Motovlogging setup', 'I am thinking of picking up motovlogging, what setup do you use?', 'motovlog', 9, '2016-09-22 10:52:28'),
+(5, 11, 'Fuel Injection or Carburetors', 'I was just wondering what people prefer. Fuel injection or carburetors?', 'fuel injection', 1, '2016-09-27 19:23:11'),
+(6, 9, 'Oil Change Tools', 'What tools do I need to perform an oil change on my FZ1?', 'fz1', 33, '2016-10-05 15:48:28'),
+(7, 11, 'Twisties', 'What are some good twisty roads in Southern VA, OBX area?', 'twisty', 4, '2016-10-11 17:13:41'),
+(8, 16, 'Aftermarket seat', 'Im thinking of buying an aftermarket seat for my ninja 650 to make it more comfortable for daily commute. What do you recommend?', 'ninja', 7, '2016-10-16 14:09:15'),
+(9, 7, 'Phone Charger', 'Do you guys use a phone charger on your bikes? How do you make sure it doesnt drain the battery when not in use?', 'phone charger', 14, '2016-09-28 11:51:35'),
+(10, 7, 'Motorcycle meet', 'Who wants to meet up and go for a ride? I live in Norfolk, VA', 'meet', 1, '2016-10-13 01:12:54');
 
 
 UNLOCK TABLES;
