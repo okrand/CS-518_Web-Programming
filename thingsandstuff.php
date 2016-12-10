@@ -6,9 +6,10 @@ function bringLibraries(){
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" type="text/css" href="style.css?<?php echo time(); ?>"> 
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    <script>function SearchForTag(){window.location="tagsearch.php?tag="+document.getElementById("searchtag").value}</script>
     
     <script>
 function showResult(str) {
@@ -33,15 +34,37 @@ function showResult(str) {
   xmlhttp.send();
 }
 </script>
+
+<script type="text/javascript">
+    function switchSearch(searchFor){
+    if (searchFor == "user"){
+        document.getElementById("btnSearchTag").className = "btn btn-info";
+        document.getElementById("btnSearchUser").className = "btn btn-info disabled";
+        document.getElementById("searchtag").style.display="none";
+        document.getElementById("search").style.display="inline";
+        document.getElementById("searchtag").value="";
+        document.getElementById("search").focus();
+    }
+    else if(searchFor == "tag"){
+        document.getElementById("btnSearchTag").className = "btn btn-info disabled";
+        document.getElementById("btnSearchUser").className = "btn btn-info";
+        document.getElementById("searchtag").style.display="inline";
+        document.getElementById("search").style.display="none";
+        document.getElementById("search").value="";
+        document.getElementById("usersearch").innerHTML="";
+        document.getElementById("searchtag").focus();
+    }
+    }
+    </script>
   ';
 }
 
 function sqlcommand($query, $qtype){
     $servername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "root";
-    //$dbusername = "admin";
-    //$dbpassword = "M0n@rch$";
+    //$dbusername = "root";
+    //$dbpassword = "root";
+    $dbusername = "admin";
+    $dbpassword = "M0n@rch$";
     $dbname = "HighSide";
     // Create connection
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -69,11 +92,11 @@ function sqlcommand($query, $qtype){
 }
 
 function redirect($url){
-    echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
-    /*        header('Location:' . $url);
+    //echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
+            header('Location:' . $url);
             exit();
             session_write_close();
-    */        
+            
 }
 
 

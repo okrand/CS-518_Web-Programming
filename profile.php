@@ -76,7 +76,7 @@ session_start();
     <?php
     $referer = pagename($_SERVER["HTTP_REFERER"]);
     if (isset($_SESSION["Upload"])){
-    if ($referer == "/profile.php"){
+    //if ($referer == "/profile.php"){
         if ($_SESSION["Upload"]==0)
             echo "<div class='alert alert-warning text-center'><strong>Picture Uploaded Successfully!</strong></div>";
         else if ($_SESSION["Upload"]==1)
@@ -86,7 +86,7 @@ session_start();
         else if ($_SESSION["Upload"]==3)
             echo "<div class='alert alert-warning text-center'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
     unset($_SESSION["Upload"]);
-    }}
+    }
     ?>
     <div class="well">
         <div class="media">

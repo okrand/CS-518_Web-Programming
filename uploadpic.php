@@ -10,8 +10,16 @@ $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),P
 $target_file = $target_file1 . $imageFileType;
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
         #echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
+    }
+    else{
+        $uploadOk = 0;
+        $_SESSION["Upload"] = 3;
+        redirect("/profile.php");
+    }
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
         #echo "File is not an image.";
         $_SESSION["Upload"]=3;

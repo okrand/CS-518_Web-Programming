@@ -141,12 +141,19 @@ else
                             $result = $result->fetch_assoc();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
+                        if ($_SESSION["loggedIn"] == true){
+                            echo '<button type="button" id="btnSearchUser" class="btn btn-info disabled" onclick="switchSearch(\'user\');">Users</button>
+                        <button type="button" id="btnSearchTag" class="btn btn-info" onclick="switchSearch(\'tag\');">Tags</button>';
+                        }
                         ?>
                     </div>
                     <span style="float:left;">
                         <?php
                         // Search by USERNAME
                         if ($_SESSION["loggedIn"] == true){ 
+                        //tag search box
+                        echo '<input type="text" id="searchtag" name="searchtag" placeholder="Search.." onkeyup="if(event.keyCode == 13){SearchForTag();}">';
+                        //user search box
                         echo '<form class="">
                         <input type="text" id="search" name="search" autocomplete="off" placeholder="Search.." onkeyup="showResult(this.value)">
                         <div id="usersearch"></div>
@@ -181,9 +188,7 @@ else
     $sqlresult = $sqlresult->fetch_assoc();
     $qTitle = $sqlresult["QUESTION_TITLE"];
     $qPhrase = $sqlresult["QUESTION_PHRASE"];
-    $qTag1 = $sqlresult["TAG1"];
-    $qTag2 = $sqlresult["TAG2"];
-    $qTag3 = $sqlresult["TAG3"];
+    $qTag = $sqlresult["TAG"];
     $qPoints = $sqlresult["POINTS"];
     $qDate = $sqlresult["DATE_ASKED"];
     $qAskerid = $sqlresult["ASKER_ID"];
@@ -223,8 +228,15 @@ else
         
     echo '<div class="media"><div class="media-body">';
     echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a><span class="badge">' . $qkpoints . '</span></h5>
-    <h6 class="text-right">' . $qDate . '</h6>
-    </div><div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="' . $picname . '"></div></div></div>';
+    <h6 class="text-right">' . $qDate . '</h6>';
+    //split tag string into array
+    $tagArray = explode(" ", $qTag);
+    echo '<div class="btn-group pull-right">';
+    foreach ($tagArray as $tagelement){
+    echo '<a class="btn btn-info" href="tagsearch.php?tag=' . $tagelement . '">' . $tagelement . '</a>';
+    }
+    echo '</div></div>
+    <div class="media-right"> <img class="media-object" alt="Profile picture" style="width:70px; height:40px;" src="' . $picname . '"></div></div></div>';
     if ($_SESSION["UserID"] == 1){ // if user is admin, show freeze options
         echo '<div class="btn-group pull-right">';
         //freeze question
@@ -396,16 +408,8 @@ else
             <textarea name="newQuestion" id="questiontextarea" maxlength="500"  required title="Your question needs to be between 5-500 characters" class="form-control" rows="5" ><?php echo $qPhrase;?></textarea>
         </div>
         <div class="form-group">
-            <label>Tag 1:</label>
-            <input type="text" name="newTag1" pattern=".{3,20}" required title="You must have at least 1 tag between 3-20 characters" class="form-control" <?php echo 'value= "' . $qTag1 . '"';?>>
-        </div>
-        <div class="form-group">
-            <label>Tag 2:</label>
-            <input type="text" name="newTag2" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag2 . '"';?>>
-        </div>
-        <div class="form-group">
-            <label>Tag 3:</label>
-            <input type="text" name="newTag3" pattern=".{0,20}" title="Tags can't be more than 20 characters" class="form-control" <?php echo 'value= "' . $qTag3 . '"';?>>
+            <label>Tags:</label>
+            <input type="text" name="newTag" pattern=".{2,100}" required title="You must have at least 1 tag between 2-100 characters" class="form-control" <?php echo 'value= "' . $qTag . '"';?>>
         </div>
         </form>
         </div>

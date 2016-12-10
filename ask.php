@@ -28,12 +28,19 @@ session_start();
                             $result = $result->fetch_assoc();
                             echo '<label class="btn btn-info disabled">Welcome <a href="profile.php">' . $_SESSION["userName"].'</a> ' . '<span id="K_Points" class="badge">' . $result["KARMA_POINTS"] . '</span></label>';
                             }
+                        if ($_SESSION["loggedIn"] == true){
+                        echo '<button type="button" id="btnSearchUser" class="btn btn-info disabled" onclick="switchSearch(\'user\');">Users</button>
+                        <button type="button" id="btnSearchTag" class="btn btn-info" onclick="switchSearch(\'tag\');">Tags</button>';
+                        }
                         ?>
                     </div>
                     <span style="float:left;">
                         <?php
                         // Search by USERNAME
                         if ($_SESSION["loggedIn"] == true){ 
+                        //tag search box
+                        echo '<input type="text" id="searchtag" name="searchtag" placeholder="Search.." onkeyup="if(event.keyCode == 13){SearchForTag();}">';
+                        //user search box
                         echo '<form class="">
                         <input type="text" id="search" name="search" autocomplete="off" placeholder="Search.." onkeyup="showResult(this.value)">
                         <div id="usersearch"></div>
@@ -60,7 +67,7 @@ session_start();
             $title = test_input($_POST["qTitle"]);
             $question = test_input($_POST["Question"]);
         
-            $tag = test_input($_POST["Tag"]);
+            $tag = strtolower(test_input($_POST["Tag"]));
             $askerid = $_SESSION["UserID"];
             
             $query = "INSERT INTO QUESTIONS (ASKER_ID, QUESTION_TITLE, QUESTION_PHRASE, TAG, DATE_ASKED) VALUES (" . $askerid . ", '" .  $title . "', '" . $question . "', '" . $tag . "', NOW());";
@@ -132,7 +139,7 @@ session_start();
         </div>
         <div class="form-group">
             <label for="tag1">Tags (Separate them with spaces):</label>
-            <input type="text" name="Tag" pattern=".{2,300}" required title="You must have at least 1 tag" class="form-control">
+            <input type="text" name="Tag" pattern=".{2,100}" required title="You must have at least 1 tag" class="form-control">
         </div>
         <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> 
 	<button type="submit" class="btn btn-primary center-block" >Ask the experts! (They are not experts) </button>
