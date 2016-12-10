@@ -31,9 +31,14 @@ session_start();
     //Form submission - New user
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
+        $email = test_input($_POST["email"]);
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username dummy</strong></div>";
+            exit;
+        }
+        elseif (strlen($uName) == 0){
+            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank email dummy</strong></div>";
             exit;
         }
         elseif (strlen($pass) == 0){
@@ -63,7 +68,7 @@ session_start();
             echo "<div align='center' class='alert alert-warning'><strong>This username is already taken. Pick something else</strong></div>";
 		}
 		else{ //new user!
-            $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE) VALUES ('".$uName."','".$pass."',0,NOW())";
+            $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE, E-MAIL) VALUES ('".$uName."','".$pass."',0,NOW(), '" . $email . "')";
             $insertres = sqlcommand($newquery, "INSERT");
             $_SESSION["loggedIn"] = true;
             $_SESSION["userName"] = $uName;
@@ -94,6 +99,10 @@ session_start();
         <div class="form-group">
 	       <label for="username">Username: </label>
             <input type="text" name="uName" placeholder="Enter username" class="form-control" id="username" autofocus><br>
+        </div>
+        <div class="form-group">
+	       <label for="email">E-mail: </label>
+            <input type="text" name="email" placeholder="Enter email address" class="form-control" id="email"><br>
         </div>
         <div class="form-group">
 	       <label for="pwd">Password: </label>
