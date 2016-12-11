@@ -199,9 +199,14 @@ else
     $sqlresult = $sqlresult->fetch_assoc();
     $qAsker = $sqlresult["USERNAME"];
     $qkpoints = $sqlresult["KARMA_POINTS"];
+    $qavatarchoice = $sqlresult["AVATAR"];
+    $qemail =  $sqlresult["EMAIL"];
+    if($qavatarchoice == 0){
         $picname = "profilePics/" . $qAskerid . '_' . $qAsker . '.';
         $picname = picext($picname);
-    
+    }
+    else if($qavatarchoice == 1)
+        $picname = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($qemail)));
     echo '<div class="col-sm-1" ><div class="col-sm-1 "><br>';
         if ($_SESSION["loggedIn"] == true){
             if (getvotes("Q", $_SESSION["QNumber"])==1)
@@ -277,19 +282,24 @@ else
                 echo '<img id="votedownA'.$answerID.'" src="downvote.png" alt="downvote" style="width:25px; height:25px; cursor:pointer;" onclick="vote(2, \'A\', '. $answerID . ', '. $correctanswererid . ', '. $_SESSION["UserID"]. ')">';
         }
             echo '</div></div>';
+            $correctANS = $getanswer["ANSWER"];
             echo "<p>" . $correctANS . "</p>";
             //display question picture;
             if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerid ))
                 echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerid . '">';
             $correctdate = $getanswer["DATE_ANSWERED"];
-            $queryanswer = "SELECT USERNAME, KARMA_POINTS FROM USERS WHERE ID =" . $correctanswererid.";";
+            $queryanswer = "SELECT USERNAME, KARMA_POINTS, EMAIL, AVATAR FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
             $result3 = $result3->fetch_assoc();
             $correctanswerer = $result3["USERNAME"];
             $kpoints = $result3["KARMA_POINTS"];
-            $picname = "profilePics/" . $correctanswererid . '_' . $correctanswerer . '.';
-            $picname = picext($picname);
-            
+            if ($result3["AVATAR"] == 0){
+                $picname = "profilePics/" . $correctanswererid . '_' . $correctanswerer . '.';
+                $picname = picext($picname);
+            }
+            else if ($result3["AVATAR"] == 1){
+                $picname = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($result3["EMAIL"])));
+            }
             echo '<div class="media"><div class="media-body">';
             echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a><span class="badge">' . $kpoints . '</span></h5>';
             echo '<h6 class="text-right">' . $correctdate . '</h6>';
@@ -350,13 +360,18 @@ else
             if ($anspic != "profilePics/stock.png")
                 echo '<img class="anspicture" alt="Picture" src="' . $anspic . '">';
             
-            $query = "SELECT USERNAME, KARMA_POINTS FROM USERS WHERE ID=" . $answererid.";";
+            $query = "SELECT USERNAME, KARMA_POINTS, EMAIL, AVATAR FROM USERS WHERE ID=" . $answererid.";";
             $result2 = sqlcommand($query, "SELECT");
             $result2 = $result2->fetch_assoc();
             $answerer = $result2["USERNAME"];
             $akpoints = $result2["KARMA_POINTS"];
-            $picname = "profilePics/" . $answererid . '_' . $answerer . '.';
-            $picname = picext($picname);
+            if ($result2["AVATAR"] == 0){
+                $picname = "profilePics/" . $answererid . '_' . $answerer . '.';
+                $picname = picext($picname);
+            }
+            else if ($result2["AVATAR"] == 1){
+                $picname = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($result2["EMAIL"])));
+            }
             echo '<div class="media"><div class="media-body">';
             //if question hasn't been answered or if userID isn't the person who asked the question, make the button invisible
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker and $frozen == 0){
