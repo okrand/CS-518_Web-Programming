@@ -91,13 +91,13 @@ session_start();
                 
                 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
                     //echo "File is not an image.";
-                    $_SESSION["Upload"]=3;
+                    $_SESSION["Upload"]="File is not an image or no file selected";
                     $uploadOk = 0;
                 }
 
                 if ($_FILES["fileToUpload"]["size"] > 700000) {
                      //echo "Sorry, your file is too large.";
-                    $_SESSION["Upload"]=2;
+                    $_SESSION["Upload"]="File too large, friend";
                     $uploadOk = 0;
                 }
 
@@ -113,7 +113,7 @@ session_start();
                         unlink($target_file1 . 'gif');
     
                     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                        $_SESSION["Upload"]=0;
+                        $_SESSION["Upload"]="All is well";
                         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
                     }    
                     else {
