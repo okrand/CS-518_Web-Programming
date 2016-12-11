@@ -32,7 +32,6 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
         $email = test_input($_POST["email"]);
-        echo "username is " . $uName . " email is " .$email;
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username</strong></div>";

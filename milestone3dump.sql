@@ -65,7 +65,7 @@ CREATE TABLE `USERS` (
   `PASSWORD` VARCHAR(100) NOT NULL,
   `KARMA_POINTS` int(11) NOT NULL DEFAULT '0',
   `LAST_ACTIVE` datetime NOT NULL,
-  `E-MAIL` VARCHAR(50) NULL,
+  `E-MAIL` VARCHAR(50) NOT NULL,
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -95,21 +95,21 @@ CREATE TABLE `VOTES` (
 LOCK TABLES `USERS` WRITE;
 
 INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `E-MAIL`) VALUES
-(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13', NULL),
+(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13', 'admin@highside.com'),
 (2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu'),
-(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44', NULL),
-(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20', NULL),
-(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55', NULL),
-(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13',NULL),
-(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15', NULL),
-(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15', NULL),
-(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57', NULL),
-(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57', NULL),
-(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32', NULL),
-(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32', NULL),
-(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15', NULL),
-(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15', NULL),
-(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', NULL),
+(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44', 'pvenkman@gb.com'),
+(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20', 'rstantz@gb.com'),
+(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55', 'dbarrett@gb.com'),
+(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13','ltully@gb.com'),
+(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15', 'espengler@gb.com'),
+(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15', 'janine@gb.com'),
+(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57', 'winston@gb.com'),
+(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57', 'gozer@ghost.com'),
+(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32', 'slimer@ghost.com'),
+(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32', 'zuul@ghost.com'),
+(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15', 'keymaster@ghost.com'),
+(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15', 'gatekeeper@ghost.com'),
+(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', 'staypuft@michelin.com'),
 (16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'okran001@odu.edu');
 
 UNLOCK TABLES;
