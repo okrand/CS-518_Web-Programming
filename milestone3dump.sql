@@ -94,7 +94,7 @@ CREATE TABLE `VOTES` (
 --
 LOCK TABLES `USERS` WRITE;
 
-INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `E-MAIL`) VALUES
+INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `EMAIL`) VALUES
 (1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13', 'admin@highside.com'),
 (2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu'),
 (3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44', 'pvenkman@gb.com'),
