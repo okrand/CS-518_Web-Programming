@@ -40,14 +40,17 @@ if ($uploadOk != 0) {
     
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         //$_SESSION["Upload"]=" "; //file uploaded, insert answer
-        $answer = test_input($_POST["Answer"]);
-        $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
-        $sqlresult = sqlcommand($query, "INSERT");
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     }    
     else {
         $_SESSION["Upload"]="Sorry, there was an error uploading your file.";
     }
+}
+
+if (!isset ($_SESSION["Upload"])){
+    $answer = test_input($_POST["Answer"]);
+    $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
+    $sqlresult = sqlcommand($query, "INSERT");
 }
 ?>
 <?php
