@@ -88,6 +88,7 @@ session_start();
                 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
                 $target_file = $target_file1 . $imageFileType;
                 // Check if image file is a actual image or fake image
+                
                 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
                     //echo "File is not an image.";
                     $_SESSION["Upload"]=3;
