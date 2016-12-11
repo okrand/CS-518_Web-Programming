@@ -31,7 +31,7 @@ session_start();
     //Form submission - New user
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
-        $email = test_input($_POST["email"]);
+        $email = test_input($_POST["Email"]);
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username</strong></div>";
@@ -102,7 +102,7 @@ session_start();
         </div>
         <div class="form-group">
 	       <label for="email">E-mail: </label>
-            <input type="text" name="email" placeholder="Enter email address" class="form-control" id="email"><br>
+            <input type="text" name="Email" placeholder="Enter email address" class="form-control" id="email"><br>
         </div>
         <div class="form-group">
 	       <label for="pwd">Password: </label>
