@@ -9,7 +9,6 @@ $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_file1 . $imageFileType;
 if(isset($_POST["deletepic"])){
-    echo "DELETE";
     if (file_exists($target_file1 . 'jpg'))
         unlink($target_file1 . 'jpg');
     else if (file_exists($target_file1 . 'jpeg'))

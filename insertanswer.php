@@ -3,9 +3,7 @@ include_once "thingsandstuff.php";
 session_start();
 //ob_start();
 ?>
-
 <?php
-
 $query2 = "SELECT ID, QUEST_ID FROM ANSWERS ORDER BY ID DESC LIMIT 1";
 $answerinfo = sqlcommand($query2, "SELECT");
 $answerinfo = $answerinfo->fetch_assoc();
@@ -25,7 +23,6 @@ $target_file = $target_file1 . $imageFileType;
     }
 
 if ($_FILES["fileToUpload"]["size"] > 700000) {
-   
     $_SESSION["Upload"]="Whoa! That file's too big man (700KB Max)";
     $uploadOk = 0;
 }
@@ -53,7 +50,6 @@ if ($uploadOk != 0) {
     }
 }
 ?>
-
 <?php
 //get total number of answers
 $query1 = "SELECT COUNT(*) AS ANSCOUNT FROM ANSWERS WHERE QUEST_ID =".$_SESSION["QNumber"].";";
@@ -65,8 +61,7 @@ if ($countresult != "false"){
     $numpages = ceil($numpages);
 }
 //Go back 
-echo $numpages;
-$url = 'question.php?page=' . $numpages;
+$url = '/question.php?page=' . $numpages;
 redirect($url);
 ?>
 
