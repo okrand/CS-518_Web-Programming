@@ -34,15 +34,15 @@ session_start();
         $email = test_input($_POST["email"]);
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
-            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username dummy</strong></div>";
+            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username</strong></div>";
             exit;
         }
-        elseif (strlen($uName) == 0){
-            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank email dummy</strong></div>";
+        elseif (strlen($email) == 0){
+            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank email</strong></div>";
             exit;
         }
         elseif (strlen($pass) == 0){
-            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank password dummy</strong></div>";
+            echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank password</strong></div>";
             exit;
         }
         if(isset($_POST['g-recaptcha-response'])){
