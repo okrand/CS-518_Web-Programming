@@ -92,6 +92,8 @@ session_start();
             echo "<div class='alert alert-warning text-center'><strong>Whoa! That file's too big man (700KB Max)</strong></div>";
         else if ($_SESSION["Upload"]==3)
             echo "<div class='alert alert-warning text-center'><strong>Your profile 'Picture' needs to be a... you guessed it, PICTURE</strong></div>";
+        else if ($_SESSION["Upload"]==4)
+            echo "<div class='alert alert-warning text-center'><strong>Picture successfully deleted</strong></div>";
     unset($_SESSION["Upload"]);
     }
     ?>
@@ -103,6 +105,10 @@ session_start();
                 if ($viewEmail != NULL)
                     echo 'E-mail: ' . $viewEmail . '<br>';
                 ?> </p>
+            <form action="changePictureSource.php" method="post">Profile Image Source: <label class="radio-inline"><input type="radio" value="0" id="useUpload" <?php if ($viewAvatar == 0){echo 'checked=""';}?> name="optradio">Upload</label>
+            <label class="radio-inline"><input type="radio" value="1" id="useGravatar" <?php if ($viewAvatar == 1){echo 'checked=""';}?> name="optradio">Gravatar</label>
+            <button type="submit" class="btn btn-info">Update Choice</button>
+            </form>
         </div>
         <div class="media-right">
             
@@ -125,7 +131,8 @@ session_start();
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-info" form="up" type="submit" name="submit">Upload Image</button>
+                <input class="btn btn-info" name="deletepic" form="up" type="submit" value="Delete Profile Picture">
+                <input class="btn btn-info" name="uploadpic" form="up" type="submit" value="Upload Image">
             </div>
             </div>
         </div>

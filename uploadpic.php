@@ -8,8 +8,23 @@ $target_file1 = $target_dir . $_SESSION["UserID"] . "_" . $_SESSION["userName"] 
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_file1 . $imageFileType;
+if(isset($_POST["deletepic"])){
+    echo "DELETE";
+    if (file_exists($target_file1 . 'jpg'))
+        unlink($target_file1 . 'jpg');
+    else if (file_exists($target_file1 . 'jpeg'))
+        unlink($target_file1 . 'jpeg');
+    else if (file_exists($target_file1 . 'png'))
+        unlink($target_file1 . 'png');
+    else if (file_exists($target_file1 . 'gif'))
+        unlink($target_file1 . 'gif');
+    $_SESSION["Upload"]=4;
+    redirect("/profile.php");
+    exit;
+}
+    
 // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
+if(isset($_POST["uploadpic"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
         #echo "File is an image - " . $check["mime"] . ".";
@@ -45,7 +60,6 @@ if ($uploadOk != 0) {
         unlink($target_file1 . 'png');
     else if (file_exists($target_file1 . 'gif'))
         unlink($target_file1 . 'gif');
-    
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $_SESSION["Upload"]=0;//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         redirect("/profile.php");
@@ -56,5 +70,7 @@ if ($uploadOk != 0) {
         #echo "Sorry, there was an error uploading your file.";
     }
 }
+        
+
 
 ?>
