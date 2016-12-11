@@ -30,24 +30,11 @@ $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),P
 $target_file = $target_file1 . $imageFileType;
 
 // Check if image file is a actual image or fake image
-if(isset($_POST["uploadpic"])) {
-    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    if($check !== false) {
-        #echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
-    }
-    else{
-        $uploadOk = 0;
-        $_SESSION["Upload"] = "Please upload a PICTURE!";
-        redirect($url);
-        exit;
-    }
-// Check if image file is a actual image or fake image
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        //echo "File is not an image.";
-        $_SESSION["Upload"]="Your profile 'Picture' needs to be a... you guessed it, PICTURE";
-        $uploadOk = 0;
-    }
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+    //echo "File is not an image.";
+    $_SESSION["Upload"]="Your profile 'Picture' needs to be a... you guessed it, PICTURE";
+    $uploadOk = 0;
+}
 
 if ($_FILES["fileToUpload"]["size"] > 700000) {
     $_SESSION["Upload"]="Whoa! That file's too big man (700KB Max)";
@@ -78,5 +65,5 @@ if ($uploadOk != 0) {
     $deletit = sqlcommand($deletequery, "DELETE");
 }*/
 redirect($url);
-    exit;
+exit;
 ?>
