@@ -178,6 +178,11 @@ else
     <hr style="clear:both;">
     
     <?php
+    if (isset($_SESSION["Upload"])){ //print picture upload error
+        echo "<div class='alert alert-warning text-center'><strong>" . $_SESSION["Upload"] . "</strong></div>";
+        unset($_SESSION["Upload"]);
+    }
+    
     if(isset($_GET['QN'])) //if there is a get question, make that value the session for QNumber
         $_SESSION["QNumber"] = $_GET['QN'];
     ?>
@@ -265,6 +270,7 @@ else
             $getanswer = sqlcommand($queryanswer, "SELECT");
             $getanswer = $getanswer->fetch_assoc();
             $aPoints = $getanswer["POINTS"];
+            $correctanswerid = $getanswer["ID"];
             $correctanswererid = $getanswer["USER_ID"];
             echo "<div class='well' style='background-color:#66ff33'>";
             echo '<div class="col-sm-1"><div class="col-sm-1">';
@@ -285,8 +291,11 @@ else
             $correctANS = $getanswer["ANSWER"];
             echo "<p>" . $correctANS . "</p>";
             //display question picture;
-            if (file_exists("answerPics/" . $_SESSION["QNumber"] . "_" . $answerid ))
-                echo '<img alt="Picture" src="answerPics/' . $_SESSION["QNumber"] . "_" . $answerid . '">';
+            $picname = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerID  . ".";
+            $picname = picext($picname);
+            if ($picname != "profilePics/stock.png"){
+                echo '<img alt="Picture" src="' . $picname . '">';
+            }
             $correctdate = $getanswer["DATE_ANSWERED"];
             $queryanswer = "SELECT USERNAME, KARMA_POINTS, EMAIL, AVATAR FROM USERS WHERE ID =" . $correctanswererid.";";
             $result3 = sqlcommand($queryanswer, "SELECT");
@@ -329,9 +338,9 @@ else
     //Get answers
     $query = "SELECT * FROM ANSWERS WHERE ID <> " . $answerID . " AND QUEST_ID =".$_SESSION["QNumber"]." ORDER BY POINTS DESC, DATE_ANSWERED ASC LIMIT " . 5*($page-1) .", " . 5 . ";";
     $result = sqlcommand($query, "SELECT");
-    if ($result == false)
+    if ($result == false && $answerID == 0)
         echo "No answers yet. Check back again soon!\n";
-    else{//display answers
+    if ($result != false){//display answers
         while($row = $result->fetch_assoc()) {
             $answerlistid = $row["ID"];
             $aPoints = $row["POINTS"];
@@ -355,7 +364,7 @@ else
             $theanswer = $row["ANSWER"];
             echo $theanswer; //style='background-color:#66ff33' for right answer
             //display answer picture;
-            $anspic = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid . ".";
+            $anspic = "answerPics/" . $_SESSION["QNumber"] . "_" . $answerlistid  . ".";
             $anspic = picext($anspic);
             if ($anspic != "profilePics/stock.png")
                 echo '<img class="anspicture" alt="Picture" src="' . $anspic . '">';
@@ -458,7 +467,7 @@ else
             <label for="Answer">Your Answer:</label>
             <textarea name="Answer" maxlength="500" required title="Your answer needs to be between 2-500 characters" id="Answer" class="form-control"></textarea>
         </div>
-        <!--<strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload"> -->
+        <strong>Select image to upload:</strong> <input type="file" name="fileToUpload" id="fileToUpload">
     <button type="button" class="btn btn-primary center-block" onclick="CheckLength();">Submit Answer!</button><br><br><br>
 	</form>
     </div>
