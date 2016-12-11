@@ -92,12 +92,12 @@ function sqlcommand($query, $qtype){
 }
 
 function redirect($url){
-    //echo '<meta http-equiv="refresh" content="2;url=' . $url . '"/>';
-    $url = "http://okrand.cs518.cs.odu.edu/" . $url;
+    echo '<meta http-equiv="refresh" content="0;url=' . $url . '"/>';
+    /*$url = "http://okrand.cs518.cs.odu.edu/" . $url;
     header('Location:' . $url);
     exit();
     session_write_close();
-    
+    */
 }
 
 
