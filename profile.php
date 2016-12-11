@@ -184,7 +184,7 @@ session_start();
              if(isset($_GET['page'])){
                  $page = $_GET['page'];
              if ($page > $numpages)
-                 redirect("/profile.php");
+                 redirect("profile.php");
              }
              else
                  $page = 1;

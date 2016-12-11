@@ -122,7 +122,7 @@ session_start();
                     }
                 }
                 
-                $url = "/question.php?QN=" . $_SESSION["QNumber"];
+                $url = "question.php?QN=" . $_SESSION["QNumber"];
                 redirect($url);
             }
        }

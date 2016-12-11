@@ -61,7 +61,7 @@ if ($countresult != "false"){
     $numpages = ceil($numpages);
 }
 //Go back 
-$url = '/question.php?page=' . $numpages;
+$url = 'question.php?page=' . $numpages;
 redirect($url);
 ?>
 

@@ -18,7 +18,7 @@ if(isset($_POST["deletepic"])){
     else if (file_exists($target_file1 . 'gif'))
         unlink($target_file1 . 'gif');
     $_SESSION["Upload"]=4;
-    redirect("/profile.php");
+    redirect("profile.php");
     exit;
 }
     
@@ -32,7 +32,7 @@ if(isset($_POST["uploadpic"])) {
     else{
         $uploadOk = 0;
         $_SESSION["Upload"] = 3;
-        redirect("/profile.php");
+        redirect("profile.php");
     }
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
         #echo "File is not an image.";
@@ -45,7 +45,7 @@ if(isset($_POST["uploadpic"])) {
 if ($_FILES["fileToUpload"]["size"] > 700000) {
     //echo "Sorry, your file is too large.";
     $_SESSION["Upload"]=2;
-    redirect("/profile.php");
+    redirect("profile.php");
     $uploadOk = 0;
 }
 
@@ -61,11 +61,11 @@ if ($uploadOk != 0) {
         unlink($target_file1 . 'gif');
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         $_SESSION["Upload"]=0;//echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        redirect("/profile.php");
+        redirect("profile.php");
     } 
     else {
         $_SESSION["Upload"]=1;
-        redirect("/profile.php");
+        redirect("profile.php");
         #echo "Sorry, there was an error uploading your file.";
     }
 }
