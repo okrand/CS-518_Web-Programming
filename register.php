@@ -68,7 +68,7 @@ session_start();
             echo "<div align='center' class='alert alert-warning'><strong>This username is already taken. Pick something else</strong></div>";
 		}
 		else{ //new user!
-            $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE, E-MAIL) VALUES ('".$uName."','".$pass."',0,NOW(), '" . $email . "')";
+            $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE, E-MAIL) VALUES ('".$uName."','".$pass."',0,NOW(),'".$email."');";
             $insertres = sqlcommand($newquery, "INSERT");
             $_SESSION["loggedIn"] = true;
             $_SESSION["userName"] = $uName;
