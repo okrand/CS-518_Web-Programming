@@ -49,10 +49,10 @@ if ($uploadOk != 0) {
         $_SESSION["Upload"]="Sorry, there was an error uploading your file.";
     }
 }
-if (isset($_SESSION["Upload"])){
+/*if (isset($_SESSION["Upload"])){
     $deletequery = "DELETE FROM ANSWERS WHERE ID = " . $answerid . ";";
     $deletit = sqlcommand($deletequery, "DELETE");
-}
+}*/
 ?>
 <?php
 //get total number of answers
