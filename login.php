@@ -68,14 +68,14 @@ session_start();
         if (isset($_SERVER["HTTP_REFERER"]))
             $referer = pagename($_SERVER["HTTP_REFERER"]);
         else
-            $referer = "/login.php";
+            $referer = "login.php";
         if ($referer == "")
-            $referer = "/index.php";
+            $referer = "index.php";
         
-        if ($referer != "/login.php" && $referer != "/profile.php")
+        if ($referer != "login.php" && $referer != "profile.php")
             $_SESSION["referer"] = $referer;
         else
-            $_SESSION["referer"] = "/index.php";
+            $_SESSION["referer"] = "index.php";
         
     }
 ?>

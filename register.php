@@ -32,6 +32,7 @@ session_start();
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$uName = test_input($_POST["uName"]);
         $email = test_input($_POST["email"]);
+        echo "username is " . $uName . " email is " .$email;
 		$pass = test_input($_POST["Pass"]);
         if (strlen($uName) == 0){
             echo "<div align='center' class='alert alert-warning'><strong>You can't have a blank username</strong></div>";
@@ -62,24 +63,24 @@ session_start();
           exit;
         } 
         else {
-        $query = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
-        $result = sqlcommand($query, "SELECT");
-		if ($result->num_rows > 0) { //if user already exists
-            echo "<div align='center' class='alert alert-warning'><strong>This username is already taken. Pick something else</strong></div>";
-		}
-		else{ //new user!
-            $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE, E-MAIL) VALUES ('".$uName."','".$pass."',0,NOW(),'".$email."');";
-            $insertres = sqlcommand($newquery, "INSERT");
-            $_SESSION["loggedIn"] = true;
-            $_SESSION["userName"] = $uName;
-            $_SESSION["K_Points"] = 0;
+            $query = "SELECT ID FROM USERS WHERE USERNAME='" . $uName . "';";
             $result = sqlcommand($query, "SELECT");
-            if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $_SESSION["UserID"] = $row["ID"];
+            if ($result->num_rows > 0) { //if user already exists
+                echo "<div align='center' class='alert alert-warning'><strong>This username is already taken. Pick something else</strong></div>";
             }
-            redirect($_SESSION["referer"]);
-        }
+            else{ //new user!
+                $newquery = "INSERT INTO USERS(USERNAME, PASSWORD, KARMA_POINTS, LAST_ACTIVE, E-MAIL) VALUES ('".$uName."','".$pass."',0,NOW(),'".$email."');";
+                $insertres = sqlcommand($newquery, "INSERT");
+                $_SESSION["loggedIn"] = true;
+                $_SESSION["userName"] = $uName;
+                $_SESSION["K_Points"] = 0;
+                $result = sqlcommand($query, "SELECT");
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $_SESSION["UserID"] = $row["ID"];
+                }
+                redirect($_SESSION["referer"]);
+            }
     }
 	}
     else{
@@ -87,10 +88,10 @@ session_start();
             $referer = pagename($_SERVER["HTTP_REFERER"]);
         else
             $referer = "this";
-        if ($referer != "this" && $referer != "/profile.php")
+        if ($referer != "this" && $referer != "profile.php")
             $_SESSION["referer"] = $referer;
         else
-            $_SESSION["referer"] = "/index.php";
+            $_SESSION["referer"] = "index.php";
     }
 ?>
     
