@@ -117,9 +117,9 @@ return $picname;
 
 function test_input($data) {
         $con = sqlcommand(" ", "GETCONN");
-  		//$data = trim($data);
-  		//$data = stripslashes($data);
-  		//$data = htmlspecialchars($data);
+  		$data = trim($data);
+  		$data = stripslashes($data);
+  		$data = htmlspecialchars($data);
         $data = mysqli_real_escape_string($con, $data);
   		return $data;
         }

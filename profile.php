@@ -65,8 +65,15 @@ session_start();
     $viewPoints = $viewresult["KARMA_POINTS"];
     $viewLActive = $viewresult["LAST_ACTIVE"];
     $viewEmail = $viewresult["EMAIL"];
+    $viewAvatar = $viewresult["AVATAR"];
+    if ($viewAvatar == 1){ //use gravatar image
+        $avatarEmail = md5(strtolower(trim($viewEmail)));
+        $picname = 'https://www.gravatar.com/avatar/' . $avatarEmail;
+    }
+    else{
     $picname = "profilePics/" . $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
+    }
     $viewcountquery = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ASKER_ID = " . $viewID . ";";
     $countresult = sqlcommand($viewcountquery, "SELECT");
     $countresult = $countresult->fetch_assoc();

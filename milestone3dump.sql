@@ -66,6 +66,7 @@ CREATE TABLE `USERS` (
   `KARMA_POINTS` int(11) NOT NULL DEFAULT '0',
   `LAST_ACTIVE` datetime NOT NULL,
   `EMAIL` VARCHAR(50) NOT NULL,
+  `AVATAR` int(11) NOT NULL DEFAULT '0',    
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -94,23 +95,23 @@ CREATE TABLE `VOTES` (
 --
 LOCK TABLES `USERS` WRITE;
 
-INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `EMAIL`) VALUES
-(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13', 'admin@highside.com'),
-(2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu'),
-(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44', 'pvenkman@gb.com'),
-(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20', 'rstantz@gb.com'),
-(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55', 'dbarrett@gb.com'),
-(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13','ltully@gb.com'),
-(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15', 'espengler@gb.com'),
-(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15', 'janine@gb.com'),
-(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57', 'winston@gb.com'),
-(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57', 'gozer@ghost.com'),
-(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32', 'slimer@ghost.com'),
-(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32', 'zuul@ghost.com'),
-(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15', 'keymaster@ghost.com'),
-(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15', 'gatekeeper@ghost.com'),
-(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', 'staypuft@michelin.com'),
-(16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'okran001@odu.edu');
+INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`, `EMAIL`, `AVATAR`) VALUES
+(1, 'admin', 'cs518pa$$', 99, '2016-09-24 16:44:13', 'admin@highside.com', 0),
+(2, 'jbrunelle', 'M0n@rch$', 2, '2016-09-24 16:45:15', 'jbrunelle@odu.edu', 0),
+(3, 'pvenkman', 'imadoctor', 0, '2016-09-24 16:45:44', 'pvenkman@gb.com', 0),
+(4, 'rstantz', '"; INSERT INTO Customers (CustomerName,Address,City) Values(@0,@1,@2); --', 0, '2016-09-24 16:46:20', 'rstantz@gb.com', 0),
+(5, 'dbarrett', 'fr1ed3GGS', 0, '2016-09-24 16:46:55', 'dbarrett@gb.com', 0),
+(6, 'ltully', '<!--<i>', 0, '2016-09-24 16:47:13','ltully@gb.com', 0),
+(7, 'espengler', 'don\'t cross the streams', 0, '2016-09-24 16:48:15', 'espengler@gb.com', 0),
+(8, 'janine', '--!drop tables;', 4, '2016-09-24 16:48:15', 'janine@gb.com', 0),
+(9, 'winston', 'zeddM0r3', 12, '2016-09-24 16:48:57', 'winston@gb.com', 0),
+(10, 'gozer', 'd3$truct0R', 43, '2016-09-24 16:48:57', 'gozer@ghost.com', 0),
+(11, 'slimer', 'f33dM3', 55, '2016-09-24 16:49:32', 'slimer@ghost.com', 0),
+(12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32', 'zuul@ghost.com', 0),
+(13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15', 'keymaster@ghost.com', 0),
+(14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15', 'gatekeeper@ghost.com', 0),
+(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', 'staypuft@michelin.com', 0),
+(16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'orkun.krand@gmail.com', 1);
 
 UNLOCK TABLES;
 
