@@ -64,7 +64,7 @@ session_start();
     $viewID = $viewresult["ID"];
     $viewPoints = $viewresult["KARMA_POINTS"];
     $viewLActive = $viewresult["LAST_ACTIVE"];
-    $viewEmail = $viewresult["E-MAIL"];
+    $viewEmail = $viewresult["EMAIL"];
     $picname = "profilePics/" . $viewID . '_' . $viewName . '.';
     $picname = picext($picname);
     $viewcountquery = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ASKER_ID = " . $viewID . ";";
