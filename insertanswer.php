@@ -12,7 +12,7 @@ $answerinfo = sqlcommand($query2, "SELECT");
 $answerinfo = $answerinfo->fetch_assoc();
 $answerid = $answerinfo["ID"];
 $questid = $answerinfo["QUEST_ID"];
-$url = 'question.php?page=' . $numpages;
+
 //get total number of answers
 $query1 = "SELECT COUNT(*) AS ANSCOUNT FROM ANSWERS WHERE QUEST_ID =".$_SESSION["QNumber"].";";
 $countresult = sqlcommand($query1, "SELECT");
@@ -22,6 +22,7 @@ if ($countresult != "false"){
     $numpages = $anscount / 5;
     $numpages = ceil($numpages);
 }
+$url = 'question.php?page=' . $numpages; //prepare the url
 
 $target_dir = "answerPics/";
 $target_file1 = $target_dir . $questid . "_" . $answerid . ".";

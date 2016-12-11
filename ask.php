@@ -124,7 +124,6 @@ session_start();
                 
                 $url = "question.php?QN=" . $_SESSION["QNumber"];
                 redirect($url);
-                exit;
             }
        }
     ?>

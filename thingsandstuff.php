@@ -97,7 +97,7 @@ function redirect($url){
     header('Location:' . $url);
     exit();
     session_write_close();
-            
+    
 }
 
 

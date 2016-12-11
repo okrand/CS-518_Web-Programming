@@ -37,7 +37,7 @@ if(isset($_POST["uploadpic"])) {
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
         #echo "File is not an image.";
         $_SESSION["Upload"]=3;
-        redirect("/profile.php");
+        redirect("profile.php");
         $uploadOk = 0;
     }
 }
