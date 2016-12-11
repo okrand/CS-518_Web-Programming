@@ -178,7 +178,7 @@ else
     <hr style="clear:both;">
     
     <?php
-    if (isset($_SESSION["Upload"])){ //print picture upload error
+    if (isset($_SESSION["Upload"]) && $_SESSION["Upload"] != 0){ //print picture upload error
         echo "<div class='alert alert-warning text-center'><strong>" . $_SESSION["Upload"] . "</strong></div>";
         unset($_SESSION["Upload"]);
     }
