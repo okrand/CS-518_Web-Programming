@@ -87,7 +87,7 @@ session_start();
             $referer = pagename($_SERVER["HTTP_REFERER"]);
         else
             $referer = "this";
-        if ($referer != "this"  $referer != "profile.php")
+        if ($referer != "this" && $referer != "profile.php")
             $_SESSION["referer"] = $referer;
         else
             $_SESSION["referer"] = "index.php";
