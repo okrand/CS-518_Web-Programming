@@ -4,6 +4,9 @@ session_start();
 //ob_start();
 ?>
 <?php
+$answer = test_input($_POST["Answer"]);
+$query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
+$sqlresult = sqlcommand($query, "INSERT");
 $query2 = "SELECT ID, QUEST_ID FROM ANSWERS ORDER BY ID DESC LIMIT 1";
 $answerinfo = sqlcommand($query2, "SELECT");
 $answerinfo = $answerinfo->fetch_assoc();
@@ -46,11 +49,9 @@ if ($uploadOk != 0) {
         $_SESSION["Upload"]="Sorry, there was an error uploading your file.";
     }
 }
-
-if (!isset ($_SESSION["Upload"])){
-    $answer = test_input($_POST["Answer"]);
-    $query = "INSERT INTO ANSWERS (QUEST_ID, USER_ID, ANSWER,DATE_ANSWERED) VALUES (".$_SESSION["QNumber"].", ".$_SESSION["UserID"].", '".$answer."', NOW());";
-    $sqlresult = sqlcommand($query, "INSERT");
+if (isset($_SESSION["Upload"])){
+    $deletequery = "DELETE FROM ANSWERS WHERE ID = " . $answerid . ";";
+    $deletit = sqlcommand($deletequery, "DELETE");
 }
 ?>
 <?php
