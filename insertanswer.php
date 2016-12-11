@@ -12,12 +12,36 @@ $answerinfo = sqlcommand($query2, "SELECT");
 $answerinfo = $answerinfo->fetch_assoc();
 $answerid = $answerinfo["ID"];
 $questid = $answerinfo["QUEST_ID"];
+$url = 'question.php?page=' . $numpages;
+//get total number of answers
+$query1 = "SELECT COUNT(*) AS ANSCOUNT FROM ANSWERS WHERE QUEST_ID =".$_SESSION["QNumber"].";";
+$countresult = sqlcommand($query1, "SELECT");
+if ($countresult != "false"){
+    $countrow = $countresult->fetch_assoc();
+    $anscount = $countrow['ANSCOUNT'];
+    $numpages = $anscount / 5;
+    $numpages = ceil($numpages);
+}
 
 $target_dir = "answerPics/";
 $target_file1 = $target_dir . $questid . "_" . $answerid . ".";
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION));
 $target_file = $target_file1 . $imageFileType;
+
+// Check if image file is a actual image or fake image
+if(isset($_POST["uploadpic"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        #echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    }
+    else{
+        $uploadOk = 0;
+        $_SESSION["Upload"] = "Please upload a PICTURE!";
+        redirect($url);
+        exit;
+    }
 // Check if image file is a actual image or fake image
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
         //echo "File is not an image.";
@@ -53,19 +77,6 @@ if ($uploadOk != 0) {
     $deletequery = "DELETE FROM ANSWERS WHERE ID = " . $answerid . ";";
     $deletit = sqlcommand($deletequery, "DELETE");
 }*/
-?>
-<?php
-//get total number of answers
-$query1 = "SELECT COUNT(*) AS ANSCOUNT FROM ANSWERS WHERE QUEST_ID =".$_SESSION["QNumber"].";";
-$countresult = sqlcommand($query1, "SELECT");
-if ($countresult != "false"){
-    $countrow = $countresult->fetch_assoc();
-    $anscount = $countrow['ANSCOUNT'];
-    $numpages = $anscount / 5;
-    $numpages = ceil($numpages);
-}
-//Go back 
-$url = 'question.php?page=' . $numpages;
 redirect($url);
+    exit;
 ?>
-
