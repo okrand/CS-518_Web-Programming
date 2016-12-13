@@ -90,7 +90,7 @@ session_start();
         if ($referer != "this" && $referer != "profile.php")
             $_SESSION["referer"] = $referer;
         else
-            $_SESSION["referer"] = "index.php";
+            $_SESSION["referer"] = "profile.php";
     }
 ?>
     

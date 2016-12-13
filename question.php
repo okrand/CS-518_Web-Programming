@@ -46,12 +46,14 @@ else
 }
 </script>
 <!--Voting script -->
-    <script>
+<script>
     function vote(upOrDown, QorA, threadID, OID, UID){
     if (QorA == "Q"){
         if (upOrDown == 1){ //upvote
             if (document.getElementById("votedownQ").getAttribute("src") == "downvoteActive.png") {
                 document.getElementById("qPoint").innerHTML++;
+                badgeName = "badge " + UID;
+                document.getElementsByClassName(badgeName).innerHTML++;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
@@ -237,7 +239,7 @@ else
         echo '<img class="anspicture" alt="Picture" src="' . $questpic . '">';
         
     echo '<div class="media"><div class="media-body">';
-    echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a><span class="badge">' . $qkpoints . '</span></h5>
+    echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a><span class="badge ' . qAskerid .'">' . $qkpoints . '</span></h5>
     <h6 class="text-right">' . $qDate . '</h6>';
     //split tag string into array
     $tagArray = explode(" ", $qTag);
