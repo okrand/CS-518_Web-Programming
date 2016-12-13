@@ -79,7 +79,7 @@ session_start();
         </header>
         <div class="table-hover table-responsive">
          <table class="table">
-             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr>
+             <tr><th class="col-sm-4 text-center">Question</th><th class="col-sm-2 text-center">Asker</th><th class="col-sm-2 text-center">Points</th><th class="col-sm-6 text-center">Time</th></tr> 
              <?php
              //get total number of unanswered questions
              $query1 = "SELECT COUNT(*) AS QCOUNT FROM QUESTIONS WHERE ANSWER_ID = 0;";

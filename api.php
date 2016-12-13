@@ -1,41 +1,42 @@
 <?php
+require_once "thingsandstuff.php";
+session_start();
+if($_SESSION["UserID"] != 1)
+    redirect("login.php");
 // This is the API, 2 possibilities: show the app list or show a specific app by id.
 // This would normally be pulled from a database but for demo purposes, I will be hardcoding the return values.
-
-function get_app_by_id($id)
-{
-  $app_info = array();
-
-  // normally this info would be pulled from a database.
-  // build JSON array.
-  switch ($id){
-    case 1:
-      $app_info = array("app_name" => "Web Demo", "app_price" => "Free", "app_version" => "2.0"); 
-      break;
-    case 2:
-      $app_info = array("app_name" => "Audio Countdown", "app_price" => "Free", "app_version" => "1.1");
-      break;
-    case 3:
-      $app_info = array("app_name" => "The Tab Key", "app_price" => "Free", "app_version" => "1.2");
-      break;
-    case 4:
-      $app_info = array("app_name" => "Music Sleep Timer", "app_price" => "Free", "app_version" => "1.9");
-      break;
-  }
-
-  return $app_info;
+function list_commands(){
+    $commands = "get_user(param:id)<br>"; //get_user_list()<br>";
+    return $commands;
 }
 
-function get_app_list()
+function get_user_info($id)
+{
+  $user_info = array();
+  // build JSON array.
+    $query = "SELECT * FROM USERS WHERE ID = " . $id;
+    $sqluser = sqlcommand($query, "SELECT");
+    $sqluser = $sqluser->fetch_assoc() ;
+  $user_info = array("username" => $sqluser["USERNAME"], "password" => $sqluser["PASSWORD"], "points" => $sqluser["KARMA_POINTS"], "last_active" => $sqluser["LAST_ACTIVE"], "email" => $sqluser["EMAIL"]);
+
+  return $user_info;
+}
+
+/*function get_user_list()
 {
   //normally this info would be pulled from a database.
   //build JSON array
-  $app_list = array(array("id" => 1, "name" => "Web Demo"), array("id" => 2, "name" => "Audio Countdown"), array("id" => 3, "name" => "The Tab Key"), array("id" => 4, "name" => "Music Sleep Timer")); 
-    echo "HAHAHAHAHAH";
-  return $app_list;
-}
+  $user_list = array(); 
+  $query = "SELECT * FROM USERS WHERE 1";
+  $sqluser = sqlcommand($query, "SELECT");
+  while($row = $sqluser->fetch_assoc()){
+      $user = array("username" => $row["USERNAME"], "password" => $row["PASSWORD"], "points" => $row["KARMA_POINTS"], "last_active" => $row["LAST_ACTIVE"], "email" => $row["EMAIL"]);
+      array_push($user_list, $user);
+  }
+  return $user_list;
+}*/
 
-$possible_url = array("get_app_list", "get_app");
+$possible_url = array("get_user", "list_commands");
 
 $value = "An error has occurred";
 
@@ -43,18 +44,20 @@ if (isset($_GET["action"]) && in_array($_GET["action"], $possible_url))
 {
   switch ($_GET["action"])
     {
-      case "get_app_list":
-        $value = get_app_list();
+      case "list_commands":
+        $value = list_commands();
         break;
-      case "get_app":
+      /*case "get_user_list":
+        $value = get_user_list();
+        break;*/
+      case "get_user":
         if (isset($_GET["id"]))
-          $value = get_app_by_id($_GET["id"]);
+          $value = get_user_info($_GET["id"]);
         else
           $value = "Missing argument";
         break;
     }
 }
-
 //return JSON array
 exit(json_encode($value));
 ?>
