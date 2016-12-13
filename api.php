@@ -31,7 +31,7 @@ function get_app_list()
   //normally this info would be pulled from a database.
   //build JSON array
   $app_list = array(array("id" => 1, "name" => "Web Demo"), array("id" => 2, "name" => "Audio Countdown"), array("id" => 3, "name" => "The Tab Key"), array("id" => 4, "name" => "Music Sleep Timer")); 
-
+    echo "HAHAHAHAHAH";
   return $app_list;
 }
 

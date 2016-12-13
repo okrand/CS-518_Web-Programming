@@ -4,7 +4,7 @@
 <?php
 if (isset($_GET["action"]) && isset($_GET["id"]) && $_GET["action"] == "get_app") 
 {
-  $app_info = file_get_contents('http://{Your Website}/api.php?action=get_app&id=' . $_GET["id"]);
+  $app_info = file_get_contents('http://okrand.cs518.cs.odu.edu/api.php?action=get_app&id=' . $_GET["id"]);
   $app_info = json_decode($app_info, true);
   ?>
     <table>
