@@ -48,18 +48,23 @@ else
 <!--Voting script -->
 <script>
     function vote(upOrDown, QorA, threadID, OID, UID){
-    var badgeName = "badge" + UID;
+    var badgeName = "badge" + OID;
+    var badges = document.getElementsByName(badgeName);
     if (QorA == "Q"){
         if (upOrDown == 1){ //upvote
             if (document.getElementById("votedownQ").getAttribute("src") == "downvoteActive.png") {
                 document.getElementById("qPoint").innerHTML++;
-                document.getElementsByName(badgeName).innerHTML++;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML++;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
             if (document.getElementById("voteupQ").getAttribute("src") != "upvoteActive.png") {
                 document.getElementById("qPoint").innerHTML++;
-                document.getElementsByName(badgeName).innerHTML++;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML++;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
@@ -73,13 +78,17 @@ else
         else{ //downvote
             if (document.getElementById("voteupQ").getAttribute("src") == "upvoteActive.png") {
                 document.getElementById("qPoint").innerHTML--;
-                document.getElementsByName(badgeName).innerHTML--;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML--;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
             if (document.getElementById("votedownQ").getAttribute("src") != "downvoteActive.png") {
                 document.getElementById("qPoint").innerHTML--;
-                document.getElementsByName(badgeName).innerHTML--;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML--;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
@@ -94,13 +103,17 @@ else
         if (upOrDown == 1){
             if (document.getElementById(down).getAttribute("src") == "downvoteActive.png") {
                 document.getElementById(point).innerHTML++;
-                document.getElementsByName(badgeName).innerHTML++;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML++;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
             if (document.getElementById(up).getAttribute("src") != "upvoteActive.png") {
                 document.getElementById(point).innerHTML++;
-                document.getElementsByName(badgeName).innerHTML++;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML++;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
@@ -114,13 +127,17 @@ else
         else{
             if (document.getElementById(up).getAttribute("src") == "upvoteActive.png") {
                 document.getElementById(point).innerHTML--;
-                document.getElementsByName(badgeName).innerHTML--;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML--;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
             if (document.getElementById(down).getAttribute("src") != "downvoteActive.png") {
                 document.getElementById(point).innerHTML--;
-                document.getElementsByName(badgeName).innerHTML--;
+                for (var i=0, max=badges.length; i < max; i++) {
+                   badges[i].innerHTML--;
+                }
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
