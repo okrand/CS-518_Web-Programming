@@ -48,7 +48,7 @@ else
 <!--Voting script -->
 <script>
     function vote(upOrDown, QorA, threadID, OID, UID){
-    badgeName = "badge" + UID;
+    var badgeName = "badge" + UID;
     if (QorA == "Q"){
         if (upOrDown == 1){ //upvote
             if (document.getElementById("votedownQ").getAttribute("src") == "downvoteActive.png") {
