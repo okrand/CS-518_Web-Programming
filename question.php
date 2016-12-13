@@ -48,19 +48,18 @@ else
 <!--Voting script -->
 <script>
     function vote(upOrDown, QorA, threadID, OID, UID){
+    badgeName = "badge" + UID;
     if (QorA == "Q"){
         if (upOrDown == 1){ //upvote
             if (document.getElementById("votedownQ").getAttribute("src") == "downvoteActive.png") {
                 document.getElementById("qPoint").innerHTML++;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML++;
+                document.getElementsByName(badgeName).innerHTML++;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
             if (document.getElementById("voteupQ").getAttribute("src") != "upvoteActive.png") {
                 document.getElementById("qPoint").innerHTML++;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML++;
+                document.getElementsByName(badgeName).innerHTML++;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
@@ -74,15 +73,13 @@ else
         else{ //downvote
             if (document.getElementById("voteupQ").getAttribute("src") == "upvoteActive.png") {
                 document.getElementById("qPoint").innerHTML--;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML--;
+                document.getElementsByName(badgeName).innerHTML--;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
             if (document.getElementById("votedownQ").getAttribute("src") != "downvoteActive.png") {
                 document.getElementById("qPoint").innerHTML--;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML--;
+                document.getElementsByName(badgeName).innerHTML--;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
@@ -97,15 +94,13 @@ else
         if (upOrDown == 1){
             if (document.getElementById(down).getAttribute("src") == "downvoteActive.png") {
                 document.getElementById(point).innerHTML++;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML++;
+                document.getElementsByName(badgeName).innerHTML++;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
             if (document.getElementById(up).getAttribute("src") != "upvoteActive.png") {
                 document.getElementById(point).innerHTML++;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML++;
+                document.getElementsByName(badgeName).innerHTML++;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML++;
             }
@@ -119,15 +114,13 @@ else
         else{
             if (document.getElementById(up).getAttribute("src") == "upvoteActive.png") {
                 document.getElementById(point).innerHTML--;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML--;
+                document.getElementsByName(badgeName).innerHTML--;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
             if (document.getElementById(down).getAttribute("src") != "downvoteActive.png") {
                 document.getElementById(point).innerHTML--;
-                badgeName = "badge " + UID;
-                document.getElementsByClassName(badgeName).innerHTML--;
+                document.getElementsByName(badgeName).innerHTML--;
                 if (OID == UID)
                     document.getElementById("K_Points").innerHTML--;
             }
@@ -253,7 +246,7 @@ else
         echo '<img class="anspicture" alt="Picture" src="' . $questpic . '">';
         
     echo '<div class="media"><div class="media-body">';
-    echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a><span class="badge ' . qAskerid .'">' . $qkpoints . '</span></h5>
+    echo '<h5 class="text-right"><a href="profile.php?name=' . $qAsker . '"> ' . $qAsker . '</a><span class="badge" name="badge' . qAskerid .'">' . $qkpoints . '</span></h5>
     <h6 class="text-right">' . $qDate . '</h6>';
     //split tag string into array
     $tagArray = explode(" ", $qTag);
@@ -326,7 +319,7 @@ else
                 $picname = "https://www.gravatar.com/avatar/" . md5(strtolower(trim($result3["EMAIL"])));
             }
             echo '<div class="media"><div class="media-body">';
-            echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a><span class="badge ' . $correctanswererid . '">' . $kpoints . '</span></h5>';
+            echo '<h5  class="text-right"><a href="profile.php?name=' . $correctanswerer . '"> ' . $correctanswerer . '</a><span class="badge" name="badge' . $correctanswererid . '">' . $kpoints . '</span></h5>';
             echo '<h6 class="text-right">' . $correctdate . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
@@ -402,7 +395,7 @@ else
             if ($answerID == '0' and $_SESSION["userName"] == $qAsker and $frozen == 0){
                 echo '<button id="rightAnswer" type="submit" name="AnswerSubmit" value="'.$answerlistid.'" form="correct" class="btn btn-info" style="float:left;" >THIS IS THE ANSWER!</button>';
             }
-            echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a><span class="badge '. $answererid . '">' . $akpoints . '</span></h5>';
+            echo '<h5  class="text-right"><a href="profile.php?name=' .  $answerer . '"> ' . $answerer . '</a><span class="badge" name="badge'. $answererid . '">' . $akpoints . '</span></h5>';
             echo '<h6 class="text-right">' . $row["DATE_ANSWERED"] . '</h6>';
             echo '</div><div class="media-right"> <img class="media-object" alt="Profile Picture" style="width:70px; height:40px;" src="' . $picname . '">';
             echo '</div></div></div>';
