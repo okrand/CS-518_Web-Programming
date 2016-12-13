@@ -214,7 +214,7 @@ session_start();
             }
             if ($i-1 < $numpages)
                 echo '<li class="disabled"><a href="">...</a></li>';
-            if ($page != $numpages)
+            if ($page != $numpages && $numpages != 0)
                 echo '<li><a href="profile.php?page='.$numpages.'">Last</a></li>';
             echo '</ul></div>';
         }
