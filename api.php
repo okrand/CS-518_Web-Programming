@@ -1,5 +1,5 @@
 <?php
-require_once "apistuff.php";
+require_once "api.class.php";
 require_once "thingsandstuff.php";
 
 // Requests from the same server don't have a HTTP_ORIGIN header
