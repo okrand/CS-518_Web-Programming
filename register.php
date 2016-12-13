@@ -78,7 +78,7 @@ session_start();
                     $row = $result->fetch_assoc();
                     $_SESSION["UserID"] = $row["ID"];
                 }
-                redirect($_SESSION["referer"]);
+                redirect("profile.php");
             }
     }
 	}
