@@ -73,6 +73,7 @@ abstract class API
             break;
         }
     }
+    
     public function processAPI() {
         if (method_exists($this, $this->endpoint)) {
             return $this->_response($this->{$this->endpoint}($this->args));
@@ -126,7 +127,6 @@ class MyAPI extends API
             throw new Exception('Invalid API Key');
         } else if (array_key_exists('token', $this->request) &&
              !$User->get('token', $this->request['token'])) {
-
             throw new Exception('Invalid User Token');
         }
 
@@ -137,6 +137,7 @@ class MyAPI extends API
      * Example of an Endpoint
      */
      protected function example() {
+         return "AHAEUAOEUAOEUOAEU";
         if ($this->method == 'GET') {
             return "Your name is " . $this->User->name;
         } else {
