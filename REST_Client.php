@@ -19,18 +19,18 @@ if (isset($_GET["action"]) && isset($_GET["id"]) && $_GET["action"] == "get_app"
       </tr>
     </table>
     <br />
-    <a href="http://{Your Website}/REST_Client.php?action=get_app_list" alt="app list">Return to the app list</a>
+    <a href="http://okrand.cs518.cs.odu.edu/REST_Client.php?action=get_app_list" alt="app list">Return to the app list</a>
   <?php
 }
 else // else take the app list
 {
-  $app_list = file_get_contents('http://{Your Website}/api.php?action=get_app_list');
+  $app_list = file_get_contents('http://okrand.cs518.cs.odu.edu/api.php?action=get_app_list');
   $app_list = json_decode($app_list, true);
   ?>
     <ul>
     <?php foreach ($app_list as $app): ?>
       <li>
-        <a href=<?php echo "http://{Your Website}/REST_Client.php?action=get_app&id=" . $app["id"]  ?> alt=<?php echo "app_" . $app_["id"] ?>><?php echo $app["name"] ?></a>
+        <a href=<?php echo "http://okrand.cs518.cs.odu.edu/REST_Client.php?action=get_app&id=" . $app["id"]  ?> alt=<?php echo "app_" . $app_["id"] ?>><?php echo $app["name"] ?></a>
     </li>
     <?php endforeach; ?>
     </ul>
