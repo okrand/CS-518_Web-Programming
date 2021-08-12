@@ -110,8 +110,7 @@ INSERT INTO `USERS` (`ID`, `USERNAME`, `PASSWORD`, `KARMA_POINTS`, `LAST_ACTIVE`
 (12, 'zuul', '105"; DROP TABLE', 7, '2016-09-24 16:49:32', 'zuul@ghost.com', 0),
 (13, 'keymaster', 'n0D@na', 87, '2016-09-24 16:50:15', 'keymaster@ghost.com', 0),
 (14, 'gatekeeper', '$l0r', 1, '2016-09-24 16:50:15', 'gatekeeper@ghost.com', 0),
-(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', 'staypuft@michelin.com', 0),
-(16, 'okrand', '666777', 20, '2016-10-01 02:00:00', 'orkun.krand@gmail.com', 1);
+(15, 'staypuft', 'm@r$hM@ll0w', 39, '2016-09-24 16:50:34', 'staypuft@michelin.com', 0);
 
 UNLOCK TABLES;
 
